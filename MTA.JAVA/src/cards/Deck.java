@@ -3,40 +3,20 @@
  */
 package cards;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Random;
 
 /**
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
-public class Deck implements Queue<ActionCard> {
+public class Deck implements Iterable<ActionCard>  {
 
-	ConcurrentLinkedQueue<ActionCard> deck = new ConcurrentLinkedQueue<ActionCard>(); 
+	private ArrayList<ActionCard> deck = new ArrayList<ActionCard>(); 
+	private Random randomGen=new Random();
+
 	
-	@Override
-	public boolean addAll(Collection<? extends ActionCard> c) {
-		return deck.addAll(c);
-	}
-
-	@Override
-	public void clear() {
-		deck.clear();
-	}
-
-	@Override
-	public boolean contains(Object o) {
-		return deck.contains(o);
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		return containsAll(c);
-	}
-
-	@Override
 	public boolean isEmpty() {
 		return deck.isEmpty();
 	}
@@ -46,63 +26,23 @@ public class Deck implements Queue<ActionCard> {
 		return deck.iterator();
 	}
 
-	@Override
-	public boolean remove(Object o) {
-		return deck.remove(o);
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		return deck.removeAll(c);
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		return deck.retainAll(c);
-	}
-
-	@Override
 	public int size() {
 		return deck.size();
 	}
-
-	@Override
-	public Object[] toArray() {
-		return deck.toArray();
+	
+	/**
+	 * @param card - a card which is not in the Deck
+	 */
+	public void add(ActionCard card) {
+		 if(!deck.contains(card))
+			 deck.add(card);
 	}
-
-	@Override
-	public <T> T[] toArray(T[] a) {
-		return deck.toArray(a);
-	}
-
-	@Override
-	public boolean add(ActionCard e) {
-		return deck.add(e);
-	}
-
-	@Override
-	public ActionCard element() {
-		return deck.element();
-	}
-
-	@Override
-	public boolean offer(ActionCard e) {
-		return deck.offer(e);
-	}
-
-	@Override
-	public ActionCard peek() {
-		return deck.peek();
-	}
-
-	@Override
+	
+	/**
+	 * @return a random card from the deck
+	 */
 	public ActionCard poll() {
-		return deck.poll();
+		return deck.get(randomGen.nextInt(deck.size()));
 	}
-
-	@Override
-	public ActionCard remove() {
-		return deck.remove();
-	}
+	
 }

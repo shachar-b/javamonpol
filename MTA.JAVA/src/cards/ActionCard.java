@@ -1,6 +1,8 @@
 package cards;
 
 import java.io.File;
+import java.util.ArrayList;
+
 import players.Player;
 import squares.Square;
 import monopoly.GameManager.AgainstWho;
@@ -48,12 +50,18 @@ public class ActionCard {
 			if(against == AgainstWho.OtherPlayers)
 			{
 				int sum = 0;
-				for(Player other : monopoly.getGamePlayers())
+				ArrayList<Player> list = GameManager.currentGame.getGamePlayers();
+				for(int currentPlayer=0;currentPlayer<list.size(); currentPlayer++)
 				{
+					Player other=list.get(currentPlayer);
 					if(other != player)//Don't take money from yourself..
 					{
 						other.ChangeBalance(amount,-sign); //-sign to TAKE from players
 						sum += amount;
+					}
+					if(!list.contains(other))
+					{
+						currentPlayer--;//player has been removed so next player is in his index
 					}
 				}
 				player.ChangeBalance(sum,sign);

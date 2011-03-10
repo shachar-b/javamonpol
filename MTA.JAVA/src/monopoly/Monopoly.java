@@ -4,7 +4,10 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import cards.ActionCard;
 import cards.Deck;
@@ -78,7 +81,7 @@ public class Monopoly
 	{
 		//TODO : remove stuff
 		int roundNumber = 1;
-		while (getActualNumPlayers()>1 && roundNumber <= 100)
+		while (getActualNumPlayers()>1 && roundNumber <= 1000)
 		{
 			doRound(roundNumber);
 			roundNumber++;
@@ -157,6 +160,36 @@ public class Monopoly
 	{
 
 	}
+	private void initCards() 
+	{
+		
+		// read surprise cards
+		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
+		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));
+		
+		
+		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
+		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
+
+		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
+		surprise.add(new ActionCard(1, "you won the anuual player poker tournumet take 450 from all the other losers", 450, GameManager.AgainstWho.OtherPlayers, null, true));
+		
+
+		
+
+
+		// read call-up cards
+		callUp.add(new ActionCard(-1, "income tax is on to you! you have to pay them 245 ", 200, GameManager.AgainstWho.Treasury, null, true));
+		callUp.add(new ActionCard(-1, "DOH! your car got stuck becuse it has no gas pay 200 for a taxi and 400 for a tank of gas", 600, GameManager.AgainstWho.Treasury, null, true));
+		callUp.add(new ActionCard(-1, "parked in a handicap parking pay 1000", 1000, GameManager.AgainstWho.Treasury, null, true));
+		
+		callUp.add(new ActionCard(-1, "you lost a law suite,pay all other players 100 for giving them food poisening", 100, GameManager.AgainstWho.OtherPlayers, null, true));
+		callUp.add(new ActionCard(-1, "its saint patric day! go and have a drink in the next city and pay 100 for the texi", 100, GameManager.AgainstWho.OtherPlayers, City.class, false));
+		callUp.add(new ActionCard(-1, "you were scammed! you bought a car with no engine pay 350 for the engine parts and go to the parking lot for a turn dont collect start bouns", 350, GameManager.AgainstWho.Treasury, ParkingSquare.class, false));
+
+		
+		
+	}
 
 	private void init()
 	{
@@ -168,6 +201,7 @@ public class Monopoly
 		}
 
 		//init CARDS
+		initCards();
 		//surprise.setMonopoly(this);
 		//callUp.setMonopoly(this);
 
@@ -182,16 +216,7 @@ public class Monopoly
 		countries.add(new Country("Bahrain"));
 		// read transportations
 		// read utilities
-		// read surprise cards
-		//surprise.add(new ActionCard(1, "Get 200 from treasury", 200, GameManager.AgainstWho.Treasury, null, true));
-		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
-		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
-
-
-		// read call-up cards
-		//callUp.add(new ActionCard(-1, "return 200 to treasury", 200, GameManager.AgainstWho.Treasury, null, true));
-		callUp.add(new ActionCard(-1, "you lost a law suite ,pay all other players 20", 20, GameManager.AgainstWho.OtherPlayers, null, true));
-
+		
 		// init board
 		// 1
 		int temp[] = {100, 200, 300, 400};
@@ -253,7 +278,9 @@ public class Monopoly
 		Monopoly game = new Monopoly();
 		GameManager.currentGame = game;
 		game.getGamePlayers().add(new ComputerPlayer());
-//		game.getGamePlayers().add(new HumanPlayer());
+		game.getGamePlayers().add(new ComputerPlayer());
+		game.getGamePlayers().add(new ComputerPlayer());
+		game.getGamePlayers().add(new ComputerPlayer());
 		game.getGamePlayers().add(new ComputerPlayer());
 		game.init();
 		game.play();
