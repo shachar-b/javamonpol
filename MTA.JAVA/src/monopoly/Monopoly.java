@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import cards.ActionCard;
-import cards.Deck;
+import cards.ShaffledDeck;
 
 import players.ComputerPlayer;
 import players.HumanPlayer;
@@ -41,8 +41,8 @@ public class Monopoly
 	private ArrayList<Country> countries = new ArrayList<Country>();
 	private UtilOrTranspoAssetGroup utilities = new UtilOrTranspoAssetGroup("Utilities", 800);
 	private UtilOrTranspoAssetGroup transportation = new UtilOrTranspoAssetGroup("Transportation", 800);
-	private Deck surprise = new Deck();
-	private Deck callUp = new Deck();
+	private ShaffledDeck surprise = new ShaffledDeck();
+	private ShaffledDeck callUp = new ShaffledDeck();
 
 
 	public Player getPlayer(int index) throws IndexOutOfBoundsException
@@ -286,11 +286,11 @@ public class Monopoly
 		game.play();
 	}
 
-	public Deck getSurprise() {
+	public ShaffledDeck getSurprise() {
 		return surprise;
 	}
 
-	public Deck getCallUp() {
+	public ShaffledDeck getCallUp() {
 		return callUp;
 	}
 }

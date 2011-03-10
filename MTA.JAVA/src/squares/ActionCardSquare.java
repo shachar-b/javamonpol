@@ -6,7 +6,7 @@ package squares;
 import java.io.File;
 
 import cards.ActionCard;
-import cards.Deck;
+import cards.ShaffledDeck;
 
 import monopoly.GameManager;
 import monopoly.Monopoly;
@@ -39,10 +39,9 @@ public class ActionCardSquare extends Square {
 	 */
 	@Override
 	public void playerArrived(Player player) {
-		Deck currDeck=sign==1?GameManager.currentGame.getSurprise():GameManager.currentGame.getCallUp();
-		ActionCard currCard = currDeck.poll();
+		ShaffledDeck currDeck=sign==1?GameManager.currentGame.getSurprise():GameManager.currentGame.getCallUp();
+		ActionCard currCard = currDeck.takeCard();
 		GameManager.CurrentUI.notifyPlayerGotCard(player, currCard);
 		currCard.doCard(player);
-		currDeck.add(currCard);
 	}
 }

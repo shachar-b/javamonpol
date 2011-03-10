@@ -8,23 +8,23 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * @author Omer Shenhar and Shachar Butnaro
- *
+ * @author Omer Shenhar & Shachar Butnaro
+ * this is a shuffled Deck of action cards were each card appears once
+ * each card has the same probability of being polled
  */
-public class Deck implements Iterable<ActionCard>  {
+public class ShaffledDeck  {
 
 	private ArrayList<ActionCard> deck = new ArrayList<ActionCard>(); 
 	private Random randomGen=new Random();
 
 	
+	/**
+	 * @return true if the deck is empty. false otherwise
+	 */
 	public boolean isEmpty() {
 		return deck.isEmpty();
 	}
 
-	@Override
-	public Iterator<ActionCard> iterator() {
-		return deck.iterator();
-	}
 
 	public int size() {
 		return deck.size();
@@ -38,10 +38,10 @@ public class Deck implements Iterable<ActionCard>  {
 			 deck.add(card);
 	}
 	
-	/**
+	/**this function returns a random card from the deck without removing it
 	 * @return a random card from the deck
 	 */
-	public ActionCard poll() {
+	public ActionCard takeCard() {
 		return deck.get(randomGen.nextInt(deck.size()));
 	}
 	
