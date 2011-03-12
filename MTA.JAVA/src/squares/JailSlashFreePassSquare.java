@@ -25,7 +25,14 @@ public class JailSlashFreePassSquare extends Square {
 			return true;
 		else
 		{
-			if (GameManager.currentGame.rollForADouble())
+			if (player.hasGetOutOfJailFreeCard()) //Player will also be asked if he wants to use
+			{
+					message = player.getName() + " used a get out of jail freeCard and is out of jail in next turn!";
+					player.setGoOnNextTurn(true);
+					GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
+					player.setGetOutOfJailFreeCardPlaceHolder(null);
+			}
+			else if (GameManager.currentGame.rollForADouble())
 			{
 				message = player.getName() + " has a double and is out of jail in next turn!";
 				player.setGoOnNextTurn(true);

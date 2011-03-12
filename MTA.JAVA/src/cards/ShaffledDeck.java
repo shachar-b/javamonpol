@@ -42,7 +42,11 @@ public class ShaffledDeck  {
 	 * @return a random card from the deck
 	 */
 	public ActionCard takeCard() {
-		return deck.get(randomGen.nextInt(deck.size()));
+		ActionCard card = deck.get(randomGen.nextInt(deck.size())); 
+		if (card.isGetOutOfJailFreeCard()){
+			deck.remove(card);
+		}
+		return card;
 	}
 	
 }

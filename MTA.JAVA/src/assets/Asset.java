@@ -32,7 +32,7 @@ public abstract class Asset extends Square{
 	{
 		if (owner==GameManager.assetKeeper)
 		{
-			if (player.buyDecision(this, cost))
+			if (player.buyDecision(this))
 			{
 				player.ChangeBalance(cost, GameManager.SUBTRACT);
 				owner=player;
@@ -58,5 +58,10 @@ public abstract class Asset extends Square{
 	public Player getOwner()
 	{
 		return owner;
+	}
+	
+	public AssetGroup getGroup()
+	{
+		return group;
 	}
 }

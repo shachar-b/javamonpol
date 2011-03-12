@@ -8,6 +8,7 @@ import cards.ActionCard;
 import monopoly.GameManager;
 
 import players.Player;
+import squares.ParkingSquare;
 import assets.Asset;
 import assets.City;
 
@@ -110,6 +111,18 @@ public class ConsoleUI implements IUI {
 	@Override
 	public void notifyPlayerGotCard(Player player, ActionCard card) {
 		String message = player.getName() + " received card : " + card;
+		displayMessage(message);
+	}
+
+	@Override
+	public void notifyPlayerCantBuy(Player player, String what, int cost) {
+		String message = player.getName() + " cant buy " + what + " for " + cost + " due to insufficient funds!"; 
+		displayMessage(message);
+	}
+
+	@Override
+	public void notifyPlayerIsParked(Player player) {
+		String message = player.getName() + " is parked and cannot move!";
 		displayMessage(message);
 	}
 }

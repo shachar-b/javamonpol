@@ -42,6 +42,10 @@ public class ActionCardSquare extends Square {
 		ShaffledDeck currDeck=sign==1?GameManager.currentGame.getSurprise():GameManager.currentGame.getCallUp();
 		ActionCard currCard = currDeck.takeCard();
 		GameManager.CurrentUI.notifyPlayerGotCard(player, currCard);
-		currCard.doCard(player);
+		
+		if (currCard.isGetOutOfJailFreeCard())
+			player.setGetOutOfJailFreeCardPlaceHolder(currCard);
+		else
+			currCard.doCard(player);
 	}
 }

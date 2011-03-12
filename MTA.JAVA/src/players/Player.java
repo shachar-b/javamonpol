@@ -1,6 +1,8 @@
 package players;
 import java.util.ArrayList;
 
+import cards.ActionCard;
+
 import monopoly.GameManager;
 import assets.Asset;
 import assets.City;
@@ -14,6 +16,7 @@ public abstract class Player {
 	private int CurrentPosition;
 	protected boolean GoOnNextTurn;
 	private ArrayList<Asset> assetList = new ArrayList<Asset>();
+	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 	
 	public Player(String name) {
 		Name = name;
@@ -27,8 +30,8 @@ public abstract class Player {
 		return Name.equals(other.getName());		
 	}
 	
-	public abstract Boolean buyDecision(Asset asset, int cost);
-	public abstract Boolean buyHouseDecision(City asset, int cost);
+	public abstract Boolean buyDecision(Asset asset);
+	public abstract Boolean buyHouseDecision(City asset);
 
 	public void setName(String name) {
 		Name = name;
@@ -97,6 +100,20 @@ public abstract class Player {
 		return assetList;
 	}
 	
+	public void setGetOutOfJailFreeCardPlaceHolder(
+			ActionCard getOutOfJailFreeCardPlaceHolder) {
+		this.getOutOfJailFreeCardPlaceHolder = getOutOfJailFreeCardPlaceHolder;
+	}
+
+	public ActionCard getGetOutOfJailFreeCardPlaceHolder() {
+		return getOutOfJailFreeCardPlaceHolder;
+	}
+	
+	public boolean hasGetOutOfJailFreeCard()
+	{
+		return (getOutOfJailFreeCardPlaceHolder!=null);
+	}
+
 	public abstract void makeSellOffers();
 	
 	
@@ -105,6 +122,4 @@ public abstract class Player {
 
 
 	}
-
-
 }

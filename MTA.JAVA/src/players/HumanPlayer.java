@@ -24,19 +24,33 @@ public class HumanPlayer extends Player {
 	 * @see players.Player#buyDecision(java.lang.String, assets.Asset, int)
 	 */
 	@Override
-	public Boolean buyDecision(Asset asset, int cost) {
-		return true; //GameSettings.CurrentUI.
+	public Boolean buyDecision(Asset asset) {
+		String message;
+		if (asset.getCost()<Balance)
+		{
+			message = "Would you like to buy " + (asset.getName()) + " in " + asset.getGroup().getNameOfGroup() + " for " + asset.getCost() + "?";
+			return GameManager.CurrentUI.askYesNoQuestion(message);
+		}
+		else
+		{
+			GameManager.CurrentUI.notifyPlayerCantBuy(this, asset.getName(), asset.getCost());
+			return false;
+		}
 	}
-	
+
 	@Override
-	public Boolean buyHouseDecision(City asset, int cost)
+	public Boolean buyHouseDecision(City asset)
 	{
-		if (cost<Balance) //Player can't buy if not enough cash!
+		if (asset.getCostOfHouse()<Balance) //Player can't buy if not enough cash!
 		{
 			String message = "Would you like to buy house number " + (asset.getNumHouses()+1) + " for " + asset.getCostOfHouse() + "?";
 			return GameManager.CurrentUI.askYesNoQuestion(message);
 		}
-		else return false;
+		else
+		{
+			GameManager.CurrentUI.notifyPlayerCantBuy(this, "house in " + asset.getName(), asset.getCostOfHouse());
+			return false;
+		}
 	}
 
 	@Override
@@ -44,6 +58,14 @@ public class HumanPlayer extends Player {
 		return GameManager.CurrentUI.askYesNoQuestion("Would you like to forfeit?");		
 	}
 
+	@Override
+	public boolean hasGetOutOfJailFreeCard()
+	{
+		if (super.hasGetOutOfJailFreeCard())
+			 return GameManager.CurrentUI.askYesNoQuestion("Would you like to you your get out of jail free card?");
+		else return false;
+	}
+	
 	@Override
 	public void makeSellOffers()
 	{

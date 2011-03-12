@@ -53,7 +53,7 @@ public class City extends Asset {
 			{
 				if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
 				{
-					if (player.buyHouseDecision(this, getCost()))
+					if (player.buyHouseDecision(this))
 					{
 						player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
 						numHouses++;
