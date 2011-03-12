@@ -4,16 +4,8 @@
 package monopoly;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import cards.ActionCard;
-import cards.ShaffledDeck;
 
 import players.ComputerPlayer;
-import players.HumanPlayer;
 import players.Player;
 import squares.ActionCardSquare;
 import squares.GoToJailSquare;
@@ -25,8 +17,10 @@ import ui.ConsoleUI;
 import assets.Asset;
 import assets.City;
 import assets.Country;
-import assets.UtilOrTranspoAssetGroup;
 import assets.UtilOrTranspoAsset;
+import assets.UtilOrTranspoAssetGroup;
+import cards.ActionCard;
+import cards.ShaffledDeck;
 
 /**
  * @author Omer Shenhar & Shachar Butnaro
@@ -79,9 +73,8 @@ public class Monopoly
 
 	public void play()
 	{
-		//TODO : remove stuff
 		int roundNumber = 1;
-		while (getActualNumPlayers()>1 && roundNumber <= 1000)
+		while (getActualNumPlayers()>1)
 		{
 			doRound(roundNumber);
 			roundNumber++;
@@ -93,10 +86,10 @@ public class Monopoly
 	{
 		int currDieSum;
 		for (int playerIndex=0; playerIndex<gamePlayers.size() ; playerIndex++)
-		//for (Player p : getGamePlayers())
 		{
 			Player p = gamePlayers.get(playerIndex);
-			userInterface.displayMessage("Round: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance());
+			userInterface.displayMessage("\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance());
+			userInterface.displayMessage("Is currently on square " + (p.getCurrentPosition()+1) + ": " + gameBoard.get(p.getCurrentPosition()).getName());
 			if (p.chooseToForfeit())
 			{
 				removePlayerFromGame(p);
@@ -153,6 +146,8 @@ public class Monopoly
 			a.setOwner(GameManager.assetKeeper);
 			p.removeFromAssetList(a);
 		}
+		if (p.getGetOutOfJailFreeCardPlaceHolder()!=null)
+			surprise.add(p.getGetOutOfJailFreeCardPlaceHolder());
 		gamePlayers.remove(p);
 	}
 
@@ -164,15 +159,16 @@ public class Monopoly
 	{
 		
 		// read surprise cards
-		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
-		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));
-		
-		
-		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
-		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
-
-		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
+//		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
+//		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));
+//		
+//		
+//		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
+//		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
+//
+//		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
 		surprise.add(new ActionCard(1, "you won the anuual player poker tournumet take 450 from all the other losers", 450, GameManager.AgainstWho.OtherPlayers, null, true));
+		surprise.add(new ActionCard(1, "Get out of jail free card!", 0, GameManager.AgainstWho.Treasury, Square.class, false));
 		
 
 		

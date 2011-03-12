@@ -17,6 +17,7 @@ public class ParkingSquare extends Square {
 	{//No need to check the die here - This is Parking
 		if(player.getGoOnNextTurn()==false)
 		{
+			GameManager.CurrentUI.notifyPlayerIsParked(player);
 			player.setGoOnNextTurn(true);
 			return false;
 		}

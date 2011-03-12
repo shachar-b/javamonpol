@@ -4,6 +4,7 @@ import cards.ActionCard;
 import assets.Asset;
 import assets.City;
 import players.Player;
+import squares.ParkingSquare;
 
 public interface IUI {
 	
@@ -36,4 +37,8 @@ public interface IUI {
 	public void notifyPlayerPaysRent(Player player, Asset asset, Player owner);
 	
 	public void notifyPlayerGotCard(Player player,ActionCard card);	
+	
+	public void notifyPlayerCantBuy(Player player, String what, int cost);
+
+	public void notifyPlayerIsParked(Player player);
 }

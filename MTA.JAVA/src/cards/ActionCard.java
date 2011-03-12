@@ -2,12 +2,11 @@ package cards;
 
 import java.io.File;
 import java.util.ArrayList;
-
+import monopoly.GameManager;
+import monopoly.GameManager.AgainstWho;
+import monopoly.Monopoly;
 import players.Player;
 import squares.Square;
-import monopoly.GameManager.AgainstWho;
-import monopoly.GameManager;
-import monopoly.Monopoly;
 
 public class ActionCard {
 	private Monopoly monopoly;
@@ -26,12 +25,17 @@ public class ActionCard {
 		this.action = action;
 		this.amount = amount;
 		this.against = against;
-		this.goOnNext = goOnNext;
+		this.goOnNext = goOnNext; //Get Out of jail free card is characterized by goOnNext=Square (any kind of square)
 		CollectBonus = collectBonus;
 	}
 
 	public String toString(){
 		return action;
+	}
+	
+	public boolean isGetOutOfJailFreeCard()
+	{
+		return (goOnNext==Square.class);
 	}
 	
 	public void init(File inFile)
