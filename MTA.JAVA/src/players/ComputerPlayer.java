@@ -4,7 +4,9 @@
 package players;
 
 import monopoly.GameManager;
+import monopoly.buyOffer;
 import assets.Asset;
+import assets.AssetGroup;
 import assets.City;
 
 /**
@@ -63,6 +65,38 @@ public class ComputerPlayer extends Player {
 	public void makeSellOffers() {
 		return; //Computer is not a sellout!
 
+	}
+
+	@Override
+	public buyOffer makeBuyOffer(Asset asset) {//computer do not trade assets
+		buyOffer offer=new  buyOffer(this);
+		int offerMoney=asset.getRentPrice()/GameManager.NUMBER_OF_SQUARES;
+		if(Balance -offerMoney>=BUY_THRESHHOLD)//otherwise offer nothing
+		{
+			offer.addToOffer(offerMoney);
+		}
+		return offer;
+	}
+
+	@Override
+	public buyOffer makeBuyOffer(AssetGroup group) {
+		
+		buyOffer offer=new buyOffer(this);
+		for(Asset asset:group)
+		{
+			offer.combineWith(makeBuyOffer(asset));
+		}
+		
+		if(Balance -offer.getMoney()>=BUY_THRESHHOLD)//otherwise offer nothing
+		{
+			return offer;
+		}
+		else
+		{
+			return new buyOffer(this);
+		}
+		
+		
 	}
 
 }

@@ -127,7 +127,7 @@ public class Monopoly
 		gameBoard.get(playerPos).playerArrived(p);
 	}
 
-	public void gotoNextSquareOfType(Player p, Class type, boolean getBonus) {
+	public void gotoNextSquareOfType(Player p, Class<? extends Square> type, boolean getBonus) {
 		int currpos=(p.getCurrentPosition()+1)%GameManager.NUMBER_OF_SQUARES;
 		int numOfSteps = 1;
 		while(!gameBoard.get(currpos).getClass().getSimpleName().equals(type.getSimpleName()))
@@ -159,14 +159,13 @@ public class Monopoly
 	{
 		
 		// read surprise cards
-//		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
-//		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));
-//		
-//		
-//		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
-//		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
-//
-//		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
+		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
+		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));		
+		
+		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
+		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
+
+		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
 		surprise.add(new ActionCard(1, "you won the anuual player poker tournumet take 450 from all the other losers", 450, GameManager.AgainstWho.OtherPlayers, null, true));
 		surprise.add(new ActionCard(1, "Get out of jail free card!", 0, GameManager.AgainstWho.Treasury, Square.class, false));
 		

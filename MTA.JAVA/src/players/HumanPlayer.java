@@ -4,7 +4,9 @@
 package players;
 
 import monopoly.GameManager;
+import monopoly.buyOffer;
 import assets.Asset;
+import assets.AssetGroup;
 import assets.City;
 
 /**
@@ -89,5 +91,26 @@ public class HumanPlayer extends Player {
 			if (offersMade==GameManager.MAX_NUM_OF_SELL_OFFERS)
 				GameManager.CurrentUI.displayMessage("Max number of offers exceeded!");
 		}
+	}
+	
+	private buyOffer makeBuyOffer() {
+		buyOffer offer=new buyOffer(this);
+		
+		
+		
+		return offer;
+		
+	}
+
+	@Override
+	public buyOffer makeBuyOffer(Asset asset) {
+		GameManager.CurrentUI.notifyBidEvent(asset);
+		return makeBuyOffer();
+	}
+
+	@Override
+	public buyOffer makeBuyOffer(AssetGroup group) {
+		GameManager.CurrentUI.notifyBidEvent(group);
+		return makeBuyOffer();
 	}
 }

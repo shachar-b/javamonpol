@@ -3,7 +3,6 @@
  */
 package assets;
 
-import players.Player;
 
 /**
  * @author Omer Shenhar and Shachar Butnaro

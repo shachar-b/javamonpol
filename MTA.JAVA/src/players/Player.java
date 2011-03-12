@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import cards.ActionCard;
 
 import monopoly.GameManager;
+import monopoly.buyOffer;
 import assets.Asset;
+import assets.AssetGroup;
 import assets.City;
 
 public abstract class Player {
@@ -116,6 +118,8 @@ public abstract class Player {
 
 	public abstract void makeSellOffers();
 	
+	public abstract buyOffer makeBuyOffer(Asset assat);
+	public abstract buyOffer makeBuyOffer(AssetGroup assat);
 	
 	public void sellAsset(Asset a)
 	{
