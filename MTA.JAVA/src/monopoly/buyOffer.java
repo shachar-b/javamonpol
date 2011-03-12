@@ -3,6 +3,10 @@
  */
 package monopoly;
 
+import java.util.ArrayList;
+
+import players.Player;
+
 import assets.Asset;
 import assets.AssetGroup;
 
@@ -13,12 +17,20 @@ import assets.AssetGroup;
 public class buyOffer implements Comparable<buyOffer> {
 	public static enum  Answers{
 		ACCEPTED,DECLINED
-		
 	}
-	private int money=0;
-	private AssetGroup[]assetGroups;
-	private Asset[] singleAssets;
 	
+	private int money;
+	private ArrayList<AssetGroup> assetGroups;
+	private ArrayList<Asset> singleAssets;
+	private Player offerMaker;
+
+	
+	public buyOffer(Player offerMaker) {
+		money=0;
+		assetGroups=new ArrayList<AssetGroup>();
+		singleAssets=new ArrayList<Asset>();
+		this.offerMaker = offerMaker;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
@@ -51,5 +63,26 @@ public class buyOffer implements Comparable<buyOffer> {
 			return Answers.ACCEPTED;
 		}
 	}
+
+	public void combineWith(buyOffer otherOffer) {
+		money+=otherOffer.money;
+		assetGroups.addAll(otherOffer.assetGroups);
+		singleAssets.addAll(otherOffer.singleAssets);
+		
+	}
+	public int getMoney() {
+		return money;
+	}
+	public ArrayList<AssetGroup> getAssetGroups() {
+		return assetGroups;
+	}
+	public ArrayList<Asset> getSingleAssets() {
+		return singleAssets;
+	}
+	
+	public Player getOfferMaker() {
+		return offerMaker;
+	}
+	
 
 }

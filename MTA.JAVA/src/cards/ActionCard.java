@@ -2,25 +2,23 @@ package cards;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import monopoly.GameManager;
 import monopoly.GameManager.AgainstWho;
-import monopoly.Monopoly;
 import players.Player;
 import squares.Square;
 
 public class ActionCard {
-	private Monopoly monopoly;
 	private int sign;
 	private String action;
 	private int amount;
 	private AgainstWho against;
-	private Class goOnNext;
+	private Class<? extends Square> goOnNext;
 	private boolean CollectBonus;
 
 	public ActionCard(int sign, String action, int amount, AgainstWho against,
-			Class goOnNext, boolean collectBonus) {
+			Class<? extends Square> goOnNext, boolean collectBonus) {
 		super();
-		this.monopoly = GameManager.currentGame;
 		this.sign = sign;
 		this.action = action;
 		this.amount = amount;

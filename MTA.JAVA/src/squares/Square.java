@@ -1,6 +1,5 @@
 package squares;
 
-import monopoly.Dice;
 import players.Player;
 
 public abstract class Square {

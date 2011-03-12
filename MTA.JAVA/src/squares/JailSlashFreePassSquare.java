@@ -1,6 +1,5 @@
 package squares;
 
-import monopoly.Dice;
 import monopoly.GameManager;
 import players.Player;
 

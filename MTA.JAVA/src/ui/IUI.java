@@ -1,10 +1,10 @@
 package ui;
 
-import cards.ActionCard;
-import assets.Asset;
-import assets.City;
 import players.Player;
-import squares.ParkingSquare;
+import assets.Asset;
+import assets.AssetGroup;
+import assets.City;
+import cards.ActionCard;
 
 public interface IUI {
 	
@@ -41,4 +41,8 @@ public interface IUI {
 	public void notifyPlayerCantBuy(Player player, String what, int cost);
 
 	public void notifyPlayerIsParked(Player player);
+
+	public void notifyBidEvent(Asset asset);
+
+	public void notifyBidEvent(AssetGroup group);
 }

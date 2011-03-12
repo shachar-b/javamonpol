@@ -1,16 +1,13 @@
 package ui;
 
-import java.awt.DisplayMode;
 import java.util.Scanner;
 
-import cards.ActionCard;
-
 import monopoly.GameManager;
-
 import players.Player;
-import squares.ParkingSquare;
 import assets.Asset;
+import assets.AssetGroup;
 import assets.City;
+import cards.ActionCard;
 
 public class ConsoleUI implements IUI {
 	
@@ -123,6 +120,25 @@ public class ConsoleUI implements IUI {
 	@Override
 	public void notifyPlayerIsParked(Player player) {
 		String message = player.getName() + " is parked and cannot move!";
+		displayMessage(message);
+	}
+
+	@Override
+	public void notifyBidEvent(Asset asset) {
+		String message = asset.getName() + " is up for bidding. It is a part of " +
+		asset.getGroup().getNameOfGroup() + ". It's listed price is " + asset.getCost() +
+		" and the current rental cost is " + asset.getRentPrice();
+		displayMessage(message);
+	}
+
+	@Override
+	public void notifyBidEvent(AssetGroup group) {
+		String message = group.getNameOfGroup() + " is up for bidding. It includes:\n";
+		for (Asset asset:group)
+		{
+			message+="\t"+asset.getName() +": It's listed price is " + asset.getCost() +
+			" and the current rental cost is " + asset.getRentPrice();
+		}
 		displayMessage(message);
 	}
 }

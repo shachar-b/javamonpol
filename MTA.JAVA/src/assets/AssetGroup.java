@@ -11,7 +11,7 @@ import players.Player;
 public abstract class AssetGroup implements Collection<Asset> {
 
 	
-	private ArrayList<Asset> assetsInGroup;
+	protected ArrayList<Asset> assetsInGroup;
 	protected String nameOfGroup;
 
 

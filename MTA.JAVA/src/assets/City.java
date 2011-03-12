@@ -77,4 +77,12 @@ public class City extends Asset {
 		return costOfHouse;
 	}
 	
+	@Override
+	public void setOwner(Player owner)
+	{
+		this.owner = owner;
+		if (owner==GameManager.assetKeeper) //Player has been removed from game.
+			numHouses=0;
+	}
+	
 }
