@@ -21,6 +21,8 @@ public class GameManager {
 	public static Monopoly currentGame;
 	
 
+	public static enum jailActions {USED_CARD, ROLLED_DOUBLE, STAY_IN_JAIL}
+	
 	public static enum SquareIndex
 	{
 		START(0), JAIL(9);

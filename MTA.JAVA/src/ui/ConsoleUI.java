@@ -3,8 +3,12 @@ package ui;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.management.RuntimeErrorException;
+
 import monopoly.GameManager;
+import monopoly.GameManager.jailActions;
 import players.Player;
+import squares.Square;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -15,8 +19,40 @@ public class ConsoleUI implements IUI {
 	private Scanner sc = new Scanner(System.in);
 	
 	@Override
-	public void notifyPlayerMove(Player player, int from, int to) {
-		// TODO Auto-generated method stub
+	public void notifyPlayerLanded(Player p, Square currSQ)
+	{
+		String message = "Player " + p.getName() + " landed on square "
+						+ (p.getCurrentPosition()+1) + ": "
+						+ currSQ.getName(); 
+		displayMessage(message);
+	}
+	
+	@Override
+	public void notifyNewRound(Player p, int roundNumber, Square currSQ)
+	{
+		String message = "\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance()
+		+"\nIs currently on square " + (p.getCurrentPosition()+1) + ": " + currSQ.getName();
+		displayMessage(message);
+	}
+	
+	@Override
+	public void notifyGameWinner(Player player)
+	{
+		String message = "The winner is: " + player.getName() + "!!!";
+		displayMessage(message);
+	}
+	
+	@Override
+	public void notifyDiceRoll(int LastRollOutcome)
+	{
+		String message = "Rolled a " + LastRollOutcome + ".";
+		displayMessage(message);
+	}
+	
+	@Override
+	public void notifyPassStartSquare(int bonus)
+	{
+		displayMessage("Received Start square pass bonus of " + bonus + "!");
 	}
 	
 	@Override
@@ -46,6 +82,27 @@ public class ConsoleUI implements IUI {
 		displayMessage(message);
 	}
 
+	@Override
+	public void notifyJailAction(Player player, jailActions action){
+		String message;
+		switch (action) {
+		case USED_CARD:
+			message = player.getName() + " used a get out of jail freeCard and is out of jail in next turn!"; 
+			break;
+		case ROLLED_DOUBLE:
+			message = player.getName() + " has a double and is out of jail in next turn!"; 
+			break;
+
+		case STAY_IN_JAIL:
+			message = player.getName() + " stays in jail!";
+			break;
+			
+		default: //Shouldn't get here
+			throw new RuntimeErrorException(null, "Unknown agrument for function \"notifyJailAction\"");
+		}
+		displayMessage(message);
+	}
+	
 	@Override
 	public void notifyPlayerLandsOnStartSquare(Player player) {
 		String message = player.getName() + " has stepped on Start and gets and additional " + GameManager.START_LAND_BONUS  + "!";
