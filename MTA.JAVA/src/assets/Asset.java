@@ -2,6 +2,7 @@ package assets;
 import monopoly.GameManager;
 import players.Player;
 import squares.Square;
+import ui.OfferType;
 
 
 
@@ -69,6 +70,11 @@ public abstract class Asset extends Square implements Offerable{
 	public AssetGroup getGroup()
 	{
 		return group;
+	}
+	
+	public OfferType getType()
+	{
+		return OfferType.Assets;
 	}
 	@Override
 	public String toString() 
