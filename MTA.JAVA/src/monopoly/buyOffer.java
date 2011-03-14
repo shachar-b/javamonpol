@@ -112,4 +112,32 @@ public class buyOffer implements Comparable<buyOffer> {
 	public Player getOfferMaker() {
 		return offerMaker;
 	}
+	public void preform(Player player) {
+		
+		//money
+		int cash=offerMaker.ChangeBalance(money, GameManager.SUBTRACT);
+		player.ChangeBalance(cash, GameManager.ADD);
+		
+		//assets Groups
+		for(AssetGroup group:assetGroups)
+		{
+			group.setOwner(player);
+			
+		}
+		
+		//single Assets
+		for(Asset asset:singleAssets)
+		{
+			asset.setOwner(player);
+		}
+		
+		
+		
+	}
+	
+	@Override
+	public String toString() {
+		return money+GameManager.MoneySign+" , the groups"+assetGroups +
+		" and the assets" +singleAssets;
+	}
 }

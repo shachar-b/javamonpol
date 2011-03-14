@@ -80,7 +80,7 @@ public class City extends Asset {
 	@Override
 	public void setOwner(Player owner)
 	{
-		this.owner = owner;
+		super.setOwner(owner);
 		if (owner==GameManager.assetKeeper) //Player has been removed from game.
 			numHouses=0;
 	}

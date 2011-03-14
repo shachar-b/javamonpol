@@ -143,26 +143,10 @@ public class ConsoleUI implements IUI {
 		return askNumericQuestion(question, Integer.MIN_VALUE+1, Integer.MAX_VALUE);		
 	}
 
-	@Override
+	
 	public int askNumericQuestion(String question, int lowerBound, int upperBound) {
 		displayMessage(question);
-		Integer answer=Integer.MIN_VALUE;
-		while(answer<lowerBound || answer >upperBound)
-		{
-			try {
-				answer=sc.nextInt();
-				if (answer<lowerBound || answer > upperBound)
-					displayMessage("Try again, input not within bounds.");
-			}
-
-
-		 catch (InputMismatchException e) {
-			 sc.next();
-			 displayMessage("Invalid input - enter a numeric input");
-		}
-	}
-		
-		return (answer);
+		return utilGetSafeIntInput(lowerBound, upperBound);
 	}
 
 	
@@ -271,25 +255,63 @@ public class ConsoleUI implements IUI {
 		while (playerChoice!=0)
 		{
 			System.out.print(message);
-			try
-			{
-				playerChoice = sc.nextInt();
-				if (playerChoice<0 || playerChoice>tradeables.size())
-				{
-					System.out.println("Invalid input, can accept integers from 0 to " + tradeables.size());
-				}
-				else
-				{
-					offer.addToOffer(tradeables.get(playerChoice-1));
-					if (!multipleSelection)
-						playerChoice=0; //To force single-selection
-				}
-			}catch (InputMismatchException e) {
-				sc.next();
-				System.out.println("Invalid input - enter only integers.");
-			}
+			playerChoice =utilGetSafeIntInput(0, tradeables.size());
+			if(playerChoice!=0)
+				offer.addToOffer(tradeables.get(playerChoice-1));
+			if (!multipleSelection)
+					playerChoice=0; //To force single-selection
+	
 		}
 	}
+
+	@Override
+	public void notifyTradeEvent(Player player, Offerable asset,buyOffer winningOffer) {
+		String message=player.getName()+ " sold " + asset.getName()+" to "+winningOffer.getOfferMaker().getName()
+		+" for "+ winningOffer;
+		displayMessage(message);
+	}
+
+	@Override
+	public void notifyTradeCanceled(Player player) {
+		displayMessage(player.getName() + " has called off the sale!");
+		
+	}
+
+	@Override
+	public int chooseAnOffer(ArrayList<buyOffer> buyOffers)
+	{
+		int index=0;
+		displayMessage("choose one of the follwing offers or press 0 to choose none: ");
+		for(buyOffer offer:buyOffers)
+		{
+			displayMessage((index+1)+" "+offer.getOfferMaker().getName()+" : "+offer);
+			
+			
+		}
+		System.out.print("choose one or press zero: ");
+		return utilGetSafeIntInput(0, buyOffers.size())-1;
+	}
+	private int utilGetSafeIntInput(int lowerBound, int upperBound)
+	{
+		Integer answer=Integer.MIN_VALUE;
+		while(answer<lowerBound || answer >upperBound)
+		{
+			try {
+				answer=sc.nextInt();
+				if (answer<lowerBound || answer > upperBound)
+					System.out.println("Invalid input, can accept integers from "+lowerBound+" to " + upperBound);
+			}
+
+
+			catch (InputMismatchException e) {
+				sc.next();
+				displayMessage("Invalid input - enter a numeric input");
+			}
+
+		}
+		return answer;
+	}
+	
 }
 	
 	

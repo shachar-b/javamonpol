@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.ArrayList;
+
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
@@ -7,6 +9,7 @@ import squares.Square;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
+import assets.Offerable;
 import cards.ActionCard;
 
 public interface IUI {
@@ -66,4 +69,10 @@ public interface IUI {
 	public void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type, boolean multipleSelection);
 
 	public int askNumericQuestion(String question, int lowerBound, int upperBound);
+
+	public void notifyTradeEvent(Player player, Offerable asset,buyOffer winningOffer);
+
+	public void notifyTradeCanceled(Player player);
+
+	public int chooseAnOffer(ArrayList<buyOffer> buyOffers);
 }

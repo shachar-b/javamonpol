@@ -141,10 +141,10 @@ public class Monopoly
 
 	public void removePlayerFromGame(Player p)
 	{
-		for (Asset a : p.getAssetList())//remove ownership from all remaining assets
+		ArrayList<Asset> assetList=p.getAssetList();
+		while (!assetList.isEmpty())//remove ownership from all remaining assets
 		{
-			a.setOwner(GameManager.assetKeeper);
-			p.removeFromAssetList(a);
+			assetList.get(0).setOwner(GameManager.assetKeeper);//set owner removes itself from the list
 		}
 		if (p.getGetOutOfJailFreeCardPlaceHolder()!=null)
 			surprise.add(p.getGetOutOfJailFreeCardPlaceHolder());
