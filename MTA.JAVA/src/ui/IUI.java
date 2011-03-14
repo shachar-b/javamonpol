@@ -1,6 +1,7 @@
 package ui;
 
 import monopoly.GameManager.jailActions;
+import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
 import assets.Asset;
@@ -57,4 +58,12 @@ public interface IUI {
 	public void notifyDiceRoll(int LastRollOutcome);
 
 	public void notifyJailAction(Player player, jailActions action);
+
+	public void notifyPlayerExceededSellOfferCount(Player player);
+
+	public void notifyPlayerOutOfAssets(Player player);
+
+	public void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type);
+
+	public int askNumericQuestion(String question, int lowerBound, int upperBound);
 }

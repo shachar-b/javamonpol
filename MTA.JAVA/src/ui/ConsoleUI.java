@@ -1,17 +1,21 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.text.html.MinimalHTMLWriter;
 
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
+import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
+import assets.Offerable;
 import cards.ActionCard;
 
 public class ConsoleUI implements IUI {
@@ -137,25 +141,31 @@ public class ConsoleUI implements IUI {
 
 	@Override
 	public int askNumericQuestion(String question) {
-		displayMessage(question);
-		int answer=-1;
+		return askNumericQuestion(question, Integer.MIN_VALUE+1, Integer.MAX_VALUE);		
+	}
 
-		while(answer==-1)
+	@Override
+	public int askNumericQuestion(String question, int lowerBound, int upperBound) {
+		displayMessage(question);
+		Integer answer=Integer.MIN_VALUE;
+		while(answer<lowerBound || answer >upperBound)
 		{
 			try {
 				answer=sc.nextInt();
-				
+				if (answer<lowerBound || answer > upperBound)
+					displayMessage("Try again, input not within bounds.");
 			}
 
 
 		 catch (InputMismatchException e) {
 			 sc.next();
-			 displayMessage("invaild input-enter a numeric input");
+			 displayMessage("Invalid input - enter a numeric input");
 		}
 	}
 		
 		return (answer);
 	}
+
 	
 	@Override
 	public String askName() {
@@ -166,9 +176,9 @@ public class ConsoleUI implements IUI {
 	public void printAssetList(Player p)
 	{
 		int count = 1;
-		for (Asset a : p.getAssetList())
+		for (Asset asset : p.getAssetList())
 		{
-			displayMessage(count + " : " + a.toString());
+			displayMessage(count + " : " + asset.getName());
 			count++;
 		}
 	}
@@ -199,14 +209,14 @@ public class ConsoleUI implements IUI {
 	@Override
 	public void notifyBidEvent(Asset asset) {
 		String message = asset.getName() + " is up for bidding. It is a part of " +
-		asset.getGroup().getNameOfGroup() + ". It's listed price is " + asset.getCost() +
+		asset.getGroup().getName() + ". It's listed price is " + asset.getCost() +
 		" and the current rental cost is " + asset.getRentPrice();
 		displayMessage(message);
 	}
 
 	@Override
 	public void notifyBidEvent(AssetGroup group) {
-		String message = group.getNameOfGroup() + " is up for bidding. It includes:\n";
+		String message = group.getName() + " is up for bidding. It includes:\n";
 		for (Asset asset:group)
 		{
 			message+="\t"+asset.getName() +": It's listed price is " + asset.getCost() +
@@ -214,4 +224,66 @@ public class ConsoleUI implements IUI {
 		}
 		displayMessage(message);
 	}
+	
+	@Override
+	public void notifyPlayerOutOfAssets(Player player)
+	{
+		String message = player.getName() + " has no assets left to sell!"; 
+		displayMessage(message);
+	}
+	
+	@Override
+	public void notifyPlayerExceededSellOfferCount(Player player)
+	{
+		String message = player.getName() + " exceeded maximum number of sell offers!";
+		displayMessage(message);
+	}
+	
+	@Override
+	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type)
+	{
+		int playerChoice=-1;
+		ArrayList<Offerable> tradeables;
+
+		switch (type) {
+		case Groups:
+			tradeables=player.tradeableGroups();
+			break;
+
+		case Assets:
+			tradeables=player.tradeableAssets();
+			break;
+			
+		default: //Shouldn't get here
+			throw new RuntimeErrorException(null, "Unknown type in function \"askOfferableSellQuestions\"");
+		}
+		
+
+		System.out.println("You have the following "+type.name()+": ");
+		for (int i=0; i<tradeables.size();i++)
+		{
+			System.out.println((i+1) + " : " + tradeables.get(i).getName());
+		}
+		System.out.print("Enter the indices of the "+type.name()+" you want to sell (one by one), press 0 to end offer: ");
+		while (playerChoice!=0)
+		{
+			try
+			{
+				playerChoice = sc.nextInt();
+				if (playerChoice<0 || playerChoice>tradeables.size())
+				{
+					System.out.println("Invalid input, can accept integers from 0 to " + tradeables.size());
+				}
+				else
+				{
+					offer.addToOffer(tradeables.get(playerChoice));
+				}
+			}catch (InputMismatchException e) {
+				sc.next();
+				System.out.println("Invalid input - enter only integers.");
+			}
+		}
+	}
 }
+	
+	

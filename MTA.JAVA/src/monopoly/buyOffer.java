@@ -3,32 +3,33 @@
  */
 package monopoly;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import players.Player;
-
 import assets.Asset;
 import assets.AssetGroup;
+import assets.Offerable;
 
 /**
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 public class buyOffer implements Comparable<buyOffer> {
+
 	public static enum  Answers{
 		ACCEPTED,DECLINED
 	}
-	
+
 	private int money;
-	private ArrayList<AssetGroup> assetGroups;
-	private ArrayList<Asset> singleAssets;
+	private HashSet<AssetGroup> assetGroups;
+	private HashSet<Asset> singleAssets;
 	private Player offerMaker;
 
-	
+
 	public buyOffer(Player offerMaker) {
 		money=0;
-		assetGroups=new ArrayList<AssetGroup>();
-		singleAssets=new ArrayList<Asset>();
+		assetGroups=new HashSet<AssetGroup>();
+		singleAssets=new HashSet<Asset>();
 		this.offerMaker = offerMaker;
 	}
 	/* (non-Javadoc)
@@ -38,7 +39,7 @@ public class buyOffer implements Comparable<buyOffer> {
 	public  int compareTo(buyOffer other) {
 		return money-other.money;
 	}
-	
+
 	public Answers addToOffer(int amount)
 	{
 		if(amount<1)
@@ -51,15 +52,43 @@ public class buyOffer implements Comparable<buyOffer> {
 			return Answers.ACCEPTED;
 		}
 	}
-	public Answers addToOffer(Asset asset)
+	
+
+	public Answers addToOffer(Offerable offer)
 	{
-		if(true)//ToDo: put rules here
+		if(offer.getClass().isInstance(AssetGroup.class))
+		{
+			return addGroupToOffer((AssetGroup)offer);
+		}
+		else
+		{
+			return addAssetToOffer((Asset)offer);
+		}
+	}
+
+	private Answers addGroupToOffer (AssetGroup group)
+	{
+		if (!group.isOfSoleOwnership())
+		{
+			return Answers.DECLINED;
+		}
+		else
+		{
+			assetGroups.add(group);
+			return Answers.ACCEPTED;
+		}
+	}
+
+	private Answers addAssetToOffer(Asset asset)
+	{
+		if (assetGroups.contains(asset.getGroup())) //can't offer an asset that is in a group already offered.
 		{
 			return Answers.DECLINED;
 		}
 		else
 		{
 			
+			singleAssets.add(asset);
 			return Answers.ACCEPTED;
 		}
 	}
@@ -68,21 +97,19 @@ public class buyOffer implements Comparable<buyOffer> {
 		money+=otherOffer.money;
 		assetGroups.addAll(otherOffer.assetGroups);
 		singleAssets.addAll(otherOffer.singleAssets);
-		
+
 	}
 	public int getMoney() {
 		return money;
 	}
-	public ArrayList<AssetGroup> getAssetGroups() {
+	public HashSet<AssetGroup> getAssetGroups() {
 		return assetGroups;
 	}
-	public ArrayList<Asset> getSingleAssets() {
+	public HashSet<Asset> getSingleAssets() {
 		return singleAssets;
 	}
-	
+
 	public Player getOfferMaker() {
 		return offerMaker;
 	}
-	
-
 }

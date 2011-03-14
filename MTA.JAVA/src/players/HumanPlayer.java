@@ -3,6 +3,7 @@
  */
 package players;
 
+import ui.OfferType;
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
@@ -30,7 +31,7 @@ public class HumanPlayer extends Player {
 		String message;
 		if (asset.getCost()<Balance)
 		{
-			message = "Would you like to buy " + (asset.getName()) + " in " + asset.getGroup().getNameOfGroup() + " for " + asset.getCost() + "?";
+			message = "Would you like to buy " + (asset.getName()) + " in " + asset.getGroup().getName() + " for " + asset.getCost() + "?";
 			return GameManager.CurrentUI.askYesNoQuestion(message);
 		}
 		else
@@ -79,28 +80,40 @@ public class HumanPlayer extends Player {
 				if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell an asset?"))
 				{
 					GameManager.CurrentUI.printAssetList(this);
-					int assetIndex = GameManager.CurrentUI.askNumericQuestion("Which assest would you like to sell?");
-					sellAsset(getAssetList().get(assetIndex-1));
+					int assetIndex = GameManager.CurrentUI.askNumericQuestion("Which asset would you like to sell?");
+					sellAsset(getAssetList().get(assetIndex-1)); //TODO : Input check
 					offersMade++;
 				}
 				else
 					break;
 			}
 			if (getAssetList().size()==0)
-				GameManager.CurrentUI.displayMessage("No assets left to sell!");
+				GameManager.CurrentUI.notifyPlayerOutOfAssets(this);
 			if (offersMade==GameManager.MAX_NUM_OF_SELL_OFFERS)
-				GameManager.CurrentUI.displayMessage("Max number of offers exceeded!");
-			//TODO
+				GameManager.CurrentUI.notifyPlayerExceededSellOfferCount(this);
 		}
 	}
 	
 	private buyOffer makeBuyOffer() {
 		buyOffer offer=new buyOffer(this);
-		
-		
-		
+		if (GameManager.CurrentUI.askYesNoQuestion("Would you like to buy?"))
+		{
+			if(GameManager.CurrentUI.askYesNoQuestion("Would you like to offer money?"))
+				offer.addToOffer(GameManager.CurrentUI.askNumericQuestion("How much would you like to offer?"));
+			
+			if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer asset groups?"))
+			{
+				GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Groups);
+			}
+			
+			if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer single assets?"))
+			{
+				GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Assets);
+			}
+		}
+		else
+			offer.addToOffer(0);
 		return offer;
-		
 	}
 
 	@Override

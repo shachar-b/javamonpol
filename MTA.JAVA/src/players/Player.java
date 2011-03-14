@@ -1,17 +1,18 @@
 package players;
 import java.util.ArrayList;
 
-import cards.ActionCard;
-
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
+import assets.Country;
+import assets.Offerable;
+import cards.ActionCard;
 
 public abstract class Player {
-	
-	
+
+
 	//Variable list
 	protected String Name;
 	protected int Balance;
@@ -19,19 +20,19 @@ public abstract class Player {
 	protected boolean GoOnNextTurn;
 	private ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
-	
+
 	public Player(String name) {
 		Name = name;
 		setCurrentPosition(GameManager.SquareIndex.START.getIndex());
 		Balance=GameManager.INITAL_FUNDS;
 		GoOnNextTurn=true;
 	}	
-	
+
 	public Boolean equals(Player other)
 	{
 		return Name.equals(other.getName());		
 	}
-	
+
 	public abstract Boolean buyDecision(Asset asset);
 	public abstract Boolean buyHouseDecision(City asset);
 
@@ -47,14 +48,14 @@ public abstract class Player {
 	public boolean getGoOnNextTurn() {
 		return GoOnNextTurn;
 	}
-	
+
 	public int ChangeBalance(int amount, int sign) {
 		if(sign==GameManager.SUBTRACT)
 		{
 			if(amount>Balance)
 			{
 				makeSellOffers();
-				
+
 				if(amount>Balance) //Can have balance of zero - but not negative balance
 				{
 					GameManager.currentGame.removePlayerFromGame(this);//if false remove from game
@@ -83,7 +84,7 @@ public abstract class Player {
 	public int getCurrentPosition() {
 		return CurrentPosition;
 	}
-	
+
 	public int getBalance()
 	{
 		return Balance;
@@ -93,7 +94,7 @@ public abstract class Player {
 		assetList.add(a);
 		a.setOwner(this);
 	}
-	
+
 	public void removeFromAssetList(Asset a) {
 		assetList.remove(a);
 	}
@@ -101,7 +102,7 @@ public abstract class Player {
 	public ArrayList<Asset> getAssetList() {
 		return assetList;
 	}
-	
+
 	public void setGetOutOfJailFreeCardPlaceHolder(
 			ActionCard getOutOfJailFreeCardPlaceHolder) {
 		this.getOutOfJailFreeCardPlaceHolder = getOutOfJailFreeCardPlaceHolder;
@@ -110,17 +111,43 @@ public abstract class Player {
 	public ActionCard getGetOutOfJailFreeCardPlaceHolder() {
 		return getOutOfJailFreeCardPlaceHolder;
 	}
-	
+
 	public boolean hasGetOutOfJailFreeCard()
 	{
 		return (getOutOfJailFreeCardPlaceHolder!=null);
 	}
 
 	public abstract void makeSellOffers();
-	
+
 	public abstract buyOffer makeBuyOffer(Asset assat);
 	public abstract buyOffer makeBuyOffer(AssetGroup assat);
-	
+
+	public ArrayList<Offerable> tradeableAssets(){
+		ArrayList<Offerable> result = new ArrayList<Offerable>();
+		for (Asset current : assetList)
+		{
+			if(current.getClass().isInstance(City.class))
+			{
+				if (((Country)current.getGroup()).hasHousesConstructed())
+					continue;
+			}
+			else
+				result.add(current);
+		}
+		return result;
+	}
+
+	public ArrayList<Offerable> tradeableGroups(){
+		ArrayList<Offerable> result = new ArrayList<Offerable>();
+		for (Asset current : assetList)
+		{
+			if (!result.contains(current))
+				if (current.getGroup().isOfSoleOwnership())
+					result.add(current.getGroup());
+		}
+		return result;
+	}
+
 	public void sellAsset(Asset a)
 	{
 
