@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import monopoly.GameManager;
@@ -80,8 +81,23 @@ public class ConsoleUI implements IUI {
 	@Override
 	public int askNumericQuestion(String question) {
 		displayMessage(question);
-		System.out.print("INPUT (integer): ");
-		return (sc.nextInt());
+		int answer=-1;
+
+		while(answer==-1)
+		{
+			try {
+				answer=sc.nextInt();
+				
+			}
+
+
+		 catch (InputMismatchException e) {
+			 sc.next();
+			 displayMessage("invaild input-enter a numeric input");
+		}
+	}
+		
+		return (answer);
 	}
 	
 	@Override
