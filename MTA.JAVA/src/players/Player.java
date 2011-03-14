@@ -172,6 +172,6 @@ public abstract class Player {
 	
 	
 	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers) ;
-	
+		
 
 }

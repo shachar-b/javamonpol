@@ -103,7 +103,8 @@ public class Monopoly
 			{
 				currDieSum=rollDie();
 				movePlayer(p ,currDieSum,true);
-				p.makeSellOffers();
+				if (!p.getGoOnNextTurn()) //If player cannot move due to new position, he can't sell offers.
+					p.makeSellOffers();
 			}
 		}
 	}
@@ -273,7 +274,7 @@ public class Monopoly
 		Monopoly game = new Monopoly();
 		GameManager.currentGame = game;
 		game.getGamePlayers().add(new HumanPlayer());
-		game.getGamePlayers().add(new ComputerPlayer());
+		game.getGamePlayers().add(new HumanPlayer());
 		game.getGamePlayers().add(new HumanPlayer());
 		//game.getGamePlayers().add(new ComputerPlayer());
 		//game.getGamePlayers().add(new ComputerPlayer());

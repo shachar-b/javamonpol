@@ -51,20 +51,25 @@ public class City extends Asset {
 		{
 			if (group.isOfSoleOwnership())
 			{
-				if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
+				if (justBoughtCity==false)
 				{
-					if (player.buyHouseDecision(this))
+					if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
 					{
-						player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
-						numHouses++;
-						GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
+						if (player.buyHouseDecision(this))
+						{
+							player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
+							numHouses++;
+							GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
+						}
 					}
 				}
-			}
-			//Otherwise do nothing.
+			}	
+			//If the arriving player is the owner, need to set justBoughtCity to false.
+			justBoughtCity=false; //This way you don't buy a house in the exact 
+								  //same turn you buy the last city in the country.
 		}
 	}
-	
+
 	public void init(File inFile) {
 		//TODO : init city
 	}
@@ -76,7 +81,7 @@ public class City extends Asset {
 	public int getCostOfHouse() {
 		return costOfHouse;
 	}
- 	
+
 	@Override
 	public void setOwner(Player owner)
 	{
@@ -84,5 +89,5 @@ public class City extends Asset {
 		if (owner==GameManager.assetKeeper) //Player has been removed from game.
 			numHouses=0;
 	}
-	
+
 }
