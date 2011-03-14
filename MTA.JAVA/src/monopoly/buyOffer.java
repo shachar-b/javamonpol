@@ -3,7 +3,7 @@
  */
 package monopoly;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import players.Player;
 import assets.Asset;
@@ -21,15 +21,15 @@ public class buyOffer implements Comparable<buyOffer> {
 	}
 
 	private int money;
-	private HashSet<AssetGroup> assetGroups;
-	private HashSet<Asset> singleAssets;
+	private ArrayList<AssetGroup> assetGroups;
+	private ArrayList<Asset> singleAssets;
 	private Player offerMaker;
 
 
 	public buyOffer(Player offerMaker) {
 		money=0;
-		assetGroups=new HashSet<AssetGroup>();
-		singleAssets=new HashSet<Asset>();
+		assetGroups=new ArrayList<AssetGroup>();
+		singleAssets=new ArrayList<Asset>();
 		this.offerMaker = offerMaker;
 	}
 	/* (non-Javadoc)
@@ -102,10 +102,10 @@ public class buyOffer implements Comparable<buyOffer> {
 	public int getMoney() {
 		return money;
 	}
-	public HashSet<AssetGroup> getAssetGroups() {
+	public ArrayList<AssetGroup> getAssetGroups() {
 		return assetGroups;
 	}
-	public HashSet<Asset> getSingleAssets() {
+	public ArrayList<Asset> getSingleAssets() {
 		return singleAssets;
 	}
 

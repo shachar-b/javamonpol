@@ -3,6 +3,8 @@
  */
 package players;
 
+import java.util.ArrayList;
+
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
@@ -95,6 +97,27 @@ public class ComputerPlayer extends Player {
 		{
 			return new buyOffer(this);
 		}
+		
+		
+	}
+
+	@Override
+	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) {
+		int maxMoneyOffer=0;
+		int maxIndex=-1;
+		int index=0;
+		
+		for(buyOffer offer:buyOffers)
+		{
+			if(offer.getMoney()>maxMoneyOffer)
+			{
+				maxMoneyOffer=offer.getMoney();
+				maxIndex=index;
+			}
+			index++;
+		
+		}
+		return maxIndex;
 		
 		
 	}
