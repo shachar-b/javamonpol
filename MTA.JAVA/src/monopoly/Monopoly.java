@@ -234,7 +234,7 @@ public class Monopoly
 		gameBoard.add(11,new City(countries.get(itrCountries),"Lyon",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(12,new City(countries.get(itrCountries),"Toulouse",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
-		gameBoard.add(13, new UtilOrTranspoAsset(utilities, "Electricity Co.", 250, 150, 300));
+		gameBoard.add(13, new UtilOrTranspoAsset(utilities, "Electricity Co.1", 250, 150, 300));
 		gameBoard.add(14, new UtilOrTranspoAsset(transportation, "Bus", 250, 150, 300));
 		gameBoard.add(15,new City(countries.get(itrCountries),"Phuket",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(16,new City(countries.get(itrCountries),"Bangkok",tempCostCity,tempCostHouse,temp));
@@ -246,7 +246,7 @@ public class Monopoly
 		gameBoard.add(21,new City(countries.get(itrCountries),"Jerusalem",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
 		gameBoard.add(22, new ActionCardSquare(-1)/*callUp*/);
-		gameBoard.add(23, new UtilOrTranspoAsset(transportation, "Plane", 250, 150, 300));
+		gameBoard.add(23, new UtilOrTranspoAsset(transportation, "Plane1", 250, 150, 300));
 		gameBoard.add(24,new City(countries.get(itrCountries),"Buenos Aires",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(25,new City(countries.get(itrCountries),"Mendoza",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(26,new City(countries.get(itrCountries),"Salta",tempCostCity,tempCostHouse,temp));
@@ -256,8 +256,8 @@ public class Monopoly
 		gameBoard.add(29,new City(countries.get(itrCountries),"Washington",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(30,new City(countries.get(itrCountries),"Las Vegas",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
-		gameBoard.add(31, new UtilOrTranspoAsset(utilities, "Electricity Co.", 250, 150, 300));
-		gameBoard.add(32, new UtilOrTranspoAsset(transportation, "Plane", 250, 150, 300));
+		gameBoard.add(31, new UtilOrTranspoAsset(utilities, "Electricity Co.2", 250, 150, 300));
+		gameBoard.add(32, new UtilOrTranspoAsset(transportation, "Plane2", 250, 150, 300));
 		gameBoard.add(33,new City(countries.get(itrCountries),"Manama",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(34,new City(countries.get(itrCountries),"Riffa",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(35,new City(countries.get(itrCountries),"Sitra",tempCostCity,tempCostHouse,temp));

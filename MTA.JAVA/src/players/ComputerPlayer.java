@@ -47,7 +47,7 @@ public class ComputerPlayer extends Player {
 	@Override
 	public Boolean buyHouseDecision(City asset)
 	{
-		if (Balance-asset.getCostOfHouse()<=BUY_THRESHHOLD)
+		if (Balance-asset.getCostOfHouse()>=BUY_THRESHHOLD)
 		{
 			return true;
 		}
