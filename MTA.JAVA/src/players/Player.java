@@ -18,7 +18,7 @@ public abstract class Player {
 	protected int Balance;
 	private int CurrentPosition;
 	protected boolean GoOnNextTurn;
-	private ArrayList<Asset> assetList = new ArrayList<Asset>();
+	protected ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 
 	public Player(String name) {
@@ -148,9 +148,22 @@ public abstract class Player {
 		return result;
 	}
 
-	public void sellAsset(Asset a)
+	public void sellAsset(Asset asset)
 	{
-
-
+		ArrayList<buyOffer> buyOffers= new ArrayList<buyOffer>();
+		for (Player player : GameManager.currentGame.getGamePlayers())
+		{
+			if (player!=this)
+				buyOffers.add(player.makeBuyOffer(asset));
+		}
 	}
+	
+	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers) ;
+	
+	public void sellAssetGroup(AssetGroup assetGroup)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

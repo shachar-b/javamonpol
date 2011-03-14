@@ -3,9 +3,11 @@
  */
 package players;
 
-import ui.OfferType;
+import java.util.ArrayList;
+
 import monopoly.GameManager;
 import monopoly.buyOffer;
+import ui.OfferType;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -65,14 +67,15 @@ public class HumanPlayer extends Player {
 	public boolean hasGetOutOfJailFreeCard()
 	{
 		if (super.hasGetOutOfJailFreeCard())
-			 return GameManager.CurrentUI.askYesNoQuestion("Would you like to you your get out of jail free card?");
+			return GameManager.CurrentUI.askYesNoQuestion("Would you like to you your get out of jail free card?");
 		else return false;
 	}
-	
+
 	@Override
 	public void makeSellOffers()
 	{
 		int offersMade = 0;
+		buyOffer helperOffer = new buyOffer(this);
 		if (getAssetList().size()>0)
 		{
 			while (getAssetList().size()>0 && offersMade<GameManager.MAX_NUM_OF_SELL_OFFERS)
@@ -80,8 +83,25 @@ public class HumanPlayer extends Player {
 				if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell an asset?"))
 				{
 					GameManager.CurrentUI.printAssetList(this);
-					int assetIndex = GameManager.CurrentUI.askNumericQuestion("Which asset would you like to sell?");
-					sellAsset(getAssetList().get(assetIndex-1)); //TODO : Input check
+					if (!this.tradeableGroups().isEmpty())
+					{
+						if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell an asset group?"))
+						{
+							GameManager.CurrentUI.askOfferableSellQuestions(this, helperOffer, OfferType.Groups, false);
+							if (!helperOffer.getAssetGroups().isEmpty())
+								sellAssetGroup(helperOffer.getAssetGroups().get(0));
+							else
+								offersMade--;							
+						}
+					}
+					else if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell a single asset?"))
+					{
+						GameManager.CurrentUI.askOfferableSellQuestions(this, helperOffer, OfferType.Assets, false);
+						if (!helperOffer.getSingleAssets().isEmpty())
+							sellAsset(helperOffer.getSingleAssets().get(0));
+						else
+							offersMade--; //Offer canceled by user
+					}					
 					offersMade++;
 				}
 				else
@@ -100,16 +120,18 @@ public class HumanPlayer extends Player {
 		{
 			if(GameManager.CurrentUI.askYesNoQuestion("Would you like to offer money?"))
 				offer.addToOffer(GameManager.CurrentUI.askNumericQuestion("How much would you like to offer?"));
-			
-			if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer asset groups?"))
-			{
-				GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Groups);
-			}
-			
-			if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer single assets?"))
-			{
-				GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Assets);
-			}
+
+			if (!this.tradeableGroups().isEmpty())
+				if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer asset groups?"))
+				{
+					GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Groups,true);
+				}
+
+			if (!this.tradeableAssets().isEmpty())
+				if (GameManager.CurrentUI.askYesNoQuestion("Would you like to offer single assets?"))
+				{
+					GameManager.CurrentUI.askOfferableSellQuestions(this, offer, OfferType.Assets,true);
+				}
 		}
 		else
 			offer.addToOffer(0);
@@ -126,5 +148,11 @@ public class HumanPlayer extends Player {
 	public buyOffer makeBuyOffer(AssetGroup group) {
 		GameManager.CurrentUI.notifyBidEvent(group);
 		return makeBuyOffer();
+	}
+
+	@Override
+	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) {
+		// TODO Auto-generated method stub
+		return -1;
 	}
 }

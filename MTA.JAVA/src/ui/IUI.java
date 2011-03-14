@@ -63,7 +63,7 @@ public interface IUI {
 
 	public void notifyPlayerOutOfAssets(Player player);
 
-	public void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type);
+	public void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type, boolean multipleSelection);
 
 	public int askNumericQuestion(String question, int lowerBound, int upperBound);
 }

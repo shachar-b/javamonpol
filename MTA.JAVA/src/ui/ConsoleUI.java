@@ -5,7 +5,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
-import javax.swing.text.html.MinimalHTMLWriter;
 
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
@@ -240,7 +239,7 @@ public class ConsoleUI implements IUI {
 	}
 	
 	@Override
-	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type)
+	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type, boolean multipleSelection)
 	{
 		int playerChoice=-1;
 		ArrayList<Offerable> tradeables;
@@ -264,9 +263,14 @@ public class ConsoleUI implements IUI {
 		{
 			System.out.println((i+1) + " : " + tradeables.get(i).getName());
 		}
-		System.out.print("Enter the indices of the "+type.name()+" you want to sell (one by one), press 0 to end offer: ");
+		String message = "Enter the index of the "+type.name() + " you want to sell";
+		if (multipleSelection)
+			message+=" (one by one), press 0 to end offer: ";
+		else
+			message+=", press 0 to cancel offer: ";
 		while (playerChoice!=0)
 		{
+			System.out.print(message);
 			try
 			{
 				playerChoice = sc.nextInt();
@@ -276,7 +280,9 @@ public class ConsoleUI implements IUI {
 				}
 				else
 				{
-					offer.addToOffer(tradeables.get(playerChoice));
+					offer.addToOffer(tradeables.get(playerChoice-1));
+					if (!multipleSelection)
+						playerChoice=0; //To force single-selection
 				}
 			}catch (InputMismatchException e) {
 				sc.next();
