@@ -11,11 +11,13 @@ public abstract class Asset extends Square implements Offerable{
 	protected Player owner;
 	protected AssetGroup group;
 	protected int cost;
+	protected boolean justBoughtCity; //Used only for cities (for buying houses) so maintained only there.
 
 	public Asset(AssetGroup group) {
 		super();
 		owner = GameManager.assetKeeper;
 		this.group = group;
+		justBoughtCity=false;
 		group.add(this);
 	}
 	
@@ -38,6 +40,7 @@ public abstract class Asset extends Square implements Offerable{
 				player.ChangeBalance(cost, GameManager.SUBTRACT);
 				setOwner(player);
 				GameManager.CurrentUI.notifyPlayerBoughtAsset(player, this);
+				justBoughtCity=true;
 			}
 		}
 		else if (owner!=player)
