@@ -56,7 +56,7 @@ public class buyOffer implements Comparable<buyOffer> {
 
 	public Answers addToOffer(Offerable offer)
 	{
-		if(offer.getClass().isInstance(AssetGroup.class))
+		if(AssetGroup.class.isInstance(offer))
 		{
 			return addGroupToOffer((AssetGroup)offer);
 		}
