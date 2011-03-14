@@ -6,7 +6,7 @@ import squares.Square;
 
 
 
-public abstract class Asset extends Square{
+public abstract class Asset extends Square implements Offerable{
 	protected Player owner;
 	protected AssetGroup group;
 	protected int cost;
@@ -36,6 +36,7 @@ public abstract class Asset extends Square{
 			{
 				player.ChangeBalance(cost, GameManager.SUBTRACT);
 				owner=player;
+				player.addToAssetList(this);
 				GameManager.CurrentUI.notifyPlayerBoughtAsset(player, this);
 			}
 		}

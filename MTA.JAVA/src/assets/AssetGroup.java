@@ -8,7 +8,7 @@ import monopoly.GameManager;
 
 import players.Player;
 
-public abstract class AssetGroup implements Collection<Asset> {
+public abstract class AssetGroup implements Collection<Asset>, Offerable {
 
 	
 	protected ArrayList<Asset> assetsInGroup;
@@ -122,7 +122,7 @@ public abstract class AssetGroup implements Collection<Asset> {
 	/**
 	 * @return the nameOfGroup
 	 */
-	public String getNameOfGroup() {
+	public String getName() {
 		return nameOfGroup;
 	}
 

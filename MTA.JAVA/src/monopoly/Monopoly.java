@@ -6,6 +6,7 @@ package monopoly;
 import java.util.ArrayList;
 
 import players.ComputerPlayer;
+import players.HumanPlayer;
 import players.Player;
 import squares.ActionCardSquare;
 import squares.GoToJailSquare;
@@ -271,11 +272,11 @@ public class Monopoly
 	public static void main(String[] args) {
 		Monopoly game = new Monopoly();
 		GameManager.currentGame = game;
+		game.getGamePlayers().add(new HumanPlayer());
 		game.getGamePlayers().add(new ComputerPlayer());
-		game.getGamePlayers().add(new ComputerPlayer());
-		game.getGamePlayers().add(new ComputerPlayer());
-		game.getGamePlayers().add(new ComputerPlayer());
-		game.getGamePlayers().add(new ComputerPlayer());
+		//game.getGamePlayers().add(new ComputerPlayer());
+		//game.getGamePlayers().add(new ComputerPlayer());
+		//game.getGamePlayers().add(new ComputerPlayer());
 		game.init();
 		game.play();
 	}
