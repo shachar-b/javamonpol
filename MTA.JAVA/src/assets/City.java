@@ -76,7 +76,7 @@ public class City extends Asset {
 	public int getCostOfHouse() {
 		return costOfHouse;
 	}
-	
+ 	
 	@Override
 	public void setOwner(Player owner)
 	{

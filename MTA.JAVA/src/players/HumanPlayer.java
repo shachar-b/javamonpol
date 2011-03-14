@@ -90,6 +90,7 @@ public class HumanPlayer extends Player {
 				GameManager.CurrentUI.displayMessage("No assets left to sell!");
 			if (offersMade==GameManager.MAX_NUM_OF_SELL_OFFERS)
 				GameManager.CurrentUI.displayMessage("Max number of offers exceeded!");
+			//TODO
 		}
 	}
 	

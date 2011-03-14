@@ -1,6 +1,7 @@
 package squares;
 
 import monopoly.GameManager;
+import monopoly.GameManager.jailActions;
 import players.Player;
 
 public class JailSlashFreePassSquare extends Square {
@@ -19,29 +20,29 @@ public class JailSlashFreePassSquare extends Square {
 	@Override
 	public boolean shouldPlayerMove(Player player)
 	{
-		String message;
+		jailActions currAction;
 		if (player.getGoOnNextTurn())
 			return true;
 		else
 		{
 			if (player.hasGetOutOfJailFreeCard()) //Player will also be asked if he wants to use
-			{
-					message = player.getName() + " used a get out of jail freeCard and is out of jail in next turn!";
-					player.setGoOnNextTurn(true);
-					GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
-					player.setGetOutOfJailFreeCardPlaceHolder(null);
+			{		
+				currAction=jailActions.USED_CARD;
+				player.setGoOnNextTurn(true);
+				GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
+				player.setGetOutOfJailFreeCardPlaceHolder(null);
 			}
 			else if (GameManager.currentGame.rollForADouble())
-			{
-				message = player.getName() + " has a double and is out of jail in next turn!";
+			{	
+				currAction=jailActions.ROLLED_DOUBLE;
 				player.setGoOnNextTurn(true);
 			}
 			else
 			{
-				message = player.getName() + " stays in jail!";
+				currAction=jailActions.STAY_IN_JAIL;
 				player.setGoOnNextTurn(false);
 			}
-			GameManager.CurrentUI.displayMessage(message);
+			GameManager.CurrentUI.notifyJailAction(player, currAction);
 			return false;
 		}
 	}

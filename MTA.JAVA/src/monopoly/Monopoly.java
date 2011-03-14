@@ -79,7 +79,7 @@ public class Monopoly
 			doRound(roundNumber);
 			roundNumber++;
 		}
-		userInterface.displayMessage("The winner is: " + gamePlayers.get(0).getName() + "!!!");
+		userInterface.notifyGameWinner(gamePlayers.get(0));
 	}
 
 	public void doRound(int roundNumber)
@@ -88,8 +88,7 @@ public class Monopoly
 		for (int playerIndex=0; playerIndex<gamePlayers.size() ; playerIndex++)
 		{
 			Player p = gamePlayers.get(playerIndex);
-			userInterface.displayMessage("\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance());
-			userInterface.displayMessage("Is currently on square " + (p.getCurrentPosition()+1) + ": " + gameBoard.get(p.getCurrentPosition()).getName());
+			userInterface.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 			if (p.chooseToForfeit())
 			{
 				removePlayerFromGame(p);
@@ -117,13 +116,13 @@ public class Monopoly
 		{
 			if (getBonus)
 			{
-				userInterface.displayMessage("Received Start square pass bonus of " + GameManager.START_PASS_BONUS + "!");
+				userInterface.notifyPassStartSquare(GameManager.START_PASS_BONUS);
 				p.ChangeBalance(GameManager.START_PASS_BONUS, GameManager.ADD);
 			}
 			playerPos=playerPos % GameManager.NUMBER_OF_SQUARES;
 		}
 		p.setCurrentPosition(playerPos);
-		userInterface.displayMessage("Player " + p.getName() + " landed on " + gameBoard.get(playerPos).getName());
+		userInterface.notifyPlayerLanded(p, gameBoard.get(p.getCurrentPosition()));
 		gameBoard.get(playerPos).playerArrived(p);
 	}
 

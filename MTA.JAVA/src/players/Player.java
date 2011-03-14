@@ -55,7 +55,7 @@ public abstract class Player {
 			{
 				makeSellOffers();
 				
-				if(amount>Balance)
+				if(amount>Balance) //Can have balance of zero - but not negative balance
 				{
 					GameManager.currentGame.removePlayerFromGame(this);//if false remove from game
 				}
