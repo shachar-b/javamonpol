@@ -35,8 +35,7 @@ public abstract class Asset extends Square implements Offerable{
 			if (player.buyDecision(this))
 			{
 				player.ChangeBalance(cost, GameManager.SUBTRACT);
-				owner=player;
-				player.addToAssetList(this);
+				setOwner(player);
 				GameManager.CurrentUI.notifyPlayerBoughtAsset(player, this);
 			}
 		}
@@ -51,9 +50,15 @@ public abstract class Asset extends Square implements Offerable{
 	
 	public abstract int getRentPrice();
 	
-	public void setOwner(Player owner)
+	public void setOwner(Player newOwner)
 	{
-		this.owner = owner;
+		if(owner!=GameManager.assetKeeper)
+		{
+			owner.removeFromAssetList(this);
+		}
+		if(newOwner!=GameManager.assetKeeper)
+			newOwner.addToAssetList(this);
+		this.owner = newOwner;
 	}
 
 	public Player getOwner()
@@ -64,5 +69,10 @@ public abstract class Asset extends Square implements Offerable{
 	public AssetGroup getGroup()
 	{
 		return group;
+	}
+	@Override
+	public String toString() 
+	{
+		return getName();
 	}
 }

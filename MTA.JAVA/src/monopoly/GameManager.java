@@ -18,7 +18,9 @@ public class GameManager {
 	public static final int NUM_OF_DIE = 2;
 	public static final int MAX_NUM_OF_SELL_OFFERS = 3;
 	public static final Player assetKeeper = null; //This is the "Kupa"
+	public static final String MoneySign = "$"; //This is the "Kupa"
 	public static Monopoly currentGame;
+	
 	
 
 	public static enum jailActions {USED_CARD, ROLLED_DOUBLE, STAY_IN_JAIL}

@@ -130,6 +130,13 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 	public String toString() {
 		return "name:"+nameOfGroup + " Contains: " +assetsInGroup.toString();
 	}
+	
+	public void setOwner(Player owner){
+		for(Asset curr:assetsInGroup)
+		{
+			curr.setOwner(owner);
+		}
+	}
 }
 
 

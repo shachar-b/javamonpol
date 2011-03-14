@@ -11,6 +11,7 @@ import ui.OfferType;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
+import assets.Offerable;
 
 /**
  * @author Omer Shenhar and Shachar Butnaro
@@ -75,15 +76,17 @@ public class HumanPlayer extends Player {
 	public void makeSellOffers()
 	{
 		int offersMade = 0;
-		buyOffer helperOffer = new buyOffer(this);
-		if (getAssetList().size()>0)
+		ArrayList<Offerable>  assetsForSaleList=this.tradeableAssets();
+		ArrayList<Offerable>  assetGroupsForSaleList=this.tradeableGroups();
+		
+		if (assetsForSaleList.size()+assetGroupsForSaleList.size()>0)
 		{
-			while (getAssetList().size()>0 && offersMade<GameManager.MAX_NUM_OF_SELL_OFFERS)
+			while ((!assetGroupsForSaleList.isEmpty()|| !assetsForSaleList.isEmpty() )&& offersMade<GameManager.MAX_NUM_OF_SELL_OFFERS)
 			{
+				buyOffer helperOffer = new buyOffer(this);
 				if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell an asset?"))
 				{
-					GameManager.CurrentUI.printAssetList(this);
-					if (!this.tradeableGroups().isEmpty())
+					if (!assetGroupsForSaleList.isEmpty())
 					{
 						if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell an asset group?"))
 						{
@@ -106,8 +109,11 @@ public class HumanPlayer extends Player {
 				}
 				else
 					break;
+				
+				assetsForSaleList=this.tradeableAssets();
+				assetGroupsForSaleList=this.tradeableGroups();
 			}
-			if (getAssetList().size()==0)
+			if (assetGroupsForSaleList.size()+ assetsForSaleList.size() ==0)
 				GameManager.CurrentUI.notifyPlayerOutOfAssets(this);
 			if (offersMade==GameManager.MAX_NUM_OF_SELL_OFFERS)
 				GameManager.CurrentUI.notifyPlayerExceededSellOfferCount(this);
@@ -151,8 +157,8 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) {
-		// TODO Auto-generated method stub
-		return -1;
+	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) 
+	{
+		return GameManager.CurrentUI.chooseAnOffer(buyOffers);
 	}
 }

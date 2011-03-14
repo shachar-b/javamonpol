@@ -92,7 +92,6 @@ public abstract class Player {
 
 	public void addToAssetList(Asset a) {
 		assetList.add(a);
-		a.setOwner(this);
 	}
 
 	public void removeFromAssetList(Asset a) {
@@ -150,13 +149,28 @@ public abstract class Player {
 
 	public void sellAsset(Asset asset)
 	{
+		buyOffer winningOffer;
 		ArrayList<buyOffer> buyOffers= new ArrayList<buyOffer>();
 		for (Player player : GameManager.currentGame.getGamePlayers())
 		{
 			if (player!=this)
 				buyOffers.add(player.makeBuyOffer(asset));
 		}
+		int choise=chooseWinningOffer(buyOffers);
+		if(choise!=-1)//selected a proper offer
+		{
+			winningOffer=buyOffers.get(choise);
+			asset.setOwner(winningOffer.getOfferMaker());
+			winningOffer.preform(this);
+			GameManager.CurrentUI.notifyTradeEvent(this,asset,winningOffer);
+		}
+		else
+		{
+			GameManager.CurrentUI.notifyTradeCanceled(this);
+			
+		}
 	}
+	
 	
 	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers) ;
 	
