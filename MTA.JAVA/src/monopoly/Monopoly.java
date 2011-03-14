@@ -274,7 +274,7 @@ public class Monopoly
 		GameManager.currentGame = game;
 		game.getGamePlayers().add(new HumanPlayer());
 		game.getGamePlayers().add(new ComputerPlayer());
-		//game.getGamePlayers().add(new ComputerPlayer());
+		game.getGamePlayers().add(new HumanPlayer());
 		//game.getGamePlayers().add(new ComputerPlayer());
 		//game.getGamePlayers().add(new ComputerPlayer());
 		game.init();

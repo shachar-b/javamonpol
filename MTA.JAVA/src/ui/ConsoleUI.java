@@ -188,7 +188,24 @@ public class ConsoleUI implements IUI {
 		String message = player.getName() + " is parked and cannot move!";
 		displayMessage(message);
 	}
-
+	
+	@Override
+	public void notifyBidEvent(Offerable asset)
+	{
+		switch (asset.getType()) {
+		case Groups:
+			notifyBidEvent((AssetGroup)asset);
+			break;
+		case Assets:
+			notifyBidEvent((Asset)asset);
+			break;
+			
+		default: //Shouldn't get here
+			throw new RuntimeErrorException(null, "Unknown agrument for function \"notifyBidEvent\"");
+		}
+		
+	}
+	
 	@Override
 	public void notifyBidEvent(Asset asset) {
 		String message = asset.getName() + " is up for bidding. It is a part of " +
@@ -285,6 +302,7 @@ public class ConsoleUI implements IUI {
 		for(buyOffer offer:buyOffers)
 		{
 			displayMessage((index+1)+" "+offer.getOfferMaker().getName()+" : "+offer);
+			index++;
 			
 			
 		}

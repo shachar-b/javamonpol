@@ -48,6 +48,8 @@ public interface IUI {
 
 	public void notifyPlayerIsParked(Player player);
 
+	public void notifyBidEvent(Offerable asset);
+
 	public void notifyBidEvent(Asset asset);
 
 	public void notifyBidEvent(AssetGroup group);

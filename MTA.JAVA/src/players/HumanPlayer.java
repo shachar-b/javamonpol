@@ -9,7 +9,6 @@ import monopoly.GameManager;
 import monopoly.buyOffer;
 import ui.OfferType;
 import assets.Asset;
-import assets.AssetGroup;
 import assets.City;
 import assets.Offerable;
 
@@ -78,7 +77,7 @@ public class HumanPlayer extends Player {
 		int offersMade = 0;
 		ArrayList<Offerable>  assetsForSaleList=this.tradeableAssets();
 		ArrayList<Offerable>  assetGroupsForSaleList=this.tradeableGroups();
-		
+		boolean skipRun =false;
 		if (assetsForSaleList.size()+assetGroupsForSaleList.size()>0)
 		{
 			while ((!assetGroupsForSaleList.isEmpty()|| !assetsForSaleList.isEmpty() )&& offersMade<GameManager.MAX_NUM_OF_SELL_OFFERS)
@@ -92,20 +91,28 @@ public class HumanPlayer extends Player {
 						{
 							GameManager.CurrentUI.askOfferableSellQuestions(this, helperOffer, OfferType.Groups, false);
 							if (!helperOffer.getAssetGroups().isEmpty())
-								sellAssetGroup(helperOffer.getAssetGroups().get(0));
-							else
-								offersMade--;							
+							{
+								sellAsset(helperOffer.getAssetGroups().get(0));
+							}
+							else	
+								offersMade--;
+							skipRun=true;
 						}
+						
 					}
-					else if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell a single asset?"))
+					if (!assetsForSaleList.isEmpty() && !skipRun)
 					{
-						GameManager.CurrentUI.askOfferableSellQuestions(this, helperOffer, OfferType.Assets, false);
-						if (!helperOffer.getSingleAssets().isEmpty())
-							sellAsset(helperOffer.getSingleAssets().get(0));
-						else
-							offersMade--; //Offer canceled by user
-					}					
+						if (GameManager.CurrentUI.askYesNoQuestion("Would you like to sell a single asset?"))
+						{
+							GameManager.CurrentUI.askOfferableSellQuestions(this, helperOffer, OfferType.Assets, false);
+							if (!helperOffer.getSingleAssets().isEmpty())
+								sellAsset(helperOffer.getSingleAssets().get(0));
+							else
+								offersMade--; //Offer canceled by user
+						}	
+					}
 					offersMade++;
+					skipRun=false;
 				}
 				else
 					break;
@@ -145,16 +152,11 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public buyOffer makeBuyOffer(Asset asset) {
-		GameManager.CurrentUI.notifyBidEvent(asset);
+	public buyOffer makeBuyOffer(Offerable asset) {
+		GameManager.CurrentUI.notifyBidEvent((asset));
 		return makeBuyOffer();
 	}
 
-	@Override
-	public buyOffer makeBuyOffer(AssetGroup group) {
-		GameManager.CurrentUI.notifyBidEvent(group);
-		return makeBuyOffer();
-	}
 
 	@Override
 	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) 

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import monopoly.GameManager;
 
 import players.Player;
+import ui.OfferType;
 
 public abstract class AssetGroup implements Collection<Asset>, Offerable {
 
@@ -19,7 +20,10 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 		this.assetsInGroup = new ArrayList<Asset>();
 		this.nameOfGroup = nameOfGroup;
 	}
-
+	public OfferType getType()
+	{
+		return OfferType.Groups;
+	}
 
 
 

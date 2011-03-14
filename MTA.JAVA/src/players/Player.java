@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
-import assets.AssetGroup;
 import assets.City;
 import assets.Country;
 import assets.Offerable;
@@ -118,20 +117,20 @@ public abstract class Player {
 
 	public abstract void makeSellOffers();
 
-	public abstract buyOffer makeBuyOffer(Asset assat);
-	public abstract buyOffer makeBuyOffer(AssetGroup assat);
+	public abstract buyOffer makeBuyOffer(Offerable assat);
 
 	public ArrayList<Offerable> tradeableAssets(){
 		ArrayList<Offerable> result = new ArrayList<Offerable>();
 		for (Asset current : assetList)
 		{
-			if(current.getClass().isInstance(City.class))
+			if(City.class.isInstance(current))
 			{
 				if (((Country)current.getGroup()).hasHousesConstructed())
+				{
 					continue;
+				}
 			}
-			else
-				result.add(current);
+			result.add(current);
 		}
 		return result;
 	}
@@ -140,14 +139,14 @@ public abstract class Player {
 		ArrayList<Offerable> result = new ArrayList<Offerable>();
 		for (Asset current : assetList)
 		{
-			if (!result.contains(current))
+			if (!result.contains(current.getGroup()))
 				if (current.getGroup().isOfSoleOwnership())
 					result.add(current.getGroup());
 		}
 		return result;
 	}
 
-	public void sellAsset(Asset asset)
+	public void sellAsset(Offerable asset)
 	{
 		buyOffer winningOffer;
 		ArrayList<buyOffer> buyOffers= new ArrayList<buyOffer>();
@@ -174,10 +173,5 @@ public abstract class Player {
 	
 	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers) ;
 	
-	public void sellAssetGroup(AssetGroup assetGroup)
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
 }

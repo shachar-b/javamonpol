@@ -5,11 +5,14 @@ package players;
 
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
+
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
+import assets.Offerable;
 
 /**
  * @author Omer Shenhar and Shachar Butnaro
@@ -70,7 +73,20 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public buyOffer makeBuyOffer(Asset asset) {//computer do not trade assets
+	public buyOffer makeBuyOffer(Offerable asset) {
+		switch (asset.getType()) {
+		case Groups:
+			return makeBuyOffer((AssetGroup)asset);
+
+		case Assets:
+			return makeBuyOffer((Asset)asset);
+			
+		default: //Shouldn't get here
+			throw new RuntimeErrorException(null, "Unknown agrument for function \"notifyBidEvent\"");
+		}
+	}
+
+	private buyOffer makeBuyOffer(Asset asset) {//computer do not trade assets
 		buyOffer offer=new  buyOffer(this);
 		int offerMoney=asset.getRentPrice()/GameManager.NUMBER_OF_SQUARES;
 		if(Balance -offerMoney>=BUY_THRESHHOLD)//otherwise offer nothing
@@ -80,8 +96,7 @@ public class ComputerPlayer extends Player {
 		return offer;
 	}
 
-	@Override
-	public buyOffer makeBuyOffer(AssetGroup group) {
+	private buyOffer makeBuyOffer(AssetGroup group) {
 		
 		buyOffer offer=new buyOffer(this);
 		for(Asset asset:group)
