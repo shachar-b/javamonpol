@@ -134,6 +134,10 @@ public class buyOffer implements Comparable<buyOffer> {
 		
 		
 	}
+	public boolean has(Offerable obj)
+	{
+		return assetGroups.contains(obj) || singleAssets.contains(obj);
+	}
 	
 	@Override
 	public String toString() {

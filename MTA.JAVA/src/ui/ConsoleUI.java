@@ -275,8 +275,20 @@ public class ConsoleUI implements IUI {
 			System.out.print(message);
 			playerChoice =utilGetSafeIntInput(0, tradeables.size());
 			if(playerChoice!=0)
-				offer.addToOffer(tradeables.get(playerChoice-1));
-			numberOfChoosen++;
+			{
+				if(offer.has(tradeables.get(playerChoice-1)))
+				{
+					displayMessage("you allready choose this");
+					
+				}
+				else
+				{
+					offer.addToOffer(tradeables.get(playerChoice-1));
+					numberOfChoosen++;
+				}
+				
+			}
+			
 			if (!multipleSelection)
 					playerChoice=0; //To force single-selection
 			if(numberOfChoosen==tradeables.size())
