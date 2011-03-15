@@ -1,6 +1,5 @@
 package cards;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import monopoly.GameManager;
@@ -8,7 +7,14 @@ import monopoly.GameManager.AgainstWho;
 import players.Player;
 import squares.Square;
 
+/**
+ *  class ActionCard represent an action card in the monopoly game
+ * @author Omer Shenhar and Shachar Butnaro
+ *
+ */
+
 public class ActionCard {
+	
 	private int sign;
 	private String action;
 	private int amount;
@@ -16,6 +22,20 @@ public class ActionCard {
 	private Class<? extends Square> goOnNext;
 	private boolean CollectBonus;
 
+	/**
+	 * method ActionCard(int sign, String action, int amount, AgainstWho against,Class<? extends Square> goOnNext, boolean collectBonus)
+	 * a constructor for an action card
+	 * @visibility : public
+	 * @param sign - an int only 1 or -1 are allowed
+	 * @param action - a String representing the action
+	 * @param amount - an positive int the amount of money the card has to give or take
+	 * @param against -an AgainstWho. represent if the action is against treasury or other players
+	 * @param goOnNext - a class which extends Square -the player would be moved to next Square of that type
+	 * 					if the card is a get out of jail this attribute must be set to class Square and null
+	 * 					if the card doesn't move player
+	 * @param collectBonus - a boolean if it is true and the card moves the player the player would receive 
+	 * 						an start bonus if he will pass thru StartSquare. if it is false he would not
+	 */
 	public ActionCard(int sign, String action, int amount, AgainstWho against,
 			Class<? extends Square> goOnNext, boolean collectBonus) {
 		super();
@@ -27,20 +47,31 @@ public class ActionCard {
 		CollectBonus = collectBonus;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
 	public String toString(){
 		return action;
 	}
 	
+	/**
+	 * method boolean isGetOutOfJailFreeCard()
+	 * @visibility : public
+	 * @return : true if this is a get out of jail card False otherwise
+	 */
 	public boolean isGetOutOfJailFreeCard()
 	{
 		return (goOnNext==Square.class);
 	}
 	
-	public void init(File inFile)
-	{
-		//TODO : Write Function
-	}
-	
+
+	/**
+	 * Method doCard(Player player)- performs actions as specified in the constructor
+	 * @visibility : public
+	 * @param player a non null initialized Player who is a member of the current game
+	 */
 	public void doCard(Player player)
 	{
 		if (goOnNext != null)
