@@ -242,6 +242,7 @@ public class ConsoleUI implements IUI {
 	@Override
 	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type, boolean multipleSelection)
 	{
+		int numberOfChoosen=0;
 		int playerChoice=-1;
 		ArrayList<Offerable> tradeables;
 
@@ -275,8 +276,15 @@ public class ConsoleUI implements IUI {
 			playerChoice =utilGetSafeIntInput(0, tradeables.size());
 			if(playerChoice!=0)
 				offer.addToOffer(tradeables.get(playerChoice-1));
+			numberOfChoosen++;
 			if (!multipleSelection)
 					playerChoice=0; //To force single-selection
+			if(numberOfChoosen==tradeables.size())
+			{
+				displayMessage("you have choosen all your available assets");
+				break;
+			}
+			
 	
 		}
 	}
