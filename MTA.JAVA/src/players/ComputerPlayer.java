@@ -4,6 +4,7 @@
 package players;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.management.RuntimeErrorException;
 
@@ -87,8 +88,9 @@ public class ComputerPlayer extends Player {
 	}
 
 	private buyOffer makeBuyOffer(Asset asset) {//computer do not trade assets
-		buyOffer offer=new  buyOffer(this);
-		int offerMoney=asset.getRentPrice()/GameManager.NUMBER_OF_SQUARES;
+		buyOffer offer=new buyOffer(this);
+		int priceFactor = (new Random().nextInt((int)Math.sqrt(GameManager.NUMBER_OF_SQUARES)))+1;
+		int offerMoney=asset.getRentPrice()/priceFactor;
 		if(Balance -offerMoney>=BUY_THRESHHOLD)//otherwise offer nothing
 		{
 			offer.addToOffer(offerMoney);
@@ -130,7 +132,6 @@ public class ComputerPlayer extends Player {
 				maxIndex=index;
 			}
 			index++;
-		
 		}
 		return maxIndex;
 		

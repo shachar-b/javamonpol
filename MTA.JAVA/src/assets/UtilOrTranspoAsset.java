@@ -3,6 +3,8 @@
  */
 package assets;
 
+import javax.management.RuntimeErrorException;
+
 
 /**
  * @author Omer Shenhar and Shachar Butnaro
@@ -11,13 +13,11 @@ package assets;
 public class UtilOrTranspoAsset extends Asset {
 	
 	private int basicRental;
-	private int fullRental;
 	
 	public UtilOrTranspoAsset(AssetGroup group, String name, int cost, int basic, int full) {
 		super(group);
 		this.name=name;
 		basicRental=basic;
-		fullRental=full;
 		this.cost = cost;
 	}
 
@@ -27,7 +27,11 @@ public class UtilOrTranspoAsset extends Asset {
 	@Override
 	public int getRentPrice() {
 		if (group.isOfSoleOwnership())
-			return fullRental;
+			try {
+				return ((UtilOrTranspoAssetGroup)group).getFullRental();
+			} catch (ClassCastException e) {//could only get here if the class has been handled incorrectly- could not recover
+				throw new RuntimeErrorException(null,"The utility "+ this.name + " has been added to a non Utility object");
+			}			
 		else
 			return basicRental;
 	}

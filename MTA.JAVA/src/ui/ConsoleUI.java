@@ -143,7 +143,7 @@ public class ConsoleUI implements IUI {
 
 	
 	public int askNumericQuestion(String question, int lowerBound, int upperBound) {
-		displayMessage(question);
+		System.out.print(question+" Input: ");
 		return utilGetSafeIntInput(lowerBound, upperBound);
 	}
 
@@ -327,6 +327,7 @@ public class ConsoleUI implements IUI {
 		System.out.print("choose one or press zero: ");
 		return utilGetSafeIntInput(0, buyOffers.size())-1;
 	}
+	
 	private int utilGetSafeIntInput(int lowerBound, int upperBound)
 	{
 		Integer answer=Integer.MIN_VALUE;
@@ -345,7 +346,20 @@ public class ConsoleUI implements IUI {
 			}
 
 		}
+		sc.nextLine(); //To clear CR/LF from buffer
 		return answer;
+	}
+
+	@Override
+	public void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers) {
+		displayMessage("Starting game with " + numOfPlayers + " players, " + numOfComputerPlayers + " are computer controlled.");
+		displayMessage("Randomly setting playing order.\n");
+	}
+	
+	@Override
+	public void notifyPlayerIsBankrupt(Player player)
+	{
+		displayMessage(player.getName() + " does not have enough money, and can try to sell assets if he has any!");
 	}
 	
 }

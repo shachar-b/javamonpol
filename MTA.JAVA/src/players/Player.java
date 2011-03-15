@@ -53,7 +53,7 @@ public abstract class Player {
 		{
 			if(amount>Balance)
 			{
-				makeSellOffers();
+				makeSellOffers();//Player can try to sell assets to avoid going bankrupt.
 
 				if(amount>Balance) //Can have balance of zero - but not negative balance
 				{

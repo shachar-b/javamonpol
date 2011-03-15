@@ -77,4 +77,8 @@ public interface IUI {
 	public void notifyTradeCanceled(Player player);
 
 	public int chooseAnOffer(ArrayList<buyOffer> buyOffers);
+
+	public void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers);
+
+	public void notifyPlayerIsBankrupt(Player player);
 }
