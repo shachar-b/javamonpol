@@ -289,7 +289,7 @@ public class ConsoleUI implements IUI {
 			
 			if (!multipleSelection)
 					playerChoice=0; //To force single-selection
-			if(numberOfChoosen==tradeables.size())
+			else if(numberOfChoosen==tradeables.size())//do this only for multiple selection
 			{
 				displayMessage("you have choosen all your available assets");
 				break;
