@@ -9,6 +9,7 @@ import squares.Square;
 
 /**
  *  class ActionCard represent an action card in the monopoly game
+ *  @visibility public
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
