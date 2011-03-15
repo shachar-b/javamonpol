@@ -127,8 +127,6 @@ public class ConsoleUI implements IUI {
 	@Override
 	public void notifyPlayerMakesBuyOffer(Player buyer, Player seller,
 			Asset asset) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
