@@ -17,6 +17,8 @@ public class UtilOrTranspoAssetGroup extends AssetGroup {
 	int fullRental;
 	/** 
 	 * method UtilOrTranspoAssetGroup(String nameOfGroup, int priceForEntireGroup)
+	 * @visibility public
+	 * this is the constructor of class UtilOrTranspoAssetGroup 
 	 * @param nameOfGroup
 	 * @param priceForEntireGroup : A positive integer which depicts the rental price for
 	 *								a square in the group when whole of group is held by the same player.
@@ -26,6 +28,11 @@ public class UtilOrTranspoAssetGroup extends AssetGroup {
 		fullRental=priceForEntireGroup;
 	}
 	
+	/**
+	 * method int getFullRental()
+	 * @visibility public
+	 * @return the full rental price for a single asset in this group if it is of sole ownership
+	 */
 	public int getFullRental() {
 		return fullRental;
 	}

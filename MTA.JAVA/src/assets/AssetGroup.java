@@ -37,6 +37,26 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 		this.nameOfGroup = nameOfGroup;
 	}
 	
+	/**
+	 * method String getName() - get the name of the group
+	 * @visibility public 
+	 * @return the nameOfGroup - returns the name of the group
+	 */
+	public String getName() {
+		return nameOfGroup;
+	}
+
+	/**
+	 * method Asset get(int index) -get an Asset at an index
+	 * @visibility public
+	 * @param index - an index
+	 * @return the Asset in the index place
+	 */
+	public Asset get(int index)
+	{
+		return assetsInGroup.get(index);
+	}
+
 	/* (non-Javadoc)
 	 * @see assets.Offerable#getType()
 	 */
@@ -69,6 +89,16 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 
 
 
+
+	/* (non-Javadoc)
+	 * @see assets.Offerable#setOwner(players.Player)
+	 */
+	public void setOwner(Player owner){
+		for(Asset curr:assetsInGroup)
+		{
+			curr.setOwner(owner);
+		}
+	}
 
 	//collection functions
 	/* (non-Javadoc)
@@ -103,6 +133,9 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 		return assetsInGroup.contains(arg0);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Collection#containsAll(java.util.Collection)
+	 */
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
 		return assetsInGroup.containsAll(arg0);
@@ -172,43 +205,12 @@ public abstract class AssetGroup implements Collection<Asset>, Offerable {
 		return assetsInGroup.toArray(arg0);
 	}
 
-	/**
-	 * method Asset get(int index) -get an Asset at an index
-	 * @visibility public
-	 * @param index - an index
-	 * @return the Asset in the index place
-	 */
-	public Asset get(int index)
-	{
-		return assetsInGroup.get(index);
-	}
-
-
-	/**
-	 * method String getName() - get the name of the group
-	 * @visibility public 
-	 * @return the nameOfGroup - returns the name of the group
-	 */
-	public String getName() {
-		return nameOfGroup;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "name:"+nameOfGroup + " Contains: " +assetsInGroup.toString();
-	}
-	
-	/* (non-Javadoc)
-	 * @see assets.Offerable#setOwner(players.Player)
-	 */
-	public void setOwner(Player owner){
-		for(Asset curr:assetsInGroup)
-		{
-			curr.setOwner(owner);
-		}
 	}
 }
 

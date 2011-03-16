@@ -7,6 +7,10 @@ import javax.management.RuntimeErrorException;
 
 
 /**
+ * class UtilOrTranspoAsset extends Asset
+ * @see Asset
+ * @visibility public 
+ * Represents a utility or transport square in the monopoly game
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
@@ -14,7 +18,16 @@ public class UtilOrTranspoAsset extends Asset {
 	
 	private int basicRental;
 	
-	public UtilOrTranspoAsset(AssetGroup group, String name, int cost, int basic, int full) {
+	/**
+	 * method UtilOrTranspoAsset(AssetGroup group, String name, int cost, int basic)
+	 * @visibility public 
+	 * this is a constructor for class UtilOrTranspoAsset
+	 * @param group - a valid  non null UtilOrTranspoAssetGroup
+	 * @param name - the name of the group
+	 * @param cost - a non negative integer. the buy cost for the asset
+	 * @param basic - the basic rent for this Asset
+	 */
+	public UtilOrTranspoAsset(AssetGroup group, String name, int cost, int basic) {
 		super(group);
 		this.name=name;
 		basicRental=basic;

@@ -34,7 +34,7 @@ public class Monopoly
 
 	private void init()
 	{
-		Init gameInitializer = new Init();
+		MonopolyInitilizer gameInitializer = new Init();
 		//init players
 		gamePlayers = gameInitializer.initPlayers();
 		//init die

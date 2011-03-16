@@ -19,12 +19,24 @@ import assets.UtilOrTranspoAssetGroup;
 import cards.ActionCard;
 import cards.ShaffledDeck;
 
-public class Init{
+/**
+ * Init implements MonopolyInitilizer
+ * @visibility public
+ * @see MonopolyInitilizer
+ * a hard coded board Initializer
+ * @author Omer Shenhar and Shachar Butnaro
+ *
+ */
+public class Init implements MonopolyInitilizer{
 	
 	
 	 
 		
 	
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initPlayers()
+	 */
+	@Override
 	public ArrayList<Player> initPlayers()
 	{
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -43,6 +55,10 @@ public class Init{
 		return gamePlayers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initDie()
+	 */
+	@Override
 	public Dice[] initDie()
 	{
 		Dice[] die = new Dice[GameManager.NUM_OF_DIE];
@@ -54,6 +70,10 @@ public class Init{
 		return die;
 	}
 	
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initSurprise()
+	 */
+	@Override
 	public ShaffledDeck initSurprise()
 	{
 		ShaffledDeck surprise = new ShaffledDeck();
@@ -71,6 +91,10 @@ public class Init{
 		return surprise;
 	}
 	
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initCallUp()
+	 */
+	@Override
 	public ShaffledDeck initCallUp()
 	{
 		ShaffledDeck callUp = new ShaffledDeck();
@@ -87,16 +111,22 @@ public class Init{
 	}
 
 	
-	private UtilOrTranspoAssetGroup initUtilities()
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initUtilities()
+	 */
+	public UtilOrTranspoAssetGroup initUtilities()
 	{
 		return new UtilOrTranspoAssetGroup("Utilities", 800);
 	}
 	
-	private UtilOrTranspoAssetGroup initTransportation()
+	public UtilOrTranspoAssetGroup initTransportation()
 	{
 		return new UtilOrTranspoAssetGroup("Transportation", 800);
 	}
 	
+	/**
+	 * @return
+	 */
 	private ArrayList<Country> initCountries()
 	{
 		ArrayList<Country> countries = new ArrayList<Country>();
@@ -112,6 +142,11 @@ public class Init{
 		
 		return countries;
 	}
+	
+	/* (non-Javadoc)
+	 * @see monopoly.MonopolyInitilizer#initBoard()
+	 */
+	@Override
 	public ArrayList<Square> initBoard()
 	{
 		UtilOrTranspoAssetGroup utilities = initUtilities();
@@ -128,7 +163,7 @@ public class Init{
 		gameBoard.add(2,new City(countries.get(itrCountries),"Trencin",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
 		gameBoard.add(3, new ActionCardSquare(1) /*surprise*/);
-		gameBoard.add(4, new UtilOrTranspoAsset(transportation, "Jump Jets", 250, 150, 300));
+		gameBoard.add(4, new UtilOrTranspoAsset(transportation, "Jump Jets", 250, 150));
 		gameBoard.add(5,new City(countries.get(itrCountries),"London",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(6,new City(countries.get(itrCountries),"Wales",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(7,new City(countries.get(itrCountries),"Yorkshire",tempCostCity,tempCostHouse,temp));
@@ -139,8 +174,8 @@ public class Init{
 		gameBoard.add(11,new City(countries.get(itrCountries),"Lyon",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(12,new City(countries.get(itrCountries),"Toulouse",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
-		gameBoard.add(13, new UtilOrTranspoAsset(utilities, "Electricity Co.1", 250, 150, 300));
-		gameBoard.add(14, new UtilOrTranspoAsset(transportation, "Bus", 250, 150, 300));
+		gameBoard.add(13, new UtilOrTranspoAsset(utilities, "Electricity Co.1", 250, 150));
+		gameBoard.add(14, new UtilOrTranspoAsset(transportation, "Bus", 250, 150));
 		gameBoard.add(15,new City(countries.get(itrCountries),"Phuket",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(16,new City(countries.get(itrCountries),"Bangkok",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(17,new City(countries.get(itrCountries),"Yala",tempCostCity,tempCostHouse,temp));
@@ -151,7 +186,7 @@ public class Init{
 		gameBoard.add(21,new City(countries.get(itrCountries),"Jerusalem",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
 		gameBoard.add(22, new ActionCardSquare(-1)/*callUp*/);
-		gameBoard.add(23, new UtilOrTranspoAsset(transportation, "Plane1", 250, 150, 300));
+		gameBoard.add(23, new UtilOrTranspoAsset(transportation, "Plane1", 250, 150));
 		gameBoard.add(24,new City(countries.get(itrCountries),"Buenos Aires",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(25,new City(countries.get(itrCountries),"Mendoza",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(26,new City(countries.get(itrCountries),"Salta",tempCostCity,tempCostHouse,temp));
@@ -161,8 +196,8 @@ public class Init{
 		gameBoard.add(29,new City(countries.get(itrCountries),"Washington",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(30,new City(countries.get(itrCountries),"Las Vegas",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
-		gameBoard.add(31, new UtilOrTranspoAsset(utilities, "Electricity Co.2", 250, 150, 300));
-		gameBoard.add(32, new UtilOrTranspoAsset(transportation, "Plane2", 250, 150, 300));
+		gameBoard.add(31, new UtilOrTranspoAsset(utilities, "Electricity Co.2", 250, 150));
+		gameBoard.add(32, new UtilOrTranspoAsset(transportation, "Plane2", 250, 150));
 		gameBoard.add(33,new City(countries.get(itrCountries),"Manama",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(34,new City(countries.get(itrCountries),"Riffa",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(35,new City(countries.get(itrCountries),"Sitra",tempCostCity,tempCostHouse,temp));

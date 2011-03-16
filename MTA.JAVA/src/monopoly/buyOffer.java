@@ -11,11 +11,23 @@ import assets.AssetGroup;
 import assets.Offerable;
 
 /**
+ * class buyOffer implements Comparable<buyOffer>
+ * @see Comparable<buyOffer>
+ * @visibility public
+ * represents a buy offer in the bidding phase
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 public class buyOffer implements Comparable<buyOffer> {
 
+	/**
+	 * static enum  Answer
+	 * @visibility public
+	 * @see buyoffer
+	 * this is an enum for the use of buy offer. it says if an asset has been accepted or refused by the offer
+	 * @author Omer Shenhar and Shachar Butnaro
+	 *
+	 */
 	public static enum  Answers{
 		ACCEPTED,DECLINED
 	}
@@ -26,6 +38,12 @@ public class buyOffer implements Comparable<buyOffer> {
 	private Player offerMaker;
 
 
+	/**
+	 * method buyOffer(Player offerMaker)
+	 * @visibility public
+	 * this is a constructor for class buyOffer
+	 * @param offerMaker - a non null valid player
+	 */
 	public buyOffer(Player offerMaker) {
 		money=0;
 		assetGroups=new ArrayList<AssetGroup>();
@@ -34,12 +52,20 @@ public class buyOffer implements Comparable<buyOffer> {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * compares two offers by the money offered
 	 */
 	@Override
 	public  int compareTo(buyOffer other) {
 		return money-other.money;
 	}
 
+	/**
+	 * method Answers addToOffer(int amount)
+	 * @visibility public
+	 * adds a money amount to offer
+	 * @param amount - a number grater then 1
+	 * @return if(amount<1) DECLINED otherwise ACCEPTED
+	 */
 	public Answers addToOffer(int amount)
 	{
 		if(amount<1)
@@ -54,6 +80,13 @@ public class buyOffer implements Comparable<buyOffer> {
 	}
 	
 
+	/**
+	 * method Answers addToOffer(Offerable offer)
+	 * @visibility public
+	 * adds a Offerable asset or group to offer
+	 * @param offer - an non null Offerable
+	 * @return if(offer could be not sold) DECLINED otherwise ACCEPTED
+	 */
 	public Answers addToOffer(Offerable offer)
 	{
 		if(AssetGroup.class.isInstance(offer))
@@ -66,6 +99,13 @@ public class buyOffer implements Comparable<buyOffer> {
 		}
 	}
 
+	/**
+	 * method Answers addToOffer(AssetGroup group)
+	 * @visibility private
+	 * adds a AssetGroup to offer
+	 * @param group - an non null AssetGroup
+	 * @return if(group could be not sold) DECLINED otherwise ACCEPTED
+	 */
 	private Answers addGroupToOffer (AssetGroup group)
 	{
 		if (!group.isOfSoleOwnership())
@@ -79,6 +119,13 @@ public class buyOffer implements Comparable<buyOffer> {
 		}
 	}
 
+	/**
+	 * method Answers addToOffer(Asset asset)
+	 * @visibility private
+	 * adds a Asset to offer
+	 * @param asset - an non null AssetGroup
+	 * @return if(asset could be not sold) DECLINED otherwise ACCEPTED
+	 */
 	private Answers addAssetToOffer(Asset asset)
 	{
 		if (assetGroups.contains(asset.getGroup())) //can't offer an asset that is in a group already offered.
@@ -93,25 +140,57 @@ public class buyOffer implements Comparable<buyOffer> {
 		}
 	}
 
+	/**
+	 * method void combineWith(buyOffer otherOffer)
+	 * @visibility public
+	 * adds another offer into this offer (other offer is not changed)
+	 * @param otherOffer - a valid non null buyOffer
+	 */
 	public void combineWith(buyOffer otherOffer) {
 		money+=otherOffer.money;
 		assetGroups.addAll(otherOffer.assetGroups);
 		singleAssets.addAll(otherOffer.singleAssets);
 
 	}
+	/**
+	 * method int getMoney()
+	 * @visibility public
+	 * @return the amount of money in an offer (0 for non)
+	 */
 	public int getMoney() {
 		return money;
 	}
+	/**
+	 * method ArrayList<AssetGroup> getAssetGroups()
+	 * @visibility public
+	 * @return the list of AssetGroup in this offer(empty list for non)
+	 */
 	public ArrayList<AssetGroup> getAssetGroups() {
 		return assetGroups;
 	}
+	/**
+	 * method public ArrayList<Asset> getSingleAssets()
+	 * @visibility public
+	 * @return the list of Asset in this offer(empty list for non)
+	 */
 	public ArrayList<Asset> getSingleAssets() {
 		return singleAssets;
 	}
 
+	/**
+	 * method Player getOfferMaker()
+	 * @visibility public
+	 * @return the player who made this offer
+	 */
 	public Player getOfferMaker() {
 		return offerMaker;
 	}
+	/**
+	 * method void preform(Player player)
+	 * @visibility public
+	 * moves the money Assets and AssetGroup from to player
+	 * @param player - a valid non null player
+	 */
 	public void preform(Player player) {
 		
 		//money
@@ -134,11 +213,20 @@ public class buyOffer implements Comparable<buyOffer> {
 		
 		
 	}
+	/**
+	 * method boolean has(Offerable obj)
+	 * @visibility public
+	 * @param obj - a valid non null offerable
+	 * @return true if this obj is in the offer. false otherwise
+	 */
 	public boolean has(Offerable obj)
 	{
 		return assetGroups.contains(obj) || singleAssets.contains(obj);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return money+GameManager.MoneySign+" , the groups"+assetGroups +
