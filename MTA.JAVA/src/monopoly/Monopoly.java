@@ -151,11 +151,6 @@ public class Monopoly
 		gamePlayers.remove(p);
 	}
 
-	private void debtCollector()
-	{
-
-	}
-
 	public Player getPlayer(int index) throws IndexOutOfBoundsException
 	{
 		return getGamePlayers().get(index);
