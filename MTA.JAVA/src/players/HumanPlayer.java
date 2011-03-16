@@ -13,13 +13,17 @@ import assets.City;
 import assets.Offerable;
 
 /**
+ * class HumanPlayer extends Player
+ * @see Player
+ * @visibility public
+ * A human player in the Monopoly game.
  * @author Omer Shenhar and Shachar Butnaro
- *
  */
 public class HumanPlayer extends Player {
 
 	/**
-	 * 
+	 * Constructor for human player.
+	 * Gets a name from the UI and transfers it the the super constructor.
 	 */
 	public HumanPlayer() {
 		super(GameManager.CurrentUI.askName());
@@ -27,6 +31,7 @@ public class HumanPlayer extends Player {
 
 	/* (non-Javadoc)
 	 * @see players.Player#buyDecision(java.lang.String, assets.Asset, int)
+	 * Prompts the player to choose.
 	 */
 	@Override
 	public Boolean buyDecision(Asset asset) {
@@ -43,6 +48,10 @@ public class HumanPlayer extends Player {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#buyHouseDecision(assets.City)
+	 * Prompts the player to choose.
+	 */
 	@Override
 	public Boolean buyHouseDecision(City asset)
 	{
@@ -58,11 +67,19 @@ public class HumanPlayer extends Player {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#chooseToForfeit()
+	 * Prompts the player to choose.
+	 */
 	@Override
 	public boolean chooseToForfeit() {
 		return GameManager.CurrentUI.askYesNoQuestion("Would you like to forfeit?");		
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#hasGetOutOfJailFreeCard()
+	 * If player has a get out of jail free card, he is asked if he wants to use it.
+	 */
 	@Override
 	public boolean hasGetOutOfJailFreeCard()
 	{
@@ -71,6 +88,10 @@ public class HumanPlayer extends Player {
 		else return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#makeSellOffers()
+	 * Prompts the user for relevant choices when selling an asset/group.
+	 */
 	@Override
 	public void makeSellOffers()
 	{
@@ -127,6 +148,12 @@ public class HumanPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * method buyOffer makeBuyOffer()
+	 * @visibility private
+	 * Prompts the user to make a buy offer and returns the formulated offer. 
+	 * @return A buy offer made by the player.
+	 */
 	private buyOffer makeBuyOffer() {
 		buyOffer offer=new buyOffer(this);
 		if (GameManager.CurrentUI.askYesNoQuestion("Would you like to buy?"))
@@ -151,13 +178,21 @@ public class HumanPlayer extends Player {
 		return offer;
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#makeBuyOffer(assets.Offerable)
+	 * Outputs the asset's details and lets the user make an offer.
+	 */
 	@Override
 	public buyOffer makeBuyOffer(Offerable asset) {
-		GameManager.CurrentUI.notifyBidEvent((asset));
+		GameManager.CurrentUI.notifyBidEvent(asset);
 		return makeBuyOffer();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see players.Player#chooseWinningOffer(java.util.ArrayList)
+	 * Prompts the user to choose the winning offer.
+	 */
 	@Override
 	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) 
 	{

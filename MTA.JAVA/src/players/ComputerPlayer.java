@@ -16,8 +16,11 @@ import assets.City;
 import assets.Offerable;
 
 /**
+ * class ComputerPlayer extends Player
+ * @see Player
+ * @visibility public
+ * A computer player in the Monopoly game.
  * @author Omer Shenhar and Shachar Butnaro
- *
  */
 public class ComputerPlayer extends Player {
 
@@ -25,7 +28,8 @@ public class ComputerPlayer extends Player {
 	private static int generatedComputerNumber=1;
 
 	/**
-	 * 
+	 * Constructor for computer player.
+	 * Generated a name and sends to super constructor.
 	 */
 	public ComputerPlayer() {
 		super("Computer " + generatedComputerNumber);
@@ -34,6 +38,7 @@ public class ComputerPlayer extends Player {
 
 	/* (non-Javadoc)
 	 * @see players.Player#buyDecision(java.lang.String, assets.Asset, int)
+	 * If computer will be left with BUY_THRESHHOLD or more after buying - chooses to buy.
 	 */
 	@Override
 	public Boolean buyDecision(Asset asset) {
@@ -48,6 +53,10 @@ public class ComputerPlayer extends Player {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#buyHouseDecision(assets.City)
+	 * Same buying algorithm as an asset.
+	 */
 	@Override
 	public Boolean buyHouseDecision(City asset)
 	{
@@ -62,17 +71,27 @@ public class ComputerPlayer extends Player {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#chooseToForfeit()
+	 */
 	@Override
 	public boolean chooseToForfeit() {
 		return false; //Computer is not a quitter!
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#makeSellOffers()
+	 */
 	@Override
 	public void makeSellOffers() {
 		return; //Computer is not a sellout!
 
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#makeBuyOffer(assets.Offerable)
+	 * Calls the appropriate function for a computer player.
+	 */
 	@Override
 	public buyOffer makeBuyOffer(Offerable asset) {
 		switch (asset.getType()) {
@@ -81,13 +100,20 @@ public class ComputerPlayer extends Player {
 
 		case Assets:
 			return makeBuyOffer((Asset)asset);
-			
+
 		default: //Shouldn't get here
 			throw new RuntimeErrorException(null, "Unknown agrument for function \"notifyBidEvent\"");
 		}
 	}
 
-	private buyOffer makeBuyOffer(Asset asset) {//computer do not trade assets
+	/**
+	 * method buyOffer makeBuyOffer(Asset asset)
+	 * @visibility private
+	 * Generates a monetary value and adds it to a buy offer. Will not trade assets.
+	 * @param asset The asset being auctioned.
+	 * @return A formulated buy offer.
+	 */
+	private buyOffer makeBuyOffer(Asset asset) {//computer does not trade assets
 		buyOffer offer=new buyOffer(this);
 		int priceFactor = (new Random().nextInt((int)Math.sqrt(GameManager.NUMBER_OF_SQUARES)))+1;
 		int offerMoney=asset.getRentPrice()/priceFactor;
@@ -98,14 +124,20 @@ public class ComputerPlayer extends Player {
 		return offer;
 	}
 
+	/**
+	 * method buyOffer makeBuyOffer(AssetGroup group)
+	 * @visibility private
+	 * Generates a monetary value by summing up value of assets in group, and adds it to a buy offer.
+	 * @param group The group being auctioned.
+	 * @return A formulated buy offer.
+	 */
 	private buyOffer makeBuyOffer(AssetGroup group) {
-		
+
 		buyOffer offer=new buyOffer(this);
 		for(Asset asset:group)
 		{
 			offer.combineWith(makeBuyOffer(asset));
 		}
-		
 		if(Balance -offer.getMoney()>=BUY_THRESHHOLD)//otherwise offer nothing
 		{
 			return offer;
@@ -114,16 +146,20 @@ public class ComputerPlayer extends Player {
 		{
 			return new buyOffer(this);
 		}
-		
-		
 	}
 
+	/* (non-Javadoc)
+	 * @see players.Player#chooseWinningOffer(java.util.ArrayList)
+	 * 
+	 * Computer chooses the winning offer by choosing the offer with the largest
+	 * monetary offer made.
+	 */
 	@Override
 	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) {
 		int maxMoneyOffer=0;
 		int maxIndex=-1;
 		int index=0;
-		
+
 		for(buyOffer offer:buyOffers)
 		{
 			if(offer.getMoney()>maxMoneyOffer)
@@ -134,8 +170,6 @@ public class ComputerPlayer extends Player {
 			index++;
 		}
 		return maxIndex;
-		
-		
 	}
-
+	
 }
