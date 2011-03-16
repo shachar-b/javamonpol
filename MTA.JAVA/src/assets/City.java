@@ -3,13 +3,13 @@
  */
 package assets;
 
-import java.io.File;
-
 import monopoly.GameManager;
-
 import players.Player;
 
 /**
+ * class City extends Asset
+ * @see Asset
+ * @visibility public
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
@@ -19,8 +19,17 @@ public class City extends Asset {
 	private int numHouses;
 	private int costOfHouse;
 
+	
 	/**
-	 * @param group
+	 * method City(AssetGroup group, String name, int costOfCity ,int costOfHouse, int[] rentPrices)
+	 * @visibility public
+	 * this is the constructor for a city in the monopoly game
+	 * @param group - a valid non null Country which this City belongs to 
+	 * @param name - the name of the city
+	 * @param costOfCity - a non negative integer. the buy cost of the City  
+	 * @param costOfHouse - a non negative integer. cost for each house built
+	 * @param rentPrices - a array of size 4 were each of its cells is initilized to a non negative integer.
+	 * @pre costOfCity>0 &&costOfHouse>0 && rentPrices.size()==4 &&if(i<1) !rentPrices.contains(i)
 	 */
 	public City(AssetGroup group, String name, int costOfCity ,int costOfHouse, int[] rentPrices) {
 		super(group);
@@ -70,18 +79,28 @@ public class City extends Asset {
 		}
 	}
 
-	public void init(File inFile) {
-		//TODO : init city
-	}
 
+	/**
+	 * method int getNumHouses()
+	 * @visibility public
+	 * @return the number of houses in the city
+	 */
 	public int getNumHouses() {
 		return numHouses;
 	}
 
+	/**
+	 * method int getCostOfHouse()
+	 * @visibility public
+	 * @return the cost for a single house in the city
+	 */
 	public int getCostOfHouse() {
 		return costOfHouse;
 	}
 
+	/* (non-Javadoc)
+	 * @see assets.Asset#setOwner(players.Player)
+	 */
 	@Override
 	public void setOwner(Player owner)
 	{
