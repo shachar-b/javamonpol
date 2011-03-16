@@ -11,8 +11,6 @@ import cards.ActionCard;
 
 public abstract class Player {
 
-
-	//Variable list
 	protected String Name;
 	protected int Balance;
 	private int CurrentPosition;
@@ -20,34 +18,97 @@ public abstract class Player {
 	protected ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 
+	/**
+	 * Constructor for Player
+	 * @visibility public
+	 * Creates a new player and sets his position and balance, and makes him active.
+	 * @param name A String containing the name of the new player.
+	 */
 	public Player(String name) {
 		Name = name;
-		setCurrentPosition(GameManager.SquareIndex.START.getIndex());
+		setCurrentPosition(GameManager.START_SQ_LOCATION);
 		Balance=GameManager.INITAL_FUNDS;
 		GoOnNextTurn=true;
 	}	
 
+	/**
+	 * method Boolean equals(Player other)
+	 * @visibility public
+	 * Checks if two player instances are identical.
+	 * @param other A player to compare with.
+	 * @return true IFF both players have the exact same name.
+	 */
 	public Boolean equals(Player other)
 	{
 		return Name.equals(other.getName());		
 	}
 
+	/**
+	 * method abstract Boolean buyDecision(Asset asset)
+	 * @visibility public
+	 * Lets a player choose whether to buy an asset or not.
+	 * @param asset The asset that the player can buy
+	 * @return true IFF player decides to buy an asset
+	 */
 	public abstract Boolean buyDecision(Asset asset);
+	
+	/**
+	 * method abstract Boolean buyHouseDecision(City asset)
+	 * @visibility public
+	 * Lets a player choose whether to buy a house in a city or not.
+	 * @param asset The city the player is on.
+	 * @return true IFF player decides to buy a house.
+	 */
 	public abstract Boolean buyHouseDecision(City asset);
 
+	/**
+	 * method void setName(String name)
+	 * @visibility public
+	 * Setter for Name.
+	 * @param name A String containing the new name.
+	 */
 	public void setName(String name) {
 		Name = name;
 	}
+	
+	/**
+	 * method String getName()
+	 * @visibility public
+	 * Getter for Name.
+	 * @return A String containing the Player's name.
+	 */
 	public String getName() {
 		return Name;
 	}
+	
+	/**
+	 * method void setGoOnNextTurn(boolean goOnNextTurn)
+	 * @visibility public
+	 * Setter for GoOnNextTurn.
+	 * @param goOnNextTurn A boolean containing the new value for the field.
+	 */
 	public void setGoOnNextTurn(boolean goOnNextTurn) {
 		GoOnNextTurn = goOnNextTurn;
 	}
+	
+	/**
+	 * method boolean getGoOnNextTurn()
+	 * @visibility public
+	 * Getter for GoOnNextTurn.
+	 * @return A boolean containing the value of GoOnNextTurn.
+	 */
 	public boolean getGoOnNextTurn() {
 		return GoOnNextTurn;
 	}
 
+	/**
+	 * method int ChangeBalance(int amount, int sign)
+	 * @visibility public
+	 * Changes the 
+	 * @param amount
+	 * @param sign An int specifies the direction of the change (Add/Subtract)
+	 * @return the amount 
+	 */
 	public int ChangeBalance(int amount, int sign) {
 		if(sign==GameManager.SUBTRACT)
 		{

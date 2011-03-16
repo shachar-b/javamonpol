@@ -3,14 +3,10 @@
  */
 package squares;
 
-import java.io.File;
-
+import monopoly.GameManager;
+import players.Player;
 import cards.ActionCard;
 import cards.ShaffledDeck;
-
-import monopoly.GameManager;
-import monopoly.Monopoly;
-import players.Player;
 
 /**
  * public class ActionCardSquare extends Square

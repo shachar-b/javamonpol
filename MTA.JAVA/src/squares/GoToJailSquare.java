@@ -11,17 +11,16 @@ import players.Player;
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
-
 public class GoToJailSquare extends Square {
 
 	/* (non-Javadoc)
 	 * @see squares.Square#playerArrived(players.Player)
-	 * on player arrivel the player is thrown to jail
+	 * on player arrival the player is thrown to jail
 	 */
 	@Override
 	public void playerArrived(Player player) {
 		GameManager.CurrentUI.notifyPlayerLandsOnGoToJail(player);
-		//TODO : CHECK FOR BUGS
+		//Don't be stupid: CHECK FOR BUGS (V1.0)
 		player.setGoOnNextTurn(false);
 		GameManager.currentGame.gotoNextSquareOfType(player, JailSlashFreePassSquare.class, false);
 	}
