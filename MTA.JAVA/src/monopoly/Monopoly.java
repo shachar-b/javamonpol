@@ -1,6 +1,3 @@
-/**
- * 
- */
 package monopoly;
 
 import java.util.ArrayList;
@@ -19,13 +16,6 @@ import cards.ShaffledDeck;
  */
 public class Monopoly
 {
-	public static void main(String[] args) {
-		Monopoly game = new Monopoly();
-		GameManager.currentGame = game;
-		game.init();
-		game.play();
-	}
-
 	private ConsoleUI userInterface = (ConsoleUI) GameManager.CurrentUI;
 	private ArrayList<Player> gamePlayers;
 	private Dice[] die; 
@@ -35,10 +25,10 @@ public class Monopoly
 
 
 	/**
-	 * method private void init
+	 * method void init (package protected)
 	 * this method initializes the game data members
 	 */
-	private void init()
+	void init()
 	{
 		MonopolyInitilizer gameInitializer = new Init();
 		//init players
