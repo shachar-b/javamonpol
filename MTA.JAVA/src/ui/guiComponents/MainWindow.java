@@ -7,8 +7,18 @@ package ui.guiComponents;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import com.jgoodies.forms.factories.*;
-import com.jgoodies.forms.layout.*;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+import ui.guiComponents.dialogs.EntryDialog;
+import ui.guiComponents.dialogs.ExitDiaglog;
+
+import com.jgoodies.forms.factories.Borders;
 
 /**
  * @author Shachar
@@ -18,56 +28,98 @@ public class MainWindow extends JFrame {
 		initComponents();
 	}
 
+	private void menuItem1ActionPerformed(ActionEvent e) {
+		JDialog aboutDialog = new ui.guiComponents.dialogs.aboutDialog(this);
+		aboutDialog.setVisible(true);
+	}
+
 	private void menu1ActionPerformed(ActionEvent e) {
 		// TODO add your code here
+	}
+
+	private void menuItem1MouseClicked(MouseEvent e) {
+		// TODO add your code here
+	}
+
+	private void NewGameActionPerformed(ActionEvent e) {
+		JDialog newGameDialog = new EntryDialog(this);
+		newGameDialog.setVisible(true);
+	}
+
+	private void ExitActionPerformed(ActionEvent e) {
+		JDialog exitGameDialog = new ExitDiaglog(this);
+		exitGameDialog.setVisible(true);
 	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		menuBar1 = new JMenuBar();
-		menu1 = new JMenu();
-		menuItem2 = new JMenuItem();
-		menuItem3 = new JMenuItem();
-		menu2 = new JMenu();
-		menuItem1 = new JMenuItem();
+		FileMenu = new JMenu();
+		NewGame = new JMenuItem();
+		Exit = new JMenuItem();
+		HelpMenu = new JMenu();
+		About = new JMenuItem();
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 
 		//======== this ========
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
 		//======== menuBar1 ========
 		{
 
-			//======== menu1 ========
+			//======== FileMenu ========
 			{
-				menu1.setText("File");
-				menu1.addActionListener(new ActionListener() {
+				FileMenu.setText("File");
+				FileMenu.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						menu1ActionPerformed(e);
 					}
 				});
 
-				//---- menuItem2 ----
-				menuItem2.setText("New Game");
-				menu1.add(menuItem2);
+				//---- NewGame ----
+				NewGame.setText("New Game");
+				NewGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						NewGameActionPerformed(e);
+					}
+				});
+				FileMenu.add(NewGame);
 
-				//---- menuItem3 ----
-				menuItem3.setText("Exit");
-				menu1.add(menuItem3);
+				//---- Exit ----
+				Exit.setText("Exit");
+				Exit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ExitActionPerformed(e);
+					}
+				});
+				FileMenu.add(Exit);
 			}
-			menuBar1.add(menu1);
+			menuBar1.add(FileMenu);
 
-			//======== menu2 ========
+			//======== HelpMenu ========
 			{
-				menu2.setText("Help");
+				HelpMenu.setText("Help");
 
-				//---- menuItem1 ----
-				menuItem1.setText("About");
-				menu2.add(menuItem1);
+				//---- About ----
+				About.setText("About");
+				About.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()|KeyEvent.SHIFT_MASK));
+				About.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						menuItem1ActionPerformed(e);
+					}
+				});
+				About.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						menuItem1MouseClicked(e);
+					}
+				});
+				HelpMenu.add(About);
 			}
-			menuBar1.add(menu2);
+			menuBar1.add(HelpMenu);
 		}
 		setJMenuBar(menuBar1);
 
@@ -90,11 +142,11 @@ public class MainWindow extends JFrame {
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
 	private JMenuBar menuBar1;
-	private JMenu menu1;
-	private JMenuItem menuItem2;
-	private JMenuItem menuItem3;
-	private JMenu menu2;
-	private JMenuItem menuItem1;
+	private JMenu FileMenu;
+	private JMenuItem NewGame;
+	private JMenuItem Exit;
+	private JMenu HelpMenu;
+	private JMenuItem About;
 	private JPanel dialogPane;
 	private JPanel contentPanel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
