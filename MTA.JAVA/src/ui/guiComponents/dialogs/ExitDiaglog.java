@@ -32,12 +32,7 @@ public class ExitDiaglog extends JDialog {
 	}
 
 	private void QuitGameActionPerformed(ActionEvent e) {
-		try {
-			MainWindow mainW = (MainWindow) getParent();
-			mainW.dispose();			
-		} catch (ClassCastException exception) {
-			throw new RuntimeException("Procedure QuitGameActionPerformed called from unauthorized location.");
-		}
+		System.exit(0);
 		
 	}
 
