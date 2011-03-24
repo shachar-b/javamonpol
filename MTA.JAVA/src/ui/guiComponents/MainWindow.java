@@ -51,6 +51,11 @@ public class MainWindow extends JFrame {
 		exitGameDialog.setVisible(true);
 	}
 
+	private void thisWindowClosing(WindowEvent e) {
+		JDialog exitGameDialog = new ExitDiaglog(this);
+		exitGameDialog.setVisible(true);
+	}
+
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		menuBar1 = new JMenuBar();
@@ -63,7 +68,13 @@ public class MainWindow extends JFrame {
 		contentPanel = new JPanel();
 
 		//======== this ========
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				thisWindowClosing(e);
+			}
+		});
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
@@ -92,6 +103,7 @@ public class MainWindow extends JFrame {
 				Exit.setText("Exit");
 				Exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						ExitActionPerformed(e);
 						ExitActionPerformed(e);
 					}
 				});
