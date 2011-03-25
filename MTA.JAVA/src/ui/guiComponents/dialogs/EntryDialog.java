@@ -5,14 +5,22 @@
 package ui.guiComponents.dialogs;
 
 import java.awt.*;
+import java.beans.*;
+import java.util.ArrayList;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+import com.jgoodies.forms.layout.*;
+
+import monopoly.GameManager;
 
 /**
  * @author Shachar
  */
 public class EntryDialog extends JDialog {
+	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public EntryDialog(Frame owner) {
 		super(owner);
 		initComponents();
@@ -23,11 +31,29 @@ public class EntryDialog extends JDialog {
 		initComponents();
 	}
 
+	private void changeTable()
+	{
+		int numOfHumens=(totalSlider.getValue()-computersSlider.getValue());
+		int i=0;
+		for(JTextField curr:names)
+		{
+				curr.setVisible(i<numOfHumens);	
+				i++;
+		}
+	}
 	private void totalSliderStateChanged(ChangeEvent e) {
 		computersSlider.setMaximum(totalSlider.getValue());
 		computersSlider.validate();
 		computersSlider.repaint();
 	}
+
+	private void computersSliderStateChanged(ChangeEvent e) {
+		changeTable();
+		this.validate();
+		this.repaint();
+		this.pack();
+	}
+
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -43,6 +69,7 @@ public class EntryDialog extends JDialog {
 		helpButton = new JButton();
 
 		//======== this ========
+		setResizable(false);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
@@ -99,6 +126,11 @@ public class EntryDialog extends JDialog {
 				computersSlider.setPaintTicks(true);
 				computersSlider.setMinorTickSpacing(1);
 				computersSlider.setMajorTickSpacing(1);
+				computersSlider.addChangeListener(new ChangeListener() {
+					public void stateChanged(ChangeEvent e) {
+						computersSliderStateChanged(e);
+					}
+				});
 				contentPanel.add(computersSlider, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 5, 0), 0, 0));
@@ -136,6 +168,18 @@ public class EntryDialog extends JDialog {
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+		//added code
+		for(int i=0; i<GameManager.MAX_NUMBER_OF_PLAYERS; i++)
+		{
+			JTextField curr=new JTextField("HumaPlayer"+(i+1));
+			names.add(curr);
+			contentPanel.add(curr, new GridBagConstraints(0, 2+i, 1, 1, 0.0, 0.0,
+					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+					new Insets(0, 0, 5, 5), 0, 0));
+			curr.setVisible(false);
+			
+		}
+		this.pack();
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
