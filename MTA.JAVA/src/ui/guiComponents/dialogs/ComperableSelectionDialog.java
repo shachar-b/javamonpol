@@ -7,9 +7,6 @@ package ui.guiComponents.dialogs;
 
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +22,10 @@ import assets.Offerable;
  */
 public class ComperableSelectionDialog extends JDialog {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private buyOffer res;
 	private ButtonGroup group ;
 	private JButton submit= new JButton("submit");
@@ -52,65 +53,61 @@ public class ComperableSelectionDialog extends JDialog {
 
 	private void initComponents(Collection<Offerable> assets, Collection<Offerable> Groups,buyOffer res,boolean IsSingelSelection) {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		moneySelection = new JSlider();
+		tabbedPane1 = new JTabbedPane();
+		panel1 = new JPanel();
+		panel2 = new JPanel();
+		panel3 = new JPanel();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		Container contentPane = getContentPane();
-		contentPane.setLayout(new FlowLayout());
-		group= new ButtonGroup();
-		JToggleButton curr;
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//Don't cancel
-		JPanel groupsPanel = new JPanel(new GridLayout(0,2));
-		JPanel AssetPanel = new JPanel(new GridLayout(0, 2));
-		for(Offerable currentAsset: assets)
-		{	
-			curr=new JCheckBox(currentAsset.getName(),false);
-			inner.put(curr,currentAsset);
-			if(IsSingelSelection)
-			{
-				group.add(curr);
-			}
-			AssetPanel.add(curr);
-		}
-		for(Offerable currentAsset: Groups)
-		{	
-			
-			
-			if(IsSingelSelection)
-			{
-				curr=new JRadioButton(currentAsset.getName(),false);
-				group.add(curr);
-			}
-			else
-			{
-				curr=new JCheckBox(currentAsset.getName(),false);
-			}
-			inner.put(curr,currentAsset);
-			groupsPanel.add(curr);
-		}
-	
-		contentPane.add(AssetPanel);
-		contentPane.add(groupsPanel);
-		contentPane.add(moneySelection);
-		contentPane.add(submit);
-	
 
-		//---- moneySelection ----
-		moneySelection.setPaintTicks(true);
-		moneySelection.setSnapToTicks(true);
-		moneySelection.setPaintLabels(true);
-		moneySelection.setMinorTickSpacing(1);
-		moneySelection.setMajorTickSpacing((res.getOfferMaker().getBalance()/10)+1);
-		moneySelection.setMaximum(res.getOfferMaker().getBalance()-1);
-		moneySelection.setValue(0);
-		contentPane.add(moneySelection);
+		//======== tabbedPane1 ========
+		{
+
+			//======== panel1 ========
+			{
+				panel1.setLayout(new BorderLayout());
+			}
+			tabbedPane1.addTab("add money", panel1);
+
+
+			//======== panel2 ========
+			{
+				panel2.setLayout(new BorderLayout());
+			}
+			tabbedPane1.addTab("add single Assets", panel2);
+
+
+			//======== panel3 ========
+			{
+				panel3.setLayout(new BorderLayout());
+			}
+			tabbedPane1.addTab("add assetGroups", panel3);
+
+		}
+
+		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+		contentPane.setLayout(contentPaneLayout);
+		contentPaneLayout.setHorizontalGroup(
+			contentPaneLayout.createParallelGroup()
+				.addComponent(tabbedPane1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE)
+		);
+		contentPaneLayout.setVerticalGroup(
+			contentPaneLayout.createParallelGroup()
+				.addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+					.addComponent(tabbedPane1, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JSlider moneySelection;
+	private JTabbedPane tabbedPane1;
+	private JPanel panel1;
+	private JPanel panel2;
+	private JPanel panel3;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

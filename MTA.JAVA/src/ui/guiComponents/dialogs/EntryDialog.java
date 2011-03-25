@@ -21,6 +21,8 @@ import monopoly.GameManager;
  */
 public class EntryDialog extends JDialog {
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
+	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
+	
 	public EntryDialog(Frame owner) {
 		super(owner);
 		initComponents();
@@ -34,11 +36,11 @@ public class EntryDialog extends JDialog {
 	private void changeTable()
 	{
 		int numOfHumens=(totalSlider.getValue()-computersSlider.getValue());
-		int i=0;
-		for(JTextField curr:names)
+		
+		for(int i=0;i<names.size(); i++)
 		{
-				curr.setVisible(i<numOfHumens);	
-				i++;
+				namesLabels.get(i).setVisible(i<numOfHumens);
+				names.get(i).setVisible(i<numOfHumens);	
 		}
 	}
 	private void totalSliderStateChanged(ChangeEvent e) {
@@ -172,11 +174,17 @@ public class EntryDialog extends JDialog {
 		for(int i=0; i<GameManager.MAX_NUMBER_OF_PLAYERS; i++)
 		{
 			JTextField curr=new JTextField("HumaPlayer"+(i+1));
+			JLabel currLabel= new JLabel("name for human player"+(i+1)+":");
 			names.add(curr);
-			contentPanel.add(curr, new GridBagConstraints(0, 2+i, 1, 1, 0.0, 0.0,
+			namesLabels.add(currLabel);
+			contentPanel.add(currLabel, new GridBagConstraints(0, 2+i, 1, 1, 0.0, 0.0,
+					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+					new Insets(0, 0, 5, 5), 0, 0));
+			contentPanel.add(curr, new GridBagConstraints(1, 2+i, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 5, 5), 0, 0));
 			curr.setVisible(false);
+			currLabel.setVisible(false);
 			
 		}
 		this.pack();
