@@ -4,15 +4,26 @@
 
 package ui.guiComponents.dialogs;
 
-import java.awt.*;
-import java.beans.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dialog;
+import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Map;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import com.jgoodies.forms.layout.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import monopoly.GameManager;
 
@@ -20,6 +31,10 @@ import monopoly.GameManager;
  * @author Shachar
  */
 public class EntryDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
 	
@@ -54,6 +69,11 @@ public class EntryDialog extends JDialog {
 		this.validate();
 		this.repaint();
 		this.pack();
+	}
+
+	private void GameInstructionsButtonMouseClicked(MouseEvent e) {
+		GameInstructionsDialog diag=new GameInstructionsDialog(this);
+		diag.setVisible(true);
 	}
 
 
@@ -160,6 +180,12 @@ public class EntryDialog extends JDialog {
 
 				//---- helpButton ----
 				helpButton.setText("Game Instructions");
+				helpButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						GameInstructionsButtonMouseClicked(e);
+					}
+				});
 				buttonBar.add(helpButton, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 0, 0), 0, 0));
