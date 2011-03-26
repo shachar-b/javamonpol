@@ -322,6 +322,14 @@
             <void property="name"> 
              <string>helpButton</string> 
             </void> 
+            <void method="addEvent"> 
+             <object class="com.jformdesigner.model.FormEvent"> 
+              <string>java.awt.event.MouseListener</string> 
+              <string>mouseClicked</string> 
+              <string>GameInstructionsButtonMouseClicked</string> 
+              <boolean>true</boolean> 
+             </object> 
+            </void> 
            </object> 
            <object class="com.jformdesigner.model.FormLayoutConstraints"> 
             <class>com.jformdesigner.runtime.GridBagConstraintsEx</class> 
