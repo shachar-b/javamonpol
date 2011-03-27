@@ -113,7 +113,7 @@ public class OfferMakerDialog extends JDialog {
 		});
 		
 		
-		this.setTitle("what do you want to offer " +((IsSingelSelection)?("to "+res.getOfferMaker().getName()+"?"):"for sale?"));
+		this.setTitle("hey "+res.getOfferMaker().getName()+" ,what do you want to offer for sale?");
 		
 		
 	}
