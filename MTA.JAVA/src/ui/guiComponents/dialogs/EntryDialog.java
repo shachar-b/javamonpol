@@ -115,8 +115,6 @@ public class EntryDialog extends JDialog {
 					new Insets(0, 0, 5, 5), 0, 0));
 
 				//---- totalSlider ----
-				totalSlider.setMaximum(6);
-				totalSlider.setMinimum(2);
 				totalSlider.setMajorTickSpacing(1);
 				totalSlider.setMinorTickSpacing(1);
 				totalSlider.setPaintLabels(true);
@@ -140,7 +138,6 @@ public class EntryDialog extends JDialog {
 					new Insets(0, 0, 5, 5), 0, 0));
 
 				//---- computersSlider ----
-				computersSlider.setMaximum(6);
 				computersSlider.setValue(6);
 				computersSlider.setToolTipText("Total number of computer players is between 0 to all players.");
 				computersSlider.setSnapToTicks(true);
@@ -197,6 +194,15 @@ public class EntryDialog extends JDialog {
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		//added code
+		
+		totalSlider.setMaximum(GameManager.MAX_NUMBER_OF_PLAYERS);
+		totalSlider.setMinimum(GameManager.MIN_NUMBER_OF_PLAYERS);
+		totalSlider.setValue(GameManager.MAX_NUMBER_OF_PLAYERS);
+		computersSlider.setMaximum(GameManager.MAX_NUMBER_OF_PLAYERS);
+		computersSlider.setMinimum(0);
+		computersSlider.setValue(GameManager.MAX_NUMBER_OF_PLAYERS);
+		
+		
 		for(int i=0; i<GameManager.MAX_NUMBER_OF_PLAYERS; i++)
 		{
 			JTextField curr=new JTextField("HumaPlayer"+(i+1));
