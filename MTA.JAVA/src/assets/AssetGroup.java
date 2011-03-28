@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import InnerChangeListner.InnerChangeListenableClass;
+
 import monopoly.GameManager;
 
 import players.Player;
@@ -18,7 +20,7 @@ import ui.OfferType;
  *
  */
 
-public abstract class AssetGroup implements Collection<Asset>, Offerable {
+public abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable {
 
 	
 	protected ArrayList<Asset> assetsInGroup;

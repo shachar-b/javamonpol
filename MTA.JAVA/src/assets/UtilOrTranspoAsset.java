@@ -5,6 +5,9 @@ package assets;
 
 import javax.management.RuntimeErrorException;
 
+import InnerChangeListner.InnerChangeEventListner;
+import InnerChangeListner.InnerChangeEvet;
+
 
 /**
  * class UtilOrTranspoAsset extends Asset
@@ -32,8 +35,21 @@ public class UtilOrTranspoAsset extends Asset {
 		this.name=name;
 		basicRental=basic;
 		this.cost = cost;
+		group.addInnerChangeEventListner(new InnerChangeEventListner() {
+			
+			@Override
+			public void eventHappened(InnerChangeEvet innerChangeEvet) {
+				fireEvent("update");
+				
+			}
+		});
 	}
-
+	
+	public int getBasicRent()
+	{
+		return basicRental;
+	}
+	
 	/* (non-Javadoc)
 	 * @see assets.Asset#getRentPrice()
 	 */
@@ -47,5 +63,9 @@ public class UtilOrTranspoAsset extends Asset {
 			}			
 		else
 			return basicRental;
+	}
+	protected void update()
+	{
+		this.fireEvent("an item of this group has changed owner update all");
 	}
 }

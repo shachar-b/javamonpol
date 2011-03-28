@@ -1,5 +1,6 @@
 package InnerChangeListner;
 
+import java.awt.Event;
 import java.awt.List;
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ public abstract class InnerChangeListenableClass {
 			listener.eventHappened(new InnerChangeEvet(this, message));
 		}
 	}
+
 
 
 }
