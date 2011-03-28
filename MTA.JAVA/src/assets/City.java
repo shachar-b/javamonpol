@@ -108,5 +108,12 @@ public class City extends Asset {
 		if (owner==GameManager.assetKeeper) //Player has been removed from game.
 			numHouses=0;
 	}
+	/**
+	 * @return a array of prices in the city where ret[i] is the price with i houses
+	 */
+	public int[] getPrices()
+	{
+		return rentPrice.clone();
+	}
 
 }
