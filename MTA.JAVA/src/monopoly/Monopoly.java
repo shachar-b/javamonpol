@@ -213,4 +213,8 @@ public class Monopoly
 	public ShaffledDeck getCallUp() {
 		return callUp;
 	}
+	
+	public ArrayList<Square> getGameBoard(){
+		return gameBoard;
+	}
 }

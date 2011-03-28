@@ -95,7 +95,7 @@ public class OfferMakerDialog extends JDialog {
 		}
 		if(!Groups.isEmpty())
 		{
-			OfferPane.addTab("add Assats Groups",GroupPane);
+			OfferPane.addTab("add Asset Groups",GroupPane);
 		}
 		OfferPane.addTab("add single Assets",SinglesPane);
 		this.add(buttonPane,BorderLayout.SOUTH);

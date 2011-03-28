@@ -4,9 +4,15 @@
 
 package ui.guiComponents;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -14,11 +20,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
+import monopoly.GameManager;
+import ui.guiComponents.Squares.AssetSquarePanel;
+import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
-
-import com.jgoodies.forms.factories.Borders;
+import ui.utils.Utils;
+import assets.City;
+import assets.Country;
 
 /**
  * @author Shachar
@@ -30,19 +42,15 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
+		int[] rentPrices = {1,2,3,4};
+		SquarePanel blah = new AssetSquarePanel(new City(new Country("ABC"), "CITY", 100, 90, rentPrices));
+		this.getContentPane().add(blah);
+		blah.addPlayer(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"playerIcons/Car.gif"));
 	}
 
 	private void menuItem1ActionPerformed(ActionEvent e) {
 		JDialog aboutDialog = new ui.guiComponents.dialogs.aboutDialog(this);
 		aboutDialog.setVisible(true);
-	}
-
-	private void menu1ActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
-
-	private void menuItem1MouseClicked(MouseEvent e) {
-		// TODO add your code here
 	}
 
 	private void NewGameActionPerformed(ActionEvent e) {
@@ -68,7 +76,6 @@ public class MainWindow extends JFrame {
 		Exit = new JMenuItem();
 		HelpMenu = new JMenu();
 		About = new JMenuItem();
-		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 
 		//======== this ========
@@ -88,11 +95,6 @@ public class MainWindow extends JFrame {
 			//======== FileMenu ========
 			{
 				FileMenu.setText("File");
-				FileMenu.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						menu1ActionPerformed(e);
-					}
-				});
 
 				//---- NewGame ----
 				NewGame.setText("New Game");
@@ -107,7 +109,6 @@ public class MainWindow extends JFrame {
 				Exit.setText("Exit");
 				Exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ExitActionPerformed(e);
 						ExitActionPerformed(e);
 					}
 				});
@@ -127,30 +128,17 @@ public class MainWindow extends JFrame {
 						menuItem1ActionPerformed(e);
 					}
 				});
-				About.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						menuItem1MouseClicked(e);
-					}
-				});
 				HelpMenu.add(About);
 			}
 			menuBar1.add(HelpMenu);
 		}
 		setJMenuBar(menuBar1);
 
-		//======== dialogPane ========
+		//======== contentPanel ========
 		{
-			dialogPane.setBorder(Borders.DIALOG_BORDER);
-			dialogPane.setLayout(new BorderLayout());
-
-			//======== contentPanel ========
-			{
-				contentPanel.setLayout(new FlowLayout());
-			}
-			dialogPane.add(contentPanel, BorderLayout.CENTER);
+			contentPanel.setLayout(new FlowLayout());
 		}
-		contentPane.add(dialogPane, BorderLayout.CENTER);
+		contentPane.add(contentPanel, BorderLayout.NORTH);
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -163,7 +151,6 @@ public class MainWindow extends JFrame {
 	private JMenuItem Exit;
 	private JMenu HelpMenu;
 	private JMenuItem About;
-	private JPanel dialogPane;
 	private JPanel contentPanel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

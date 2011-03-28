@@ -21,6 +21,7 @@ public class GameManager {
 	public static final Player assetKeeper = null; //This is the "Kupa"
 	public static final String MoneySign = "$"; //This is the currency symbol
 	public static Monopoly currentGame;
+	public static final String IMAGES_FOLDER = "res/images/";
 	
 	
 
