@@ -28,39 +28,17 @@
        <object class="com.jformdesigner.model.FormContainer"> 
         <string>javax.swing.JPanel</string> 
         <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>java.awt.BorderLayout</class> 
+         <class>java.awt.FlowLayout</class> 
         </object> 
-        <void method="setProperty"> 
-         <string>border</string> 
-         <object class="com.jgoodies.forms.factories.Borders" field="DIALOG_BORDER"/> 
-        </void> 
         <void property="name"> 
-         <string>dialogPane</string> 
-        </void> 
-        <void method="add"> 
-         <object class="com.jformdesigner.model.FormContainer"> 
-          <string>javax.swing.JPanel</string> 
-          <object class="com.jformdesigner.model.FormLayoutManager"> 
-           <class>java.awt.FlowLayout</class> 
-          </object> 
-          <void property="name"> 
-           <string>contentPanel</string> 
-          </void> 
-         </object> 
-         <object class="com.jformdesigner.model.FormLayoutConstraints"> 
-          <class>java.lang.String</class> 
-          <void method="setProperty"> 
-           <string>value</string> 
-           <string>Center</string> 
-          </void> 
-         </object> 
+         <string>contentPanel</string> 
         </void> 
        </object> 
        <object class="com.jformdesigner.model.FormLayoutConstraints"> 
         <class>java.lang.String</class> 
         <void method="setProperty"> 
          <string>value</string> 
-         <string>Center</string> 
+         <string>North</string> 
         </void> 
        </object> 
       </void> 
@@ -82,14 +60,6 @@
           <void method="setProperty"> 
            <string>text</string> 
            <string>File</string> 
-          </void> 
-          <void method="addEvent"> 
-           <object class="com.jformdesigner.model.FormEvent"> 
-            <string>java.awt.event.ActionListener</string> 
-            <string>actionPerformed</string> 
-            <string>menu1ActionPerformed</string> 
-            <boolean>true</boolean> 
-           </object> 
           </void> 
           <void property="name"> 
            <string>FileMenu</string> 
@@ -123,14 +93,6 @@
             </void> 
             <void property="name"> 
              <string>Exit</string> 
-            </void> 
-            <void method="addEvent"> 
-             <object class="com.jformdesigner.model.FormEvent"> 
-              <string>java.awt.event.ActionListener</string> 
-              <string>actionPerformed</string> 
-              <string>ExitActionPerformed</string> 
-              <boolean>true</boolean> 
-             </object> 
             </void> 
             <void method="addEvent"> 
              <object class="com.jformdesigner.model.FormEvent"> 
@@ -180,14 +142,6 @@
               <string>java.awt.event.ActionListener</string> 
               <string>actionPerformed</string> 
               <string>menuItem1ActionPerformed</string> 
-              <boolean>true</boolean> 
-             </object> 
-            </void> 
-            <void method="addEvent"> 
-             <object class="com.jformdesigner.model.FormEvent"> 
-              <string>java.awt.event.MouseListener</string> 
-              <string>mouseClicked</string> 
-              <string>menuItem1MouseClicked</string> 
               <boolean>true</boolean> 
              </object> 
             </void> 
