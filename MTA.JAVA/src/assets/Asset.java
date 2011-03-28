@@ -100,6 +100,8 @@ public abstract class Asset extends Square implements Offerable{
 		if(newOwner!=GameManager.assetKeeper)
 			newOwner.addToAssetList(this);
 		this.owner = newOwner;
+		
+		fireEvent("owner changed at "+this.getName()); //notify of a change
 	}
 
 	/**

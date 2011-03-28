@@ -5,12 +5,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.JFrame;
 
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
+import ui.guiComponents.dialogs.OfferMakerDialog;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -287,7 +289,9 @@ public class ConsoleUI implements IUI {
 		int numberOfChoosen=0;
 		int playerChoice=-1;
 		ArrayList<Offerable> tradeables;
-
+		OfferMakerDialog diag=new OfferMakerDialog(new JFrame(), player.tradeableAssets(), player.tradeableGroups(), offer, !multipleSelection);
+		diag.setVisible(true);
+		
 		switch (type) {
 		case Groups:
 			tradeables=player.tradeableGroups();

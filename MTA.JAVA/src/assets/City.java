@@ -69,6 +69,8 @@ public class City extends Asset {
 							player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
 							numHouses++;
 							GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
+							fireEvent("user bought house at "+this.getName()); // if anything changed notify Listeners
+
 						}
 					}
 				}
@@ -105,8 +107,13 @@ public class City extends Asset {
 	public void setOwner(Player owner)
 	{
 		super.setOwner(owner);
-		if (owner==GameManager.assetKeeper) //Player has been removed from game.
+		if (owner==GameManager.assetKeeper) //Player has been removed from game.	
+		{
 			numHouses=0;
+			fireEvent("house demolished at "+this.getName()); // if anything changed notify
+		}
+		
+		
 	}
 	/**
 	 * @return a array of prices in the city where ret[i] is the price with i houses
