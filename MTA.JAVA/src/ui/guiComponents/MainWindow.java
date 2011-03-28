@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,14 +25,21 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
+import players.ComputerPlayer;
+import players.HumanPlayer;
+import players.Player;
+
 import monopoly.GameManager;
+import monopoly.buyOffer;
 import ui.guiComponents.Squares.AssetSquarePanel;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
 import ui.utils.Utils;
+import assets.Asset;
 import assets.City;
 import assets.Country;
+import assets.Offerable;
 
 /**
  * @author Shachar
@@ -43,7 +52,8 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		initComponents();
 		int[] rentPrices = {1,2,3,4};
-		SquarePanel blah = new AssetSquarePanel(new City(new Country("ABC"), "CITY", 100, 90, rentPrices));
+		City s= new City(new Country("ABC"), "CITY", 100, 90, rentPrices);
+		SquarePanel blah = new AssetSquarePanel(s);
 		this.getContentPane().add(blah);
 		blah.addPlayer(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"playerIcons/Car.gif"));
 	}

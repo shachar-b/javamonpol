@@ -1,5 +1,6 @@
 package squares;
 
+import InnerChangeListner.InnerChangeListenableClass;
 import players.Player;
 
 /**
@@ -9,7 +10,7 @@ import players.Player;
  *
  */
 
-public abstract class Square {
+public abstract class Square extends InnerChangeListenableClass {
 	
 	protected String name=this.getClass().getSimpleName();
 	
