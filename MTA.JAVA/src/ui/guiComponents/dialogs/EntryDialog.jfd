@@ -126,6 +126,16 @@
             <void property="name"> 
              <string>totalSlider</string> 
             </void> 
+            <void method="auxiliary"> 
+             <void method="setProperty"> 
+              <string>maximum.noCode</string> 
+              <boolean>true</boolean> 
+             </void> 
+             <void method="setProperty"> 
+              <string>minimum.noCode</string> 
+              <boolean>true</boolean> 
+             </void> 
+            </void> 
             <void method="addEvent"> 
              <object class="com.jformdesigner.model.FormEvent"> 
               <string>javax.swing.event.ChangeListener</string> 
@@ -199,6 +209,16 @@
             </void> 
             <void property="name"> 
              <string>computersSlider</string> 
+            </void> 
+            <void method="auxiliary"> 
+             <void method="setProperty"> 
+              <string>maximum.noCode</string> 
+              <boolean>true</boolean> 
+             </void> 
+             <void method="setProperty"> 
+              <string>minimum.noCode</string> 
+              <boolean>true</boolean> 
+             </void> 
             </void> 
             <void method="addEvent"> 
              <object class="com.jformdesigner.model.FormEvent"> 
