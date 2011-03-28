@@ -79,6 +79,7 @@ public class AssetSquarePanel extends SquarePanel {
 			{
 				UtilOrTranspoAsset temp=(UtilOrTranspoAsset)representedAsset;
 				UtilOrTranspoAssetGroup tempGroup=((UtilOrTranspoAssetGroup)temp.getGroup());
+				AssetInformationModel.addRow(new String[]{"Rent for single Asset:",""+temp.getBasicRent()});
 				AssetInformationModel.addRow(new String[]{"Rent for entire group:",""+tempGroup.getFullRental()});
 				
 			}

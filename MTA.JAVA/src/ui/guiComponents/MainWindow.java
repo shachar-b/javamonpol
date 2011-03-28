@@ -13,8 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -25,21 +23,15 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
-import players.ComputerPlayer;
-import players.HumanPlayer;
-import players.Player;
-
 import monopoly.GameManager;
-import monopoly.buyOffer;
+import players.ComputerPlayer;
 import ui.guiComponents.Squares.AssetSquarePanel;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
 import ui.utils.Utils;
-import assets.Asset;
-import assets.City;
-import assets.Country;
-import assets.Offerable;
+import assets.UtilOrTranspoAsset;
+import assets.UtilOrTranspoAssetGroup;
 
 /**
  * @author Shachar
@@ -52,9 +44,16 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		initComponents();
 		int[] rentPrices = {1,2,3,4};
-		City s= new City(new Country("ABC"), "CITY", 100, 90, rentPrices);
-		SquarePanel blah = new AssetSquarePanel(s);
+		UtilOrTranspoAssetGroup group=new UtilOrTranspoAssetGroup("bla", 33);
+		UtilOrTranspoAsset a1=new UtilOrTranspoAsset(group, "a1", 101, 11);
+		UtilOrTranspoAsset a2=new UtilOrTranspoAsset(group, "a2", 102, 22);
+		ComputerPlayer p = new ComputerPlayer();
+		SquarePanel blah = new AssetSquarePanel(a1);
+		SquarePanel blah2 = new AssetSquarePanel(a2);
 		this.getContentPane().add(blah);
+		this.getContentPane().add(blah2);
+		a2.setOwner(p);
+		a1.setOwner(p);
 		blah.addPlayer(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"playerIcons/Car.gif"));
 	}
 

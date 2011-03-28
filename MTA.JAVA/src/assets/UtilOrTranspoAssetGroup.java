@@ -3,6 +3,9 @@
  */
 package assets;
 
+import InnerChangeListner.InnerChangeEventListner;
+import InnerChangeListner.InnerChangeEvet;
+
 /**
  * class UtilOrTranspoAssetGroup extends AssetGroup
  * a Utility Or Transport asset Group in the monopoly game - contains only members of class UtilOrTranspoAsset 
@@ -13,6 +16,8 @@ package assets;
  */
 
 public class UtilOrTranspoAssetGroup extends AssetGroup {
+	
+	
 
 	int fullRental;
 	/** 
@@ -27,6 +32,26 @@ public class UtilOrTranspoAssetGroup extends AssetGroup {
 		super(nameOfGroup);
 		fullRental=priceForEntireGroup;
 	}
+	
+	
+	//collection functions
+	/* (non-Javadoc)
+	 * @see java.util.Collection#add(java.lang.Object)
+	 */
+	@Override
+	public boolean add(Asset asset) {
+		asset.addInnerChangeEventListner(new InnerChangeEventListner() {
+			
+			@Override
+			public void eventHappened(InnerChangeEvet innerChangeEvet) {
+				if(innerChangeEvet.getMessage().equals("owner"))
+					fireEvent("group");
+				
+			}
+		});
+		return assetsInGroup.add(asset);
+	}
+
 	
 	/**
 	 * method int getFullRental()

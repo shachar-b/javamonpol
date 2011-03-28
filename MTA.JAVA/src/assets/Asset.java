@@ -101,7 +101,7 @@ public abstract class Asset extends Square implements Offerable{
 			newOwner.addToAssetList(this);
 		this.owner = newOwner;
 		
-		fireEvent("owner changed at "+this.getName()); //notify of a change
+		fireEvent("owner"); //notify of a change
 	}
 
 	/**
