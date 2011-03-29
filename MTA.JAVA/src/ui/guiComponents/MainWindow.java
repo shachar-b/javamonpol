@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -43,18 +44,6 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
-		int[] rentPrices = {1,2,3,4};
-		UtilOrTranspoAssetGroup group=new UtilOrTranspoAssetGroup("bla", 33);
-		UtilOrTranspoAsset a1=new UtilOrTranspoAsset(group, "a1", 101, 11);
-		UtilOrTranspoAsset a2=new UtilOrTranspoAsset(group, "a2", 102, 22);
-		ComputerPlayer p = new ComputerPlayer();
-		SquarePanel blah = new AssetSquarePanel(a1);
-		SquarePanel blah2 = new AssetSquarePanel(a2);
-		this.getContentPane().add(blah);
-		this.getContentPane().add(blah2);
-		a2.setOwner(p);
-		a1.setOwner(p);
-		blah.addPlayer(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"playerIcons/Car.gif"));
 	}
 
 	private void menuItem1ActionPerformed(ActionEvent e) {
@@ -85,7 +74,9 @@ public class MainWindow extends JFrame {
 		Exit = new JMenuItem();
 		HelpMenu = new JMenu();
 		About = new JMenuItem();
-		contentPanel = new JPanel();
+		splitPane1 = new JSplitPane();
+		gameBoardUI1 = new GameBoardUI();
+		splitPane2 = new JSplitPane();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -143,11 +134,17 @@ public class MainWindow extends JFrame {
 		}
 		setJMenuBar(menuBar1);
 
-		//======== contentPanel ========
+		//======== splitPane1 ========
 		{
-			contentPanel.setLayout(new FlowLayout());
+			splitPane1.setLeftComponent(gameBoardUI1);
+
+			//======== splitPane2 ========
+			{
+				splitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+			}
+			splitPane1.setRightComponent(splitPane2);
 		}
-		contentPane.add(contentPanel, BorderLayout.NORTH);
+		contentPane.add(splitPane1, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -160,6 +157,8 @@ public class MainWindow extends JFrame {
 	private JMenuItem Exit;
 	private JMenu HelpMenu;
 	private JMenuItem About;
-	private JPanel contentPanel;
+	private JSplitPane splitPane1;
+	private GameBoardUI gameBoardUI1;
+	private JSplitPane splitPane2;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
