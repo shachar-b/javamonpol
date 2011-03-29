@@ -26,19 +26,56 @@
       </void> 
       <void method="add"> 
        <object class="com.jformdesigner.model.FormContainer"> 
-        <string>javax.swing.JPanel</string> 
+        <string>javax.swing.JSplitPane</string> 
         <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>java.awt.FlowLayout</class> 
+         <class>javax.swing.JSplitPane</class> 
         </object> 
         <void property="name"> 
-         <string>contentPanel</string> 
+         <string>splitPane1</string> 
+        </void> 
+        <void method="add"> 
+         <object class="com.jformdesigner.model.FormComponent"> 
+          <string>ui.guiComponents.GameBoardUI</string> 
+          <void property="name"> 
+           <string>gameBoardUI1</string> 
+          </void> 
+         </object> 
+         <object class="com.jformdesigner.model.FormLayoutConstraints"> 
+          <class>java.lang.String</class> 
+          <void method="setProperty"> 
+           <string>value</string> 
+           <string>left</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="com.jformdesigner.model.FormContainer"> 
+          <string>javax.swing.JSplitPane</string> 
+          <object class="com.jformdesigner.model.FormLayoutManager"> 
+           <class>javax.swing.JSplitPane</class> 
+          </object> 
+          <void method="setProperty"> 
+           <string>orientation</string> 
+           <int>0</int> 
+          </void> 
+          <void property="name"> 
+           <string>splitPane2</string> 
+          </void> 
+         </object> 
+         <object class="com.jformdesigner.model.FormLayoutConstraints"> 
+          <class>java.lang.String</class> 
+          <void method="setProperty"> 
+           <string>value</string> 
+           <string>right</string> 
+          </void> 
+         </object> 
         </void> 
        </object> 
        <object class="com.jformdesigner.model.FormLayoutConstraints"> 
         <class>java.lang.String</class> 
         <void method="setProperty"> 
          <string>value</string> 
-         <string>North</string> 
+         <string>Center</string> 
         </void> 
        </object> 
       </void> 
