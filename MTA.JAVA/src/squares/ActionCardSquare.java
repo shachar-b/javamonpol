@@ -53,4 +53,13 @@ public class ActionCardSquare extends Square {
 		else
 			currCard.doCard(player);
 	}
+	
+	/**
+	 * @return true if it is call up false if it is supprise
+	 */
+	public boolean IsCallUp()
+	{
+		return sign==-1;
+		
+	}
 }

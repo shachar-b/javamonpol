@@ -12,6 +12,14 @@
       <object class="com.jformdesigner.model.FormLayoutManager"> 
        <class>java.awt.BorderLayout</class> 
       </object> 
+      <void method="setProperty"> 
+       <string>border</string> 
+       <object class="javax.swing.border.EtchedBorder"> 
+        <int>1</int> 
+        <null/> 
+        <null/> 
+       </object> 
+      </void> 
       <void property="name"> 
        <string>this</string> 
       </void> 

@@ -2,10 +2,14 @@ package ui;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import monopoly.buyOffer;
 import monopoly.GameManager.jailActions;
 import players.Player;
 import squares.Square;
+import ui.guiComponents.MainWindow;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -14,6 +18,15 @@ import cards.ActionCard;
 
 public class SwingUI implements IUI {
 
+	public SwingUI() {
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame frame = new MainWindow();
+                frame.setVisible(true);
+            }
+        });
+	}
 	@Override
 	public void displayMessage(String message) {
 		// TODO Auto-generated method stub
@@ -60,7 +73,7 @@ public class SwingUI implements IUI {
 
 	@Override
 	public void notifyPlayerLanded(Player p, Square currSQ) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -201,6 +214,10 @@ public class SwingUI implements IUI {
 	public void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public void notifyPlayerLeftGame(Player p) {
+		
 	}
 
 }
