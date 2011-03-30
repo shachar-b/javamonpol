@@ -23,6 +23,7 @@ public abstract class Player {
 	protected boolean GoOnNextTurn;
 	protected ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
+	private int lastKnownPosition = 0; 
 
 	/**
 	 * Constructor for Player
@@ -156,9 +157,20 @@ public abstract class Player {
 	 * @param currentPosition An integer specifying the new position of the player.
 	 */
 	public void setCurrentPosition(int currentPosition) {
+		lastKnownPosition = this.CurrentPosition;
 		CurrentPosition = currentPosition;
 	}
 
+	/**
+	 * method int getLastKnownPosition()
+	 * @visibility public
+	 * Getter for getLastKnownPosition.
+	 * @return an integer containing the last position of the player.
+	 */
+	public int getLastKnownPosition(){
+		return lastKnownPosition;
+	}
+	
 	/**
 	 * method int getCurrentPosition()
 	 * @visibility public

@@ -2,14 +2,15 @@ package ui;
 
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import monopoly.buyOffer;
 import monopoly.GameManager.jailActions;
+import monopoly.GameManager;
+import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.MainWindow;
+import ui.guiComponents.dialogs.OfferMakerDialog;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -17,41 +18,43 @@ import assets.Offerable;
 import cards.ActionCard;
 
 public class SwingUI implements IUI {
+	
+	static MainWindow frame;
 
 	public SwingUI() {
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame frame = new MainWindow();
+                frame = new MainWindow();
                 frame.setVisible(true);
             }
         });
 	}
 	@Override
+	//Display message in side console window
 	public void displayMessage(String message) {
-		// TODO Auto-generated method stub
-
+		//frame.addLineToConsole(message);
 	}
 
-	@Override
+	@Deprecated
 	public String askName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	@Deprecated
 	public boolean askYesNoQuestion(String question) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	@Deprecated
 	public int askNumericQuestion(String question) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	@Deprecated
 	public int askNumericQuestion(String question, int lowerBound,
 			int upperBound) {
 		// TODO Auto-generated method stub
@@ -61,7 +64,7 @@ public class SwingUI implements IUI {
 	@Override
 	public void askOfferableSellQuestions(Player player, buyOffer offer,
 			OfferType type, boolean multipleSelection) {
-		// TODO Auto-generated method stub
+		new OfferMakerDialog(frame, player.tradeableAssets(), player.tradeableGroups(), offer, !multipleSelection);
 
 	}
 
@@ -73,32 +76,31 @@ public class SwingUI implements IUI {
 
 	@Override
 	public void notifyPlayerLanded(Player p, Square currSQ) {
-		
-
+		frame.getGameBoardUI().movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
 	}
 
 	@Override
 	public void notifyPlayerLandsOnParkingSquare(Player player) {
-		// TODO Auto-generated method stub
-
+		String message =  player.getName() + " will wait a turn on parking.";
+		displayMessage(message);
 	}
 
 	@Override
 	public void notifyPlayerLandsOnStartSquare(Player player) {
-		// TODO Auto-generated method stub
-
+		String message = player.getName() + " has stepped on Start and gets and additional " + GameManager.START_LAND_BONUS  + "!";
+		displayMessage(message);
 	}
 
 	@Override
 	public void notifyPlayerLandsOnJailFreePass(Player player) {
-		// TODO Auto-generated method stub
-
+		String message = player.getName() + " is walking through the free pass.";
+		displayMessage(message);
 	}
 
 	@Override
 	public void notifyPlayerLandsOnGoToJail(Player player) {
-		// TODO Auto-generated method stub
-
+		String message =  player.getName() + " is thrown to Jail!";
+		displayMessage(message);
 	}
 
 	@Override

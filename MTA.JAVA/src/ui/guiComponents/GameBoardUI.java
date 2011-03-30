@@ -5,9 +5,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,16 +17,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import players.Player;
-
 import monopoly.GameManager;
-
-import squares.ParkingSquare;
+import players.Player;
 import squares.Square;
-import squares.StartSquare;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
-import ui.guiComponents.dice.IconGetter;
 
 public class GameBoardUI extends JPanel {
 
@@ -43,7 +36,7 @@ public class GameBoardUI extends JPanel {
         initUI();
 	}
     
-    void movePlayer(Player player,int from,int to)
+    public void movePlayer(Player player,int from,int to)
     {
     	components.get(from).removePlayer(playersIcons.get(player));
     	components.get(to).addPlayer(playersIcons.get(player));
@@ -99,8 +92,7 @@ public class GameBoardUI extends JPanel {
         }
 
         // Main Inner Area Notice Starts at (1,1) and takes up 11x11
-        JPanel innerPanel = createInnerPanel("STUPID CENTER");
-        innerPanel.add(SqurePanelFactory.makeCorrectSqurePanel(new ParkingSquare()));
+        JPanel innerPanel = createInnerPanel("CENTER");
         this.add(innerPanel,
             new GridBagConstraints(1,
                     1,
