@@ -1,6 +1,5 @@
 package monopoly;
 
-import ui.SwingUI;
 
 /**
  * Monopoly game
@@ -15,7 +14,6 @@ public class Main {
 		Monopoly game = new Monopoly();
 		GameManager.currentGame = game;
 		game.init();
-		SwingUI ui=new SwingUI();
 		game.play();
 	}
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import players.Player;
 import squares.Square;
-import ui.ConsoleUI;
+import ui.SwingUI;
 import assets.Asset;
 import cards.ShaffledDeck;
 
@@ -16,7 +16,7 @@ import cards.ShaffledDeck;
  */
 public class Monopoly
 {
-	private ConsoleUI userInterface = (ConsoleUI) GameManager.CurrentUI;
+	private SwingUI userInterface = (SwingUI) GameManager.CurrentUI;
 	private ArrayList<Player> gamePlayers;
 	private Dice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();

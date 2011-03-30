@@ -61,6 +61,53 @@
           <void property="name"> 
            <string>splitPane2</string> 
           </void> 
+          <void method="add"> 
+           <object class="com.jformdesigner.model.FormContainer"> 
+            <string>javax.swing.JScrollPane</string> 
+            <object class="com.jformdesigner.model.FormLayoutManager"> 
+             <class>javax.swing.JScrollPane</class> 
+            </object> 
+            <void property="name"> 
+             <string>scrollPane1</string> 
+            </void> 
+            <void method="add"> 
+             <object class="com.jformdesigner.model.FormComponent"> 
+              <string>javax.swing.JTextArea</string> 
+              <void method="setProperty"> 
+               <string>background</string> 
+               <object class="javax.swing.plaf.ColorUIResource"> 
+                <int>240</int> 
+                <int>240</int> 
+                <int>240</int> 
+               </object> 
+              </void> 
+              <void method="setProperty"> 
+               <string>editable</string> 
+               <boolean>false</boolean> 
+              </void> 
+              <void method="setProperty"> 
+               <string>lineWrap</string> 
+               <boolean>true</boolean> 
+              </void> 
+              <void method="setProperty"> 
+               <string>text</string> 
+               <string>Game information console:
+</string> 
+              </void> 
+              <void property="name"> 
+               <string>textualConsole</string> 
+              </void> 
+             </object> 
+            </void> 
+           </object> 
+           <object class="com.jformdesigner.model.FormLayoutConstraints"> 
+            <class>java.lang.String</class> 
+            <void method="setProperty"> 
+             <string>value</string> 
+             <string>right</string> 
+            </void> 
+           </object> 
+          </void> 
          </object> 
          <object class="com.jformdesigner.model.FormLayoutConstraints"> 
           <class>java.lang.String</class> 
@@ -108,6 +155,14 @@
              <string>text</string> 
              <string>New Game</string> 
             </void> 
+            <void method="setProperty"> 
+             <string>accelerator</string> 
+             <object class="javax.swing.KeyStroke" method="getKeyStroke"> 
+              <int>78</int> 
+              <int>195</int> 
+              <boolean>false</boolean> 
+             </object> 
+            </void> 
             <void property="name"> 
              <string>NewGame</string> 
             </void> 
@@ -127,6 +182,14 @@
             <void method="setProperty"> 
              <string>text</string> 
              <string>Exit</string> 
+            </void> 
+            <void method="setProperty"> 
+             <string>accelerator</string> 
+             <object class="javax.swing.KeyStroke" method="getKeyStroke"> 
+              <int>88</int> 
+              <int>650</int> 
+              <boolean>false</boolean> 
+             </object> 
             </void> 
             <void property="name"> 
              <string>Exit</string> 

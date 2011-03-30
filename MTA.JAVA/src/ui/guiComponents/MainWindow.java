@@ -5,6 +5,7 @@
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
@@ -56,6 +59,13 @@ public class MainWindow extends JFrame {
 		JDialog exitGameDialog = new ExitDiaglog(this);
 		exitGameDialog.setVisible(true);
 	}
+	
+	public GameBoardUI getGameBoardUI()	{return gameBoardUI1;}
+	
+	public void addLineToConsole(String message)
+	{
+		textualConsole.append(message+"\n");
+	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -68,6 +78,8 @@ public class MainWindow extends JFrame {
 		splitPane1 = new JSplitPane();
 		gameBoardUI1 = new GameBoardUI();
 		splitPane2 = new JSplitPane();
+		scrollPane1 = new JScrollPane();
+		textualConsole = new JTextArea();
 
 		//======== this ========
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -89,6 +101,7 @@ public class MainWindow extends JFrame {
 
 				//---- NewGame ----
 				NewGame.setText("New Game");
+				NewGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK|KeyEvent.SHIFT_MASK));
 				NewGame.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						NewGameActionPerformed(e);
@@ -98,6 +111,7 @@ public class MainWindow extends JFrame {
 
 				//---- Exit ----
 				Exit.setText("Exit");
+				Exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK|KeyEvent.ALT_MASK));
 				Exit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ExitActionPerformed(e);
@@ -132,6 +146,18 @@ public class MainWindow extends JFrame {
 			//======== splitPane2 ========
 			{
 				splitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+
+				//======== scrollPane1 ========
+				{
+
+					//---- textualConsole ----
+					textualConsole.setBackground(new Color(240, 240, 240));
+					textualConsole.setEditable(false);
+					textualConsole.setLineWrap(true);
+					textualConsole.setText("Game information console:\n");
+					scrollPane1.setViewportView(textualConsole);
+				}
+				splitPane2.setBottomComponent(scrollPane1);
 			}
 			splitPane1.setRightComponent(splitPane2);
 		}
@@ -151,5 +177,7 @@ public class MainWindow extends JFrame {
 	private JSplitPane splitPane1;
 	private GameBoardUI gameBoardUI1;
 	private JSplitPane splitPane2;
+	private JScrollPane scrollPane1;
+	private JTextArea textualConsole;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

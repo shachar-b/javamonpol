@@ -11,6 +11,7 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -74,6 +75,10 @@ public class EntryDialog extends JDialog {
 	private void GameInstructionsButtonMouseClicked(MouseEvent e) {
 		GameInstructionsDialog diag=new GameInstructionsDialog(this);
 		diag.setVisible(true);
+	}
+
+	private void cancelButtonActionPerformed(ActionEvent e) {
+		this.dispose();
 	}
 
 
@@ -171,6 +176,11 @@ public class EntryDialog extends JDialog {
 
 				//---- cancelButton ----
 				cancelButton.setText("Cancel New Game");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cancelButtonActionPerformed(e);
+					}
+				});
 				buttonBar.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 0, 5), 0, 0));
