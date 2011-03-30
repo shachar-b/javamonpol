@@ -62,7 +62,6 @@ public class ImagePanel extends JPanel {
             float ih = imageHeight;
             float pw = this.getWidth();   //panel width
             float ph = this.getHeight();  //panel height
-
             if ( pw < iw || ph < ih ) {
 
                 /* compare some ratios and then decide which side of image to anchor to panel
@@ -97,5 +96,6 @@ public class ImagePanel extends JPanel {
             //System.out.println("iw = " + iw + ", ih = " + ih + ", pw = " + pw + ", ph = " + ph);
         }
     }
+          
 
 }
