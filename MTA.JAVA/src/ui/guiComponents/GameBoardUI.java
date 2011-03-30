@@ -6,40 +6,76 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import players.Player;
+
+import monopoly.GameManager;
+
+import squares.ParkingSquare;
+import squares.Square;
+import squares.StartSquare;
+import ui.guiComponents.Squares.SquarePanel;
+import ui.guiComponents.Squares.SqurePanelFactory;
+import ui.guiComponents.dice.IconGetter;
 
 public class GameBoardUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final int LINE_SIZE = 9;
-
+	private List<SquarePanel> components;
+	private HashMap<Player,ImageIcon> playersIcons =new HashMap<Player,ImageIcon>();
+	
+	
     public GameBoardUI() {
 		super();
         initUI();
 	}
+    
+    void movePlayer(Player player,int from,int to)
+    {
+    	components.get(from).removePlayer(playersIcons.get(player));
+    	components.get(to).addPlayer(playersIcons.get(player));
+    }
+    public void addPlayerIcon(Player p, ImageIcon icon)
+    {
+    	playersIcons.put(p, icon);
+    }
+    public void removePlayerIcon(Player p)
+    {
+    	playersIcons.remove(p);
+    }
+    
+    
 
     private void initUI() {
         //init layout
         this.setLayout(new GridBagLayout());
 
-        List<JComponent> components = new LinkedList<JComponent>();
+        components = new LinkedList<SquarePanel>();
+        ArrayList<Square> bord=GameManager.currentGame.getGameBoard();
         for (int i=0 ; i < LINE_SIZE * 4 ; i++) {
-            components.add(createInnerPanel("square: " + i));
+        	
+            components.add(SqurePanelFactory.makeCorrectSqurePanel(bord.get(i)));
         }
 
-        Iterator<JComponent> componentIterator = components.iterator();
+        Iterator<SquarePanel> componentIterator = components.iterator();
 
         //Add Panels for Each of the four sides
         for (int sideIndex = 0; sideIndex < 4; sideIndex++) {
             for (int lineIndex = 0; lineIndex < LINE_SIZE; lineIndex++) {
-                JComponent component = componentIterator.next();
+            	SquarePanel component = componentIterator.next();
                 switch(sideIndex)
                 {
                     case 0:
@@ -64,6 +100,7 @@ public class GameBoardUI extends JPanel {
 
         // Main Inner Area Notice Starts at (1,1) and takes up 11x11
         JPanel innerPanel = createInnerPanel("STUPID CENTER");
+        innerPanel.add(SqurePanelFactory.makeCorrectSqurePanel(new ParkingSquare()));
         this.add(innerPanel,
             new GridBagConstraints(1,
                     1,
@@ -77,7 +114,7 @@ public class GameBoardUI extends JPanel {
 
     private JPanel createInnerPanel(String text) {
         JPanel panel = new JPanel(new BorderLayout()) ;
-        panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED));
+        panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);

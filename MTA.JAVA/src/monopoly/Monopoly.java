@@ -188,6 +188,7 @@ public class Monopoly
 		if (player.getGetOutOfJailFreeCardPlaceHolder()!=null)
 			surprise.add(player.getGetOutOfJailFreeCardPlaceHolder());
 		gamePlayers.remove(player);
+		GameManager.CurrentUI.notifyPlayerLeftGame(player);
 	}
 
 	/**

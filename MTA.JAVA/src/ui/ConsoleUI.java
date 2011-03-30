@@ -410,6 +410,14 @@ public class ConsoleUI implements IUI {
 		sc.nextLine(); //To clear CR/LF from buffer
 		return answer;
 	}
+
+	@Override
+	public void notifyPlayerLeftGame(Player p) {
+		String message="player "+p.getName()+	" has left the game!"; 
+		
+		displayMessage(message);
+		
+	}
 	
 }
 

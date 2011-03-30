@@ -32,7 +32,8 @@ public class ComputerPlayer extends Player {
 	 * Generated a name and sends to super constructor.
 	 */
 	public ComputerPlayer() {
-		super("Computer " + generatedComputerNumber);
+		super("Computer" +
+				"" + generatedComputerNumber);
 		generatedComputerNumber++;
 	}
 

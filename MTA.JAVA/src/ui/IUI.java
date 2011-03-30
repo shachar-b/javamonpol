@@ -290,4 +290,6 @@ public interface IUI {
 	 * @param numOfComputerPlayers An integer between 0 to numOfPlayers
 	 */
 	public void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers);
+
+	public void notifyPlayerLeftGame(Player p);
 }

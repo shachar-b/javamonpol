@@ -30,7 +30,13 @@ public abstract class InnerChangeListenableClass {
 			listener.eventHappened(new InnerChangeEvet(this, message));
 		}
 	}
-
+	protected void fireEvent(InnerChangeEvet e)
+	{
+		for (InnerChangeEventListner listener : listeners) {
+			listener.eventHappened(e);
+		}
+		
+	}
 
 
 }
