@@ -1,45 +1,100 @@
-/**
- * 
- */
 package ui.utils;
+import java.io.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.imageio.*;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+public class ImagePanel extends JPanel {
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-/**
- * @author The WWW
- * Based on : http://stackoverflow.com/questions/4061908/how-to-maximize-image-size-as-the-size-of-the-jpanel
- */
-public class ImagePanel extends JPanel{
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	
-	private Image image = null; 
-	 
-    public ImagePanel(ImageIcon imgIcn) { 
-        super();
-        this.setImage(imgIcn);
-     
-    } 
- 
-    public void setImage(ImageIcon icon) { 
-    	this.setPreferredSize(new Dimension(50, 50));
-    	this.setMinimumSize(new Dimension(50, 50));
-    	this.validate();
-    	this.repaint();
-    	image = icon.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT);
-        repaint(); 
-    } 
- 
-    @Override 
-    public void paintComponent(Graphics g) { 
-        super.paintComponent(g); 
-        if (image != null) { 
-            g.drawImage(image,0,0,getWidth(),getHeight(),null); 
-        } 
-    } 	
+	private Image image;
+	private Image scaledImage;
+	private int imageWidth = 0;
+	private int imageHeight = 0;
+	//private long paintCount = 0;
+
+	//constructor
+	public ImagePanel() {
+		super();
+	}
+
+	public ImagePanel(String string) {
+		super();
+		try {
+			loadImage(string);
+		} catch (IOException e) {
+			throw new RuntimeException("damm it");
+		}
+	}
+
+	public void loadImage(String file) throws IOException {
+		image = ImageIO.read(new File(file));
+		//might be a situation where image isn't fully loaded, and
+		//  should check for that before setting...
+		imageWidth = image.getWidth(this);
+		imageHeight = image.getHeight(this);
+		setScaledImage();
+	}
+
+	//e.g., containing frame might call this from formComponentResized
+	public void scaleImage() {
+		setScaledImage();
+	}
+
+	//override paintComponent
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if ( scaledImage != null ) {
+			//System.out.println("ImagePanel paintComponent " + ++paintCount);
+			scaleImage();
+			g.drawImage(scaledImage, 0, 0, this);
+		}
+	}
+
+	private void setScaledImage() {
+		if ( image != null ) {
+
+			//use floats so division below won't round
+			float iw = imageWidth;
+			float ih = imageHeight;
+			float pw = this.getWidth();   //panel width
+			float ph = this.getHeight();  //panel height
+
+
+			/* compare some ratios and then decide which side of image to anchor to panel
+                   and scale the other side
+                   (this is all based on empirical observations and not at all grounded in theory)*/
+
+			//System.out.println("pw/ph=" + pw/ph + ", iw/ih=" + iw/ih);
+
+			if ( (pw / ph) > (iw / ih) ) {
+				iw =pw;
+				ih = ph;
+			} else {
+				iw = pw;
+				ih = ph;
+			}
+
+			//prevent errors if panel is 0 wide or high
+			if (iw == 0) {
+				iw = -1;
+			}
+			if (ih == 0) {
+				ih = -1;
+			}
+
+			scaledImage = image.getScaledInstance(
+					new Float(iw).intValue(), new Float(ih).intValue(), Image.SCALE_REPLICATE);
+
+		} else {
+			scaledImage = image;
+		}
+
+		//System.out.println("iw = " + iw + ", ih = " + ih + ", pw = " + pw + ", ph = " + ph);
+	}
+
+
 }

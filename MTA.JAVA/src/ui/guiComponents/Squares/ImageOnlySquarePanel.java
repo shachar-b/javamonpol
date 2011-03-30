@@ -3,7 +3,7 @@ package ui.guiComponents.Squares;
 import java.awt.BorderLayout;
 
 import squares.Square;
-import ui.guiComponents.ImagePanel;
+import ui.utils.ImagePanel;
 
 public class ImageOnlySquarePanel extends SquarePanel {
 	private static final long serialVersionUID = 1L;
