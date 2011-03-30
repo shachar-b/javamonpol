@@ -6,12 +6,14 @@ import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
+import ui.guiComponents.MainWindow;
 import ui.guiComponents.dialogs.OfferMakerDialog;
 import assets.Asset;
 import assets.AssetGroup;
@@ -26,10 +28,22 @@ import cards.ActionCard;
  * A console UI for the Monopoly game
  * @author Omer Shenhar and Shachar Butnaro
  */
-public class ConsoleUI implements IUI {
+public class UI implements IUI {
 
 	private Scanner sc = new Scanner(System.in);
-
+	private MainWindow frame;
+	
+	public UI()
+	{
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame = new MainWindow();
+                frame.setVisible(true);
+            }
+        });
+	}
+	
 	/* (non-Javadoc)
 	 * @see ui.IUI#notifyPlayerLanded(players.Player, squares.Square)
 	 */

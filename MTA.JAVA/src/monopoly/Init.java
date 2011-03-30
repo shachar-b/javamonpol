@@ -1,11 +1,7 @@
 package monopoly;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-import players.ComputerPlayer;
-import players.HumanPlayer;
-import players.Player;
 import squares.ActionCardSquare;
 import squares.GoToJailSquare;
 import squares.JailSlashFreePassSquare;
@@ -28,33 +24,7 @@ import cards.ShaffledDeck;
  *
  */
 public class Init implements MonopolyInitilizer{
-	
-	
-	 
 		
-	
-	/* (non-Javadoc)
-	 * @see monopoly.MonopolyInitilizer#initPlayers()
-	 */
-	@Override
-	public ArrayList<Player> initPlayers()
-	{
-		ArrayList<Player> gamePlayers = new ArrayList<Player>();
-		int numOfPlayers=GameManager.CurrentUI.askNumericQuestion("How many players in game? (2-6)", GameManager.MIN_NUMBER_OF_PLAYERS, GameManager.MAX_NUMBER_OF_PLAYERS);
-		int numOfComputerPlayers=GameManager.CurrentUI.askNumericQuestion("How many of them are computer controlled?", 0, numOfPlayers);
-		for (int i=0; i<numOfComputerPlayers; i++)
-		{
-			gamePlayers.add(new ComputerPlayer());
-		}
-		for (int i=0; i<(numOfPlayers-numOfComputerPlayers); i++)
-		{
-			gamePlayers.add(new HumanPlayer());
-		}
-		GameManager.CurrentUI.notifyNumOfPlayers(numOfPlayers,numOfComputerPlayers);
-		Collections.shuffle(gamePlayers);
-		return gamePlayers;
-	}
-	
 	/* (non-Javadoc)
 	 * @see monopoly.MonopolyInitilizer#initDie()
 	 */

@@ -52,7 +52,6 @@ public class AssetSquarePanel extends SquarePanel {
 		    }
 		};
 		AssetInformation.setModel(AssetInformationModel);
-			
 			AssetInformation.setCellSelectionEnabled(false);
 			AssetInformation.setColumnSelectionAllowed(false);
 			AssetInformationModel.addColumn("what");

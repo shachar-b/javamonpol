@@ -1,8 +1,11 @@
 package players;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import monopoly.GameManager;
 import monopoly.buyOffer;
+import InnerChangeListner.InnerChangeListenableClass;
 import assets.Asset;
 import assets.City;
 import assets.Country;
@@ -15,7 +18,7 @@ import cards.ActionCard;
  * A player in the monopoly game.
  * @author Omer Shenhar and Shachar Butnaro
  */
-public abstract class Player {
+public abstract class Player extends InnerChangeListenableClass {
 
 	protected String Name;
 	protected int Balance;
@@ -24,6 +27,7 @@ public abstract class Player {
 	protected ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 	private int lastKnownPosition = 0; 
+	ImageIcon playerIcon = null;
 
 	/**
 	 * Constructor for Player
@@ -31,11 +35,12 @@ public abstract class Player {
 	 * Creates a new player and sets his position and balance, and makes him active.
 	 * @param name A String containing the name of the new player.
 	 */
-	public Player(String name) {
+	public Player(String name,ImageIcon playerIcon) {
 		Name = name;
 		setCurrentPosition(GameManager.START_SQ_LOCATION);
 		Balance=GameManager.INITAL_FUNDS;
 		GoOnNextTurn=true;
+		this.playerIcon = playerIcon;
 	}	
 
 	/**
@@ -126,19 +131,29 @@ public abstract class Player {
 				if(amount>Balance) //Can have balance of zero - but not negative balance
 				{
 					GameManager.currentGame.removePlayerFromGame(this);//if false remove from game
+					fireEvent("removed");
+					return Balance;//returns the amount of money taken
 				}
-				return Math.max(Balance, amount);//returns the amount of money taken
+				else
+				{
+					Balance-=amount;
+					fireEvent("taken");
+					return amount;
+				}
 			}
 			else
 			{
 				Balance-=amount;
+				fireEvent("taken");
 				return amount;
 			}
 		}
 		else
 		{
 			Balance+=amount;
+			fireEvent("added");
 			return 0;
+			
 		}
 	}
 

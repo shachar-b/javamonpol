@@ -14,6 +14,5 @@ public class Main {
 		Monopoly game = new Monopoly();
 		GameManager.currentGame = game;
 		game.init();
-		game.play();
 	}
 }

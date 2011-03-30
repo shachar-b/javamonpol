@@ -2,10 +2,8 @@ package monopoly;
 
 import java.util.ArrayList;
 
-import assets.UtilOrTranspoAssetGroup;
-
-import players.Player;
 import squares.Square;
+import assets.UtilOrTranspoAssetGroup;
 import cards.ShaffledDeck;
 
 /**
@@ -16,13 +14,6 @@ import cards.ShaffledDeck;
  *
  */
 public interface MonopolyInitilizer {
-
-	/**
-	 * method ArrayList<Player> initPlayers()
-	 * @visibility public
-	 * @return a list of players for the game
-	 */
-	public ArrayList<Player> initPlayers();
 
 	/**
 	 * method Dice[] initDie()
