@@ -10,7 +10,6 @@ import squares.JailSlashFreePassSquare;
 import squares.ParkingSquare;
 import squares.Square;
 import squares.StartSquare;
-import ui.utils.Utils;
 import assets.Asset;
 
 /**
@@ -30,25 +29,25 @@ public class SqurePanelFactory {
 		}
 		else if((represent instanceof StartSquare))
 		{
-			return new ImageOnlySquarePanel(represent, Utils.getImageIcon(SquareIconsFolder+"GO.gif"));
+			return new ImageOnlySquarePanel(represent, SquareIconsFolder+"GO.gif");
 		}
 		else if((represent instanceof GoToJailSquare))
 		{
-			return new ImageOnlySquarePanel(represent, Utils.getImageIcon(SquareIconsFolder+"GoToJail.gif"));
+			return new ImageOnlySquarePanel(represent, SquareIconsFolder+"GoToJail.gif");
 		}
 		else if((represent instanceof ParkingSquare))
 		{
-			return new ImageOnlySquarePanel(represent, Utils.getImageIcon(SquareIconsFolder+"parking.png"));
+			return new ImageOnlySquarePanel(represent,SquareIconsFolder+"parking.png");
 		}
 		else if((represent instanceof ActionCardSquare))
 		{
 			if(((ActionCardSquare)represent).IsCallUp())
 			{
-				return new ImageOnlySquarePanel(represent,  Utils.getImageIcon(SquareIconsFolder+"callUp.gif"));
+				return new ImageOnlySquarePanel(represent,  SquareIconsFolder+"callUp.gif");
 				
 			}
 			else//Surprise
-				return new ImageOnlySquarePanel(represent, Utils.getImageIcon(SquareIconsFolder+"surprise.gif"));
+				return new ImageOnlySquarePanel(represent, SquareIconsFolder+"surprise.gif");
 		}
 		else if((represent instanceof JailSlashFreePassSquare))
 		{
