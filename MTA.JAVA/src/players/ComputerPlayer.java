@@ -8,6 +8,8 @@ import java.util.Random;
 
 import javax.management.RuntimeErrorException;
 
+import ui.utils.*;
+
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import assets.Asset;
@@ -32,8 +34,8 @@ public class ComputerPlayer extends Player {
 	 * Generated a name and sends to super constructor.
 	 */
 	public ComputerPlayer() {
-		super("Computer" +
-				"" + generatedComputerNumber);
+		super("Computer"+generatedComputerNumber
+				,Utils.getImageIcon(GameManager.IMAGES_FOLDER+"/playerIcons/"+generatedComputerNumber+".png"));
 		generatedComputerNumber++;
 	}
 

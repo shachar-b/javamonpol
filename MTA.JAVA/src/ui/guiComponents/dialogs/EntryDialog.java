@@ -11,10 +11,12 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,6 +29,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import monopoly.GameManager;
+import players.ComputerPlayer;
+import players.HumanPlayer;
+import players.Player;
+import ui.utils.Utils;
 
 /**
  * @author Shachar
@@ -79,6 +85,26 @@ public class EntryDialog extends JDialog {
 
 	private void cancelButtonActionPerformed(ActionEvent e) {
 		this.dispose();
+	}
+
+	private void okButtonActionPerformed(ActionEvent e) {
+		int computerPlayers = computersSlider.getValue();
+		int totalPlayers = totalSlider.getValue();
+		ArrayList<Player> gamePlayers = new ArrayList<Player>();
+		
+		for (int i=0; i<computerPlayers; i++)
+		{
+			gamePlayers.add(new ComputerPlayer());
+		}
+		for (int i=0; i<(totalPlayers-computerPlayers); i++)
+		{
+			gamePlayers.add(new HumanPlayer(names.get(i).getText()
+					,Utils.getImageIcon(GameManager.IMAGES_FOLDER+"/playerIcons/"+(i+computerPlayers+1)+".png")));
+		}
+		Collections.shuffle(gamePlayers);
+		GameManager.currentGame.setGamePlayers(gamePlayers);
+		this.dispose();
+		GameManager.currentGame.play();
 	}
 
 
@@ -170,6 +196,11 @@ public class EntryDialog extends JDialog {
 
 				//---- okButton ----
 				okButton.setText("Start Game");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						okButtonActionPerformed(e);
+					}
+				});
 				buttonBar.add(okButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
 					GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 					new Insets(0, 0, 0, 5), 0, 0));

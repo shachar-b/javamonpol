@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import players.Player;
 import squares.Square;
-import ui.SwingUI;
+import ui.UI;
 import assets.Asset;
 import cards.ShaffledDeck;
 
@@ -16,7 +16,7 @@ import cards.ShaffledDeck;
  */
 public class Monopoly
 {
-	private SwingUI userInterface = (SwingUI) GameManager.CurrentUI;
+	private UI userInterface = (UI)GameManager.CurrentUI;
 	private ArrayList<Player> gamePlayers;
 	private Dice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();
@@ -31,17 +31,22 @@ public class Monopoly
 	void init()
 	{
 		MonopolyInitilizer gameInitializer = new Init();
-		//init players
-		gamePlayers = gameInitializer.initPlayers();
+		// init gameBoard
+		gameBoard = gameInitializer.initBoard();
+		// init UI
+		GameManager.CurrentUI = new UI();
 		//init die
 		die = gameInitializer.initDie();
 		//init CARDS
 		surprise = gameInitializer.initSurprise();
 		callUp = gameInitializer.initCallUp();		
-		// init gameBoard
-		gameBoard = gameInitializer.initBoard();
 	}
 
+	public void setGamePlayers(ArrayList<Player> gamePlayers)
+	{
+		this.gamePlayers=gamePlayers;
+	}
+	
 	/**
 	 * method public void play()
 	 * this methods handles the game

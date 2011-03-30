@@ -17,11 +17,11 @@ import assets.City;
 import assets.Offerable;
 import cards.ActionCard;
 
-public class SwingUI implements IUI {
+public class SwingUIBackup implements IUI {
 	
-	static MainWindow frame;
+	MainWindow frame;
 
-	public SwingUI() {
+	public SwingUIBackup() {
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

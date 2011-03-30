@@ -2,7 +2,6 @@ package monopoly;
 
 import players.Player;
 import ui.IUI;
-import ui.SwingUI;
 
 public class GameManager {
 	public static final int MAX_NUMBER_OF_PLAYERS = 6;
@@ -13,7 +12,7 @@ public class GameManager {
 	public static final int START_PASS_BONUS = 200;
 	public static final int START_SQ_LOCATION = 0;
 	public static final int INITAL_FUNDS=1500;
-	public static final IUI CurrentUI=new SwingUI();
+	public static final String IMAGES_FOLDER = "res/images/";
 	public static final int ADD = 1;
 	public static final int SUBTRACT = -1;
 	public static final int NUM_OF_DIE = 2;
@@ -21,7 +20,7 @@ public class GameManager {
 	public static final Player assetKeeper = null; //This is the "Kupa"
 	public static final String MoneySign = "$"; //This is the currency symbol
 	public static Monopoly currentGame;
-	public static final String IMAGES_FOLDER = "res/images/";
+	public static IUI CurrentUI;
 	
 	
 
