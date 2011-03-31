@@ -22,6 +22,7 @@ import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
+import ui.utils.RotateableJPanel.Diractions;
 
 public class GameBoardUI extends JPanel {
 
@@ -59,8 +60,27 @@ public class GameBoardUI extends JPanel {
         components = new LinkedList<SquarePanel>();
         ArrayList<Square> bord=GameManager.currentGame.getGameBoard();
         for (int i=0 ; i < LINE_SIZE * 4 ; i++) {
-        	
-            components.add(SqurePanelFactory.makeCorrectSqurePanel(bord.get(i)));
+        	//int diraction=i/LINE_SIZE;
+        	Diractions d = Diractions.NORTH;
+        /*	switch (diraction) {
+			case 0://i<linesize
+				d=Diractions.SOUTH;
+				break;
+
+			case 1://linesize<i<2linesize
+				d=Diractions.WEST;
+				break;
+				
+			case 2:
+				d=Diractions.NORTH;
+				break;
+
+			case 3:
+				d=Diractions.EAST;
+				break;
+					
+			}*/
+            components.add(SqurePanelFactory.makeCorrectSqurePanel(bord.get(i),d));
         }
 
         Iterator<SquarePanel> componentIterator = components.iterator();
@@ -98,7 +118,7 @@ public class GameBoardUI extends JPanel {
                     1,
                     LINE_SIZE +1,
                     LINE_SIZE +1,
-                    0.2, 0.2,
+                    0.1, 0.1,
                     GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
@@ -122,8 +142,6 @@ public class GameBoardUI extends JPanel {
         c.weighty = 0.1;
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.BOTH;
-        c.ipadx = 3;
-        c.ipady = 3;
         this.add(component, c);
     }
 }

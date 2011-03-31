@@ -2,12 +2,15 @@ package monopoly;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import squares.ActionCardSquare;
 import squares.GoToJailSquare;
 import squares.JailSlashFreePassSquare;
 import squares.ParkingSquare;
 import squares.Square;
 import squares.StartSquare;
+import ui.guiComponents.dialogs.AssetGroupDialog;
 import assets.City;
 import assets.Country;
 import assets.UtilOrTranspoAsset;
@@ -172,7 +175,7 @@ public class Init implements MonopolyInitilizer{
 		gameBoard.add(34,new City(countries.get(itrCountries),"Riffa",tempCostCity,tempCostHouse,temp));
 		gameBoard.add(35,new City(countries.get(itrCountries),"Sitra",tempCostCity,tempCostHouse,temp));
 		++itrCountries;
-
 		return gameBoard;
+		
 	}
 }

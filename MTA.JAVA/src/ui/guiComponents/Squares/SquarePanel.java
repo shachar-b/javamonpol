@@ -15,18 +15,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.*;
 
 import squares.Square;
+import ui.utils.RotateableJPanel;
 
 /**
  * @author Shachar
  */
-public class SquarePanel extends JPanel {
+public class SquarePanel extends RotateableJPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanel playerPanel;
 	private Square representedSquare;
 	protected JLabel titleLabel;
 	private HashMap<Icon, JLabel> iconList = new HashMap<Icon, JLabel>();
 	
-	public SquarePanel(Square representedSquare) {
+	public SquarePanel(Square representedSquare,Diractions drawDiraction) {
+		super(drawDiraction);
 		this.representedSquare=representedSquare;
 		initComponents();
 		initPlayersPanel();
