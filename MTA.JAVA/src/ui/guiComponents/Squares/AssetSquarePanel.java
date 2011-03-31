@@ -20,8 +20,8 @@ public class AssetSquarePanel extends SquarePanel {
 	private DefaultTableModel AssetInformationModel;
 	private JTable AssetInformation;
 	private Asset representedAsset;
-	public AssetSquarePanel(Asset representedAsset,Diractions drawDiraction) {
-		super(representedAsset,drawDiraction);
+	public AssetSquarePanel(Asset representedAsset) {
+		super(representedAsset);
 		this.representedAsset=representedAsset;
 		//to disallow editing
 		

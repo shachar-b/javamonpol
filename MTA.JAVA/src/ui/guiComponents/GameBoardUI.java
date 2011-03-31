@@ -17,12 +17,15 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import assets.City;
+import assets.Country;
+
 import monopoly.GameManager;
+import players.ComputerPlayer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
-import ui.utils.RotateableJPanel.Diractions;
 
 public class GameBoardUI extends JPanel {
 
@@ -60,27 +63,7 @@ public class GameBoardUI extends JPanel {
         components = new LinkedList<SquarePanel>();
         ArrayList<Square> bord=GameManager.currentGame.getGameBoard();
         for (int i=0 ; i < LINE_SIZE * 4 ; i++) {
-        	//int diraction=i/LINE_SIZE;
-        	Diractions d = Diractions.NORTH;
-        /*	switch (diraction) {
-			case 0://i<linesize
-				d=Diractions.SOUTH;
-				break;
-
-			case 1://linesize<i<2linesize
-				d=Diractions.WEST;
-				break;
-				
-			case 2:
-				d=Diractions.NORTH;
-				break;
-
-			case 3:
-				d=Diractions.EAST;
-				break;
-					
-			}*/
-            components.add(SqurePanelFactory.makeCorrectSqurePanel(bord.get(i),d));
+            components.add(SqurePanelFactory.makeCorrectSqurePanel(bord.get(i)));
         }
 
         Iterator<SquarePanel> componentIterator = components.iterator();
