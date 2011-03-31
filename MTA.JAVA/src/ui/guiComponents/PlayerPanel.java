@@ -4,19 +4,59 @@
 
 package ui.guiComponents;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.SwingConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import players.Player;
+import assets.Asset;
+import assets.Offerable;
 
 /**
  * @author Shachar
  */
 public class PlayerPanel extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	public PlayerPanel() {
+	public PlayerPanel(Player player)
+	{
 		initComponents();
+		initTreeModel(player);
+	}
+
+	private void initTreeModel(Player player)
+	{
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(player.getName());
+
+		DefaultMutableTreeNode moneyNode = new DefaultMutableTreeNode("Money");
+		moneyNode.add(new DefaultMutableTreeNode("Balance = "+player.getBalance()));
+
+		DefaultMutableTreeNode assetsNode = new DefaultMutableTreeNode("Assets");
+		ArrayList<Asset> assetsList = player.getAssetList();
+		for (Asset asset : assetsList)
+			assetsNode.add(new DefaultMutableTreeNode(asset.getName()));
+
+		DefaultMutableTreeNode groupsNode = new DefaultMutableTreeNode("Groups");
+		ArrayList<Offerable> groupsList = player.tradeableGroups();
+		for (Offerable group : groupsList)
+			groupsNode.add(new DefaultMutableTreeNode(group.getName()));
+
+		DefaultTreeModel playerModel = new DefaultTreeModel(root);
+		playerModel.insertNodeInto(moneyNode, root, playerModel.getChildCount(root));
+		playerModel.insertNodeInto(assetsNode,root, playerModel.getChildCount(root));
+		playerModel.insertNodeInto(groupsNode,root, playerModel.getChildCount(root));
+
+		PlayerHoldings.setModel(playerModel);
 	}
 
 	private void initComponents() {
@@ -31,11 +71,11 @@ public class PlayerPanel extends JPanel {
 		useJailFreeCard = new JButton();
 		buyAsset = new JButton();
 		buyHouse = new JButton();
-		panel1 = new JPanel();
+		CurrentSquare = new JPanel();
 		showGroup = new JButton();
 		PlayerInformation = new JPanel();
 		scrollPane1 = new JScrollPane();
-		tree1 = new JTree();
+		PlayerHoldings = new JTree();
 
 		//======== this ========
 		setLayout(new BorderLayout());
@@ -87,15 +127,15 @@ public class PlayerPanel extends JPanel {
 		}
 		add(SquareActionPane, BorderLayout.EAST);
 
-		//======== panel1 ========
+		//======== CurrentSquare ========
 		{
-			panel1.setLayout(new FlowLayout());
+			CurrentSquare.setLayout(new BoxLayout(CurrentSquare, BoxLayout.Y_AXIS));
 
 			//---- showGroup ----
 			showGroup.setText("Show Group");
-			panel1.add(showGroup);
+			CurrentSquare.add(showGroup);
 		}
-		add(panel1, BorderLayout.CENTER);
+		add(CurrentSquare, BorderLayout.CENTER);
 
 		//======== PlayerInformation ========
 		{
@@ -103,7 +143,7 @@ public class PlayerPanel extends JPanel {
 
 			//======== scrollPane1 ========
 			{
-				scrollPane1.setViewportView(tree1);
+				scrollPane1.setViewportView(PlayerHoldings);
 			}
 			PlayerInformation.add(scrollPane1);
 		}
@@ -122,10 +162,10 @@ public class PlayerPanel extends JPanel {
 	private JButton useJailFreeCard;
 	private JButton buyAsset;
 	private JButton buyHouse;
-	private JPanel panel1;
+	private JPanel CurrentSquare;
 	private JButton showGroup;
 	private JPanel PlayerInformation;
 	private JScrollPane scrollPane1;
-	private JTree tree1;
+	private JTree PlayerHoldings;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
