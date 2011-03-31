@@ -40,7 +40,6 @@ public class UI implements IUI {
             public void run() {
                 frame = new MainWindow();
                 frame.setVisible(true);
-                frame.pack();
             }
         });
 	}
