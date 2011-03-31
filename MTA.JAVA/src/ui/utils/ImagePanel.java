@@ -16,17 +16,12 @@ public class ImagePanel extends JPanel {
 	private int imageHeight = 0;
 	//private long paintCount = 0;
 
-	//constructor
-	public ImagePanel() {
-		super();
-	}
-
 	public ImagePanel(String string) {
 		super();
 		try {
 			loadImage(string);
 		} catch (IOException e) {
-			throw new RuntimeException("damm it");
+			throw new RuntimeException("missing component:  A compunent failed to load an Image from "+string);
 		}
 	}
 
@@ -89,7 +84,6 @@ public class ImagePanel extends JPanel {
 			scaledImage = image;
 		}
 
-		//System.out.println("iw = " + iw + ", ih = " + ih + ", pw = " + pw + ", ph = " + ph);
 	}
 
 

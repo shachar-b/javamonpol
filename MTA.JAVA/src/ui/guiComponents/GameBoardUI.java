@@ -17,11 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import assets.City;
-import assets.Country;
-
 import monopoly.GameManager;
-import players.ComputerPlayer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SquarePanel;
