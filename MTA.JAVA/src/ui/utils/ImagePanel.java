@@ -70,13 +70,9 @@ public class ImagePanel extends JPanel {
 
 			//System.out.println("pw/ph=" + pw/ph + ", iw/ih=" + iw/ih);
 
-			if ( (pw / ph) > (iw / ih) ) {
-				iw =pw;
-				ih = ph;
-			} else {
-				iw = pw;
-				ih = ph;
-			}
+			iw =pw;
+			ih = ph;
+
 
 			//prevent errors if panel is 0 wide or high
 			if (iw == 0) {

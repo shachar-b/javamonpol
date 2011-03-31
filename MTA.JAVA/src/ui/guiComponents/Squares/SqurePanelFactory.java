@@ -10,6 +10,7 @@ import squares.JailSlashFreePassSquare;
 import squares.ParkingSquare;
 import squares.Square;
 import squares.StartSquare;
+import ui.utils.RotateableJPanel.Diractions;
 import assets.Asset;
 
 /**
@@ -19,12 +20,12 @@ import assets.Asset;
 public class SqurePanelFactory {
 	
 	
-	public static SquarePanel  makeCorrectSqurePanel(Square represent)
+	public static SquarePanel  makeCorrectSqurePanel(Square represent,Diractions drawDiraction)
 	{
 		String SquareIconsFolder = GameManager.IMAGES_FOLDER+"SquareIcons/";
 		if((represent instanceof Asset))
 		{
-			return new AssetSquarePanel((Asset) represent);
+			return new AssetSquarePanel((Asset) represent,drawDiraction);
 			
 		}
 		else if((represent instanceof StartSquare))
@@ -52,9 +53,10 @@ public class SqurePanelFactory {
 		else if((represent instanceof JailSlashFreePassSquare))
 		{
 			
-			return new SquarePanel(represent);		}
+			return new ImageOnlySquarePanel(represent, SquareIconsFolder+"jail.gif");
+		}
 		else
-			return new SquarePanel(represent);
+			return new SquarePanel(represent,drawDiraction);
 	}
 
 }

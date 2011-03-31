@@ -1,6 +1,7 @@
 package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,8 +20,8 @@ public class AssetSquarePanel extends SquarePanel {
 	private DefaultTableModel AssetInformationModel;
 	private JTable AssetInformation;
 	private Asset representedAsset;
-	public AssetSquarePanel(Asset representedAsset) {
-		super(representedAsset);
+	public AssetSquarePanel(Asset representedAsset,Diractions drawDiraction) {
+		super(representedAsset,drawDiraction);
 		this.representedAsset=representedAsset;
 		//to disallow editing
 		
@@ -82,6 +83,7 @@ public class AssetSquarePanel extends SquarePanel {
 				AssetInformationModel.addRow(new String[]{"Rent for entire group:",""+tempGroup.getFullRental()});
 				
 			}
+			AssetInformation.setFont(new Font("Tahoma", Font.PLAIN, 8));
 	}
 	
 	

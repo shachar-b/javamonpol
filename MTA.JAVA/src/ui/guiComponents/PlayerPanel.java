@@ -11,6 +11,10 @@ import javax.swing.*;
  * @author Shachar
  */
 public class PlayerPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public PlayerPanel() {
 		initComponents();
 	}
