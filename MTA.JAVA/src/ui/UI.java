@@ -49,6 +49,7 @@ public class UI implements IUI {
 		+ (p.getCurrentPosition()+1) + ": "
 		+ currSQ.getName(); 
 		displayMessage(message);
+		frame.movePlayer(p);
 	}
 
 	/* (non-Javadoc)
