@@ -5,8 +5,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -35,7 +37,11 @@ public class AssetSquarePanel extends SquarePanel {
 		//to disallow editing
 		
 		AssetInformation=new JTable();
-		titleLabel.setText(representedAsset.getGroup().getName()+" : "+titleLabel.getText());
+		
+		groupLabel.setEnabled(true);
+		groupLabel.setText(representedAsset.getGroup().getName()+":");
+		
+		titleLabel.setText(titleLabel.getText());
 		UpdateTable();
 		if(enableHoverMode)
 		{

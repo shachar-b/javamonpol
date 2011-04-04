@@ -116,14 +116,10 @@
        <object class="com.jformdesigner.model.FormContainer"> 
         <string>javax.swing.JPanel</string> 
         <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>javax.swing.BoxLayout</class> 
-         <void method="setProperty"> 
-          <string>axis</string> 
-          <int>1</int> 
-         </void> 
+         <class>java.awt.BorderLayout</class> 
         </object> 
         <void property="name"> 
-         <string>SquareActionPane</string> 
+         <string>DicePane</string> 
         </void> 
         <void method="add"> 
          <object class="com.jformdesigner.model.FormComponent"> 
@@ -136,28 +132,11 @@
            <string>useJailFreeCard</string> 
           </void> 
          </object> 
-        </void> 
-        <void method="add"> 
-         <object class="com.jformdesigner.model.FormComponent"> 
-          <string>javax.swing.JButton</string> 
+         <object class="com.jformdesigner.model.FormLayoutConstraints"> 
+          <class>java.lang.String</class> 
           <void method="setProperty"> 
-           <string>text</string> 
-           <string>Buy Asset</string> 
-          </void> 
-          <void property="name"> 
-           <string>buyAsset</string> 
-          </void> 
-         </object> 
-        </void> 
-        <void method="add"> 
-         <object class="com.jformdesigner.model.FormComponent"> 
-          <string>javax.swing.JButton</string> 
-          <void method="setProperty"> 
-           <string>text</string> 
-           <string>Buy House</string> 
-          </void> 
-          <void property="name"> 
-           <string>buyHouse</string> 
+           <string>value</string> 
+           <string>South</string> 
           </void> 
          </object> 
         </void> 
@@ -192,6 +171,30 @@
           </void> 
           <void property="name"> 
            <string>showGroup</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="com.jformdesigner.model.FormComponent"> 
+          <string>javax.swing.JButton</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>Buy Asset</string> 
+          </void> 
+          <void property="name"> 
+           <string>buyAsset</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="com.jformdesigner.model.FormComponent"> 
+          <string>javax.swing.JButton</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>Buy House</string> 
+          </void> 
+          <void property="name"> 
+           <string>buyHouse</string> 
           </void> 
          </object> 
         </void> 

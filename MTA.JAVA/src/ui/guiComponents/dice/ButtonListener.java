@@ -11,7 +11,6 @@ class ButtonListener implements ActionListener {
     private JLabel dice2;
     private JLabel text;
 
-
     public ButtonListener(JLabel dice1, JLabel dice2, JLabel text) {
         this.dice1 = dice1;
         this.dice2 = dice2;

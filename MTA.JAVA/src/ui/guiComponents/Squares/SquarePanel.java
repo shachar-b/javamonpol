@@ -24,6 +24,7 @@ public class SquarePanel extends JPanel{
 	private JPanel playerPanel;
 	private Square representedSquare;
 	protected JLabel titleLabel;
+	protected JLabel groupLabel;
 	private HashMap<Icon, JLabel> iconList = new HashMap<Icon, JLabel>();
 	
 	public SquarePanel(Square representedSquare) {
@@ -63,20 +64,27 @@ public class SquarePanel extends JPanel{
 	
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		Name = new JLabel();
+		JPanel titleArea = new JPanel();
+		titleArea.setLayout(new BoxLayout(titleArea, BoxLayout.Y_AXIS));
+		titleLabel = new JLabel();
 
 		//======== this ========
 		setBorder(new EtchedBorder());
 		setLayout(new BorderLayout());
 
+		//---- Group ----
+		groupLabel = new JLabel();
+		groupLabel.setEnabled(false);
+		titleArea.add(groupLabel);
+		
 		//---- Name ----
-		Name.setText("text");
-		Name.setHorizontalAlignment(SwingConstants.CENTER);
-		Name.setBackground(new Color(51, 51, 255));
-		add(Name, BorderLayout.NORTH);
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setBackground(new Color(51, 51, 255));
+		titleArea.add(titleLabel);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
-		Name.setText(representedSquare.getName());
-		titleLabel = Name;
+		titleLabel.setText(representedSquare.getName());
+		
+		add(titleArea,BorderLayout.NORTH);
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

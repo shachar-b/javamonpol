@@ -1,35 +1,46 @@
 package ui.guiComponents.dice;
 
-import java.awt.Container;
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Dice {
-    private IconGetter getter;
+import monopoly.GameManager;
 
-    public Dice(){
-        getter = new IconGetter();
-    }
+import ui.utils.Utils;
 
-    public void start() {        
-        JLabel dice1 = new JLabel(getter.getIcon("stone1.gif"));
-        JLabel dice2 = new JLabel(getter.getIcon("stone1.gif"));
+public class Dice extends JLabel{
+	private static final long serialVersionUID = 1L;
+	private static Dice gameDice = new Dice();
+	ButtonListener throwButton;
+	int dice1Outcome;
+	int dice2Outcome;
+
+    private Dice(){
+        JLabel dice1 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
+        JLabel dice2 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
         JButton button = new JButton("Throw");
         JLabel text = new JLabel("Total: 2");
-        JFrame window = new JFrame("Dice Thrower");
-        Container cp = window.getContentPane();
-        cp.setLayout(new FlowLayout());
-        cp.add(dice1);
-        cp.add(dice2);
-        cp.add(button);
-        cp.add(text);
-        
-        button.addActionListener(new ButtonListener(dice1, dice2, text));
-        
-        window.pack();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
+        this.setLayout(new BorderLayout());
+        this.add(dice1,BorderLayout.WEST);
+        this.add(dice2,BorderLayout.EAST);
+        this.add(button,BorderLayout.NORTH);
+        this.add(text,BorderLayout.SOUTH);
+        throwButton = new ButtonListener(dice1, dice2, text);
+        button.addActionListener(throwButton);
+        this.setBorder(BorderFactory.createEtchedBorder());
+        this.setVisible(true);
     }
+
+	public static Dice getGameDice() {
+		return gameDice;
+	}
+	
+	void setDieOutcome(int dice1Roll, int dice2Roll)
+	{
+		dice1Outcome = dice1Roll;
+		dice2Outcome = dice2Roll;
+	}
+	
 }

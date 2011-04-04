@@ -22,6 +22,8 @@ import javax.swing.tree.DefaultTreeModel;
 import players.Player;
 import assets.Asset;
 import assets.Offerable;
+import ui.guiComponents.*;
+import ui.guiComponents.dice.Dice;
 
 /**
  * @author Shachar
@@ -31,7 +33,9 @@ public class PlayerPanel extends JPanel {
 	public PlayerPanel(Player player)
 	{
 		initComponents();
+		nameLabel.setText(player.getName());
 		initTreeModel(player);
+
 	}
 
 	private void initTreeModel(Player player)
@@ -67,12 +71,12 @@ public class PlayerPanel extends JPanel {
 		Bidding = new JButton();
 		Forfeit = new JButton();
 		nameLabel = new JLabel();
-		SquareActionPane = new JPanel();
+		DicePane = new JPanel();
 		useJailFreeCard = new JButton();
-		buyAsset = new JButton();
-		buyHouse = new JButton();
 		CurrentSquare = new JPanel();
 		showGroup = new JButton();
+		buyAsset = new JButton();
+		buyHouse = new JButton();
 		PlayerInformation = new JPanel();
 		scrollPane1 = new JScrollPane();
 		PlayerHoldings = new JTree();
@@ -109,23 +113,15 @@ public class PlayerPanel extends JPanel {
 		nameLabel.setText("his name");
 		add(nameLabel, BorderLayout.NORTH);
 
-		//======== SquareActionPane ========
+		//======== DicePane ========
 		{
-			SquareActionPane.setLayout(new BoxLayout(SquareActionPane, BoxLayout.Y_AXIS));
+			DicePane.setLayout(new BorderLayout());
 
 			//---- useJailFreeCard ----
 			useJailFreeCard.setText("Get out of jail for FREE!");
-			SquareActionPane.add(useJailFreeCard);
-
-			//---- buyAsset ----
-			buyAsset.setText("Buy Asset");
-			SquareActionPane.add(buyAsset);
-
-			//---- buyHouse ----
-			buyHouse.setText("Buy House");
-			SquareActionPane.add(buyHouse);
+			DicePane.add(useJailFreeCard, BorderLayout.SOUTH);
 		}
-		add(SquareActionPane, BorderLayout.EAST);
+		add(DicePane, BorderLayout.EAST);
 
 		//======== CurrentSquare ========
 		{
@@ -134,6 +130,14 @@ public class PlayerPanel extends JPanel {
 			//---- showGroup ----
 			showGroup.setText("Show Group");
 			CurrentSquare.add(showGroup);
+
+			//---- buyAsset ----
+			buyAsset.setText("Buy Asset");
+			CurrentSquare.add(buyAsset);
+
+			//---- buyHouse ----
+			buyHouse.setText("Buy House");
+			CurrentSquare.add(buyHouse);
 		}
 		add(CurrentSquare, BorderLayout.CENTER);
 
@@ -149,6 +153,7 @@ public class PlayerPanel extends JPanel {
 		}
 		add(PlayerInformation, BorderLayout.WEST);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+		DicePane.add(Dice.getGameDice());
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
@@ -158,12 +163,12 @@ public class PlayerPanel extends JPanel {
 	private JButton Bidding;
 	private JButton Forfeit;
 	private JLabel nameLabel;
-	private JPanel SquareActionPane;
+	private JPanel DicePane;
 	private JButton useJailFreeCard;
-	private JButton buyAsset;
-	private JButton buyHouse;
 	private JPanel CurrentSquare;
 	private JButton showGroup;
+	private JButton buyAsset;
+	private JButton buyHouse;
 	private JPanel PlayerInformation;
 	private JScrollPane scrollPane1;
 	private JTree PlayerHoldings;

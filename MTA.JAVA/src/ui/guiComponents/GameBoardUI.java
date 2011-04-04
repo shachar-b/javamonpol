@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import monopoly.Dice;
 import monopoly.GameManager;
 import players.Player;
 import squares.Square;

@@ -24,6 +24,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.*;
+
+import players.ComputerPlayer;
 
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
@@ -38,6 +41,7 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
+		splitPane2.setTopComponent(new PlayerPanel(new ComputerPlayer()));
 	}
 
 	private void menuItem1ActionPerformed(ActionEvent e) {
@@ -141,6 +145,7 @@ public class MainWindow extends JFrame {
 
 		//======== splitPane1 ========
 		{
+			splitPane1.setResizeWeight(0.5);
 			splitPane1.setLeftComponent(gameBoardUI1);
 
 			//======== splitPane2 ========
