@@ -30,6 +30,10 @@
         <object class="com.jformdesigner.model.FormLayoutManager"> 
          <class>javax.swing.JSplitPane</class> 
         </object> 
+        <void method="setProperty"> 
+         <string>resizeWeight</string> 
+         <double>0.5</double> 
+        </void> 
         <void property="name"> 
          <string>splitPane1</string> 
         </void> 
