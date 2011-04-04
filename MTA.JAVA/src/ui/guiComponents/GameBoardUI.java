@@ -12,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,13 +21,14 @@ import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
+import ui.utils.ImagePanel;
 
 public class GameBoardUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final int LINE_SIZE = 9;
 	private List<SquarePanel> components;
-	private HashMap<Player,ImageIcon> playersIcons =new HashMap<Player,ImageIcon>();
+	private HashMap<Player,ImagePanel> playersIcons =new HashMap<Player,ImagePanel>();
 	
 	
     public GameBoardUI() {
@@ -41,13 +41,14 @@ public class GameBoardUI extends JPanel {
     	components.get(from).removePlayer(playersIcons.get(player));
     	components.get(to).addPlayer(playersIcons.get(player));
     }
-    public void addPlayerIcon(Player p, ImageIcon icon)
+    public void addPlayerIcon(Player p, ImagePanel icon)
     {
     	playersIcons.put(p, icon);
     	components.get(0).addPlayer(playersIcons.get(p));
     }
     public void removePlayerIcon(Player p)
     {
+    	components.get(p.getCurrentPosition()).removePlayer(playersIcons.get(p));
     	playersIcons.remove(p);
     }
     

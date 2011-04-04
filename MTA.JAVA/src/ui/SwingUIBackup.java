@@ -76,7 +76,7 @@ public class SwingUIBackup implements IUI {
 
 	@Override
 	public void notifyPlayerLanded(Player p, Square currSQ) {
-		frame.getGameBoardUI().movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
+		frame.getGameboard().movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
 	}
 
 	@Override

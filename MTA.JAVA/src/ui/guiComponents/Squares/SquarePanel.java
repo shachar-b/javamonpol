@@ -6,15 +6,21 @@ package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.HashMap;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.*;
+import javax.swing.border.EtchedBorder;
+
+import monopoly.GameManager;
 
 import squares.Square;
+import ui.utils.ImagePanel;
+import ui.utils.Utils;
 
 /**
  * @author Shachar
@@ -25,7 +31,7 @@ public class SquarePanel extends JPanel{
 	private Square representedSquare;
 	protected JLabel titleLabel;
 	protected JLabel groupLabel;
-	private HashMap<Icon, JLabel> iconList = new HashMap<Icon, JLabel>();
+	private ArrayList<ImagePanel> iconList = new ArrayList<ImagePanel>();
 	
 	public SquarePanel(Square representedSquare) {
 		super();
@@ -36,24 +42,22 @@ public class SquarePanel extends JPanel{
 
 	private void initPlayersPanel()
 	{
-		playerPanel = new JPanel ();
-        BoxLayout boxLayout = new BoxLayout(playerPanel, BoxLayout.X_AXIS);
-        playerPanel.setLayout(boxLayout);
-        playerPanel.setOpaque(true);
+		playerPanel = new JPanel (new FlowLayout());
+		//playerPanel.add(new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"/playerIcons/placeHolder.png")));
 		this.add(playerPanel,BorderLayout.SOUTH);
 	}
 	
-    public void addPlayer(Icon icon) {
-        iconList.put(icon, new JLabel (icon));
-        playerPanel.add(iconList.get(icon));
+    public void addPlayer(ImagePanel iconPanel) {
+        iconList.add(iconPanel);
+        playerPanel.add(iconPanel);
         this.validate();
         this.repaint();
     }
     
-    public void removePlayer(Icon icon)
+    public void removePlayer(ImagePanel icon)
     {
-    	if (iconList.containsKey(icon)){
-    		playerPanel.remove(iconList.get(icon));
+    	if (iconList.contains(icon)){
+    		playerPanel.remove(icon);
     		iconList.remove(icon);
     		this.validate();
     		this.repaint();
