@@ -1,10 +1,9 @@
 package players;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import monopoly.GameManager;
 import monopoly.buyOffer;
+import ui.utils.ImagePanel;
 import InnerChangeListner.InnerChangeListenableClass;
 import assets.Asset;
 import assets.City;
@@ -27,7 +26,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	protected ArrayList<Asset> assetList = new ArrayList<Asset>();
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 	private int lastKnownPosition = 0; 
-	ImageIcon playerIcon = null;
+	ImagePanel playerIcon = null;
 
 	/**
 	 * Constructor for Player
@@ -35,14 +34,14 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * Creates a new player and sets his position and balance, and makes him active.
 	 * @param name A String containing the name of the new player.
 	 */
-	public Player(String name,ImageIcon playerIcon) {
+	public Player(String name,ImagePanel playerIcon2) {
 		Name = name;
 		setCurrentPosition(GameManager.START_SQ_LOCATION);
 		Balance=GameManager.INITAL_FUNDS;
 		GoOnNextTurn=true;
-		this.playerIcon = playerIcon;
+		this.playerIcon = playerIcon2;
 	}	
-
+	
 	/**
 	 * method Boolean equals(Player other)
 	 * @visibility public
@@ -91,6 +90,16 @@ public abstract class Player extends InnerChangeListenableClass {
 	 */
 	public String getName() {
 		return Name;
+	}
+	
+	/**
+	 * method String getIconPanel()
+	 * @visibility public
+	 * Getter for playerIcon.
+	 * @return An Icon representing the player.
+	 */
+	public ImagePanel getIconPanel(){
+		return playerIcon;
 	}
 
 	/**

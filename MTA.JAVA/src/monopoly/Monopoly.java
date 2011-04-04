@@ -2,6 +2,7 @@ package monopoly;
 
 import java.util.ArrayList;
 
+import players.ComputerPlayer;
 import players.Player;
 import squares.Square;
 import ui.UI;
@@ -16,7 +17,7 @@ import cards.ShaffledDeck;
  */
 public class Monopoly
 {
-	private UI userInterface = (UI)GameManager.CurrentUI;
+	private UI userInterface;
 	private ArrayList<Player> gamePlayers;
 	private Dice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();
@@ -35,6 +36,7 @@ public class Monopoly
 		gameBoard = gameInitializer.initBoard();
 		// init UI
 		GameManager.CurrentUI = new UI();
+		userInterface = (UI)GameManager.CurrentUI;
 		//init die
 		die = gameInitializer.initDie();
 		//init CARDS

@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
-		splitPane2.setTopComponent(new PlayerPanel(new ComputerPlayer()));
+		//splitPane2.setTopComponent(new PlayerPanel(new ComputerPlayer()));
 	}
 
 	private void menuItem1ActionPerformed(ActionEvent e) {
@@ -63,8 +63,6 @@ public class MainWindow extends JFrame {
 		JDialog exitGameDialog = new ExitDiaglog(this);
 		exitGameDialog.setVisible(true);
 	}
-	
-	public GameBoardUI getGameBoardUI()	{return gameBoardUI1;}
 	
 	public void addLineToConsole(String message)
 	{
@@ -189,4 +187,9 @@ public class MainWindow extends JFrame {
 		gameBoardUI1.movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
 		
 	}
+	public GameBoardUI getGameboard()
+	{
+		return gameBoardUI1;
+	}
+	
 }

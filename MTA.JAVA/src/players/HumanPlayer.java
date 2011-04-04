@@ -5,11 +5,10 @@ package players;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import ui.OfferType;
+import ui.utils.ImagePanel;
 import assets.Asset;
 import assets.City;
 import assets.Offerable;
@@ -28,8 +27,8 @@ public class HumanPlayer extends Player {
 	 * Constructor for human player.
 	 * Gets a name from the UI and transfers it the the super constructor.
 	 */
-	public HumanPlayer(String name,ImageIcon playerIcon) {
-		super(name,playerIcon);
+	public HumanPlayer(String name,String playerIconPath) {
+		super(name,new ImagePanel(playerIconPath));
 	}
 
 	/* (non-Javadoc)

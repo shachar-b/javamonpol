@@ -203,7 +203,7 @@ public class UI implements IUI {
 	 */
 	public void displayMessage (String message)
 	{
-		System.out.println(message);
+		frame.addLineToConsole(message);
 	}
 
 	/* (non-Javadoc)
@@ -342,7 +342,7 @@ public class UI implements IUI {
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
 		String message="player "+p.getName()+	" has left the game!"; 
-		
+		frame.getGameboard().removePlayerIcon(p);
 		displayMessage(message);
 		
 	}

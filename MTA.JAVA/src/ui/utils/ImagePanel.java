@@ -23,6 +23,7 @@ public class ImagePanel extends JPanel {
 		} catch (IOException e) {
 			throw new RuntimeException("missing component:  A compunent failed to load an Image from "+string);
 		}
+		setOpaque(true);
 	}
 
 	public void loadImage(String file) throws IOException {
@@ -57,8 +58,7 @@ public class ImagePanel extends JPanel {
 			float ih = imageHeight;
 			float pw = this.getWidth();   //panel width
 			float ph = this.getHeight();  //panel height
-
-
+			
 			/* compare some ratios and then decide which side of image to anchor to panel
                    and scale the other side
                    (this is all based on empirical observations and not at all grounded in theory)*/

@@ -32,7 +32,7 @@ import monopoly.GameManager;
 import players.ComputerPlayer;
 import players.HumanPlayer;
 import players.Player;
-import ui.utils.Utils;
+import ui.guiComponents.MainWindow;
 
 /**
  * @author Shachar
@@ -88,6 +88,7 @@ public class EntryDialog extends JDialog {
 	}
 
 	private void okButtonActionPerformed(ActionEvent e) {
+		MainWindow MW = (MainWindow) getParent();
 		int computerPlayers = computersSlider.getValue();
 		int totalPlayers = totalSlider.getValue();
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -99,10 +100,14 @@ public class EntryDialog extends JDialog {
 		for (int i=0; i<(totalPlayers-computerPlayers); i++)
 		{
 			gamePlayers.add(new HumanPlayer(names.get(i).getText()
-					,Utils.getImageIcon(GameManager.IMAGES_FOLDER+"/playerIcons/"+(i+computerPlayers+1)+".png")));
+					,GameManager.IMAGES_FOLDER+"/playerIcons/"+(i+computerPlayers+1)+".png"));
 		}
 		Collections.shuffle(gamePlayers);
 		GameManager.currentGame.setGamePlayers(gamePlayers);
+		for (Player player : gamePlayers)
+		{
+			MW.getGameboard().addPlayerIcon(player,player.getIconPanel());
+		}
 		this.dispose();
 		GameManager.currentGame.play();
 	}
