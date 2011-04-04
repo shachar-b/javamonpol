@@ -19,8 +19,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ui.guiComponents.Squares.AssetSquarePanel;
 import ui.guiComponents.Squares.SquarePanel;
-import ui.guiComponents.Squares.SqurePanelFactory;
 import assets.Asset;
 import assets.AssetGroup;
 
@@ -91,7 +91,7 @@ public class AssetGroupDialog extends JDialog {
 		cardsPane=new JPanel(new GridLayout(1,0));
 		for(Asset ass:represntedGroup)
 		{
-			SquarePanel comp=SqurePanelFactory.makeCorrectSqurePanel(ass);
+			SquarePanel comp=new AssetSquarePanel(ass,false);
 			componets.add(comp);
 			cardsPane.add(comp,BorderLayout.CENTER);
 		}

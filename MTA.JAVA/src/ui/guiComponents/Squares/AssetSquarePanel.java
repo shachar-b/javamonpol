@@ -2,9 +2,13 @@ package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 import monopoly.GameManager;
 import InnerChangeListner.InnerChangeEventListner;
@@ -18,9 +22,14 @@ public class AssetSquarePanel extends SquarePanel {
 	
 
 	private DefaultTableModel AssetInformationModel;
-	private JTable AssetInformation;
-	private Asset representedAsset;
-	public AssetSquarePanel(Asset representedAsset) {
+	JTable AssetInformation;
+	Asset representedAsset;
+	
+	public AssetSquarePanel(Asset representedAsset)
+	{
+		this(representedAsset,true);
+	}
+	public AssetSquarePanel(Asset representedAsset,boolean enableHoverMode) {
 		super(representedAsset);
 		this.representedAsset=representedAsset;
 		//to disallow editing
@@ -28,7 +37,20 @@ public class AssetSquarePanel extends SquarePanel {
 		AssetInformation=new JTable();
 		titleLabel.setText(representedAsset.getGroup().getName()+" : "+titleLabel.getText());
 		UpdateTable();
-		this.add(AssetInformation,BorderLayout.CENTER);
+		if(enableHoverMode)
+		{
+			this.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					makeHover();
+				}
+			});
+			
+		}
+		else
+		{
+			this.add(AssetInformation,BorderLayout.CENTER);
+		}
 		representedAsset.addInnerChangeEventListner(new InnerChangeEventListner() {
 			
 			@Override
@@ -36,9 +58,19 @@ public class AssetSquarePanel extends SquarePanel {
 				UpdateTable();
 				
 			}
+
+			
 		});
+		
 		this.validate();
 		this.repaint();
+		
+	}
+	private void makeHover() {
+		
+		hoverDialog hoverInfo= new hoverDialog(this);
+		hoverInfo.setVisible(true);
+		
 		
 	}
 
@@ -84,10 +116,11 @@ public class AssetSquarePanel extends SquarePanel {
 				
 			}
 			AssetInformation.setFont(new Font("Tahoma", Font.PLAIN, 8));
+			
 	}
 	
 	
-
+	
 	
 	private static final long serialVersionUID = 1L;
 

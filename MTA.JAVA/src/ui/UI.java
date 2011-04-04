@@ -5,7 +5,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import monopoly.GameManager;
@@ -30,7 +32,6 @@ import cards.ActionCard;
  */
 public class UI implements IUI {
 
-	private Scanner sc = new Scanner(System.in);
 	private MainWindow frame;
 	
 	public UI()
@@ -63,6 +64,7 @@ public class UI implements IUI {
 		String message = "\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance()
 		+"\nIs currently on square " + (p.getCurrentPosition()+1) + ": " + currSQ.getName();
 		displayMessage(message);
+		//frame.setPlayerPanel(p);
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +73,7 @@ public class UI implements IUI {
 	public void notifyGameWinner(Player player)
 	{
 		String message = "The winner is: " + player.getName() + "!!!";
-		displayMessage(message);
+		JOptionPane.showMessageDialog(frame,message);
 	}
 
 	/* (non-Javadoc)
@@ -176,9 +178,7 @@ public class UI implements IUI {
 	 * @see ui.IUI#askYesNoQuestion(java.lang.String)
 	 */
 	public boolean askYesNoQuestion(String question) {
-		displayMessage(question);
-		System.out.print("INPUT (y/n): ");
-		return (sc.next().toLowerCase().equals("y"));
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -192,16 +192,14 @@ public class UI implements IUI {
 	 * @see ui.IUI#askNumericQuestion(java.lang.String, int, int)
 	 */
 	public int askNumericQuestion(String question, int lowerBound, int upperBound) {
-		System.out.print(question+" Input: ");
-		return utilGetSafeIntInput(lowerBound, upperBound);
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see ui.IUI#askName()
 	 */
 	public String askName() {
-		System.out.print("Enter your name: ");
-		return (sc.nextLine());
+		return "mox";
 	}
 
 	/* (non-Javadoc)
@@ -300,61 +298,7 @@ public class UI implements IUI {
 	 */
 	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type, boolean multipleSelection)
 	{
-		int numberOfChoosen=0;
-		int playerChoice=-1;
-		ArrayList<Offerable> tradeables;
-		OfferMakerDialog diag=new OfferMakerDialog(new JFrame(), player.tradeableAssets(), player.tradeableGroups(), offer, !multipleSelection);
-		diag.setVisible(true);
 		
-		switch (type) {
-		case Groups:
-			tradeables=player.tradeableGroups();
-			break;
-
-		case Assets:
-			tradeables=player.tradeableAssets();
-			break;
-
-		default: //Shouldn't get here
-			throw new RuntimeErrorException(null, "Unknown type in function \"askOfferableSellQuestions\"");
-		}
-
-		System.out.println("You have the following "+type.name()+": ");
-	
-		for (int i=0; i<tradeables.size();i++)
-		{
-			System.out.println((i+1) + " : " + tradeables.get(i).getName());
-		}
-		String message = "Enter the index of the "+type.name() + " you want to sell";
-		if (multipleSelection)
-			message+=" (one by one), press 0 to end offer: ";
-		else
-			message+=", press 0 to cancel offer: ";
-		while (playerChoice!=0)
-		{
-			System.out.print(message);
-			playerChoice =utilGetSafeIntInput(0, tradeables.size());
-			if(playerChoice!=0)
-			{
-				if(offer.has(tradeables.get(playerChoice-1)))
-				{
-					displayMessage("You already chose this");
-
-				}
-				else
-				{
-					offer.addToOffer(tradeables.get(playerChoice-1));
-					numberOfChoosen++;
-				}
-			}
-			if (!multipleSelection)
-				playerChoice=0; //To force single-selection
-			else if(numberOfChoosen==tradeables.size())//do this only for multiple selection
-			{
-				displayMessage("You have chosen all your available assets");
-				break;
-			}
-		}
 	}
 
 	/* (non-Javadoc)
@@ -387,7 +331,7 @@ public class UI implements IUI {
 			index++;
 		}
 		System.out.print("choose one or press zero: ");
-		return utilGetSafeIntInput(0, buyOffers.size())-1;
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -398,32 +342,6 @@ public class UI implements IUI {
 		displayMessage("Randomly setting playing order.\n");
 	}
 
-	/**
-	 * method int utilGetSafeIntInput(int lowerBound, int upperBound)
-	 * @visibility private
-	 * Gets an integer from the Scanner used by the UI, and check that it's within bounds. 
-	 * @param lowerBound An integer containing the low bound for the input.
-	 * @param upperBound An integer containing the high bound for the input.
-	 * @return The integer received from user.
-	 */
-	private int utilGetSafeIntInput(int lowerBound, int upperBound)
-	{
-		Integer answer=Integer.MIN_VALUE;
-		while(answer<lowerBound || answer >upperBound)
-		{
-			try {
-				answer=sc.nextInt();
-				if (answer<lowerBound || answer > upperBound)
-					System.out.println("Invalid input, can accept integers from "+lowerBound+" to " + upperBound);
-			}
-			catch (InputMismatchException e) {
-				sc.next();
-				displayMessage("Invalid input - enter a numeric input");
-			}
-		}
-		sc.nextLine(); //To clear CR/LF from buffer
-		return answer;
-	}
 
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
