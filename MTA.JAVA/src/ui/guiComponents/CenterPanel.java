@@ -4,15 +4,15 @@
 
 package ui.guiComponents;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * @author Omer
  */
 public class CenterPanel extends JPanel {
 	
-	
+	private static final long serialVersionUID = 1L;
+
 	public CenterPanel() {
 		initComponents();
 	}

@@ -1,12 +1,8 @@
 package ui;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -16,7 +12,6 @@ import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.MainWindow;
-import ui.guiComponents.dialogs.OfferMakerDialog;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;

@@ -88,6 +88,5 @@ public class SquarePanel extends JPanel{
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JLabel Name;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

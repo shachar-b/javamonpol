@@ -1,17 +1,9 @@
 package ui.guiComponents.Squares;
 import java.awt.BorderLayout;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 
 

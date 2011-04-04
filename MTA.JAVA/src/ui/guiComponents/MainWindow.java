@@ -24,10 +24,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.*;
 
 import players.ComputerPlayer;
-
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
 
