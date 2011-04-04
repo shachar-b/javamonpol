@@ -44,6 +44,7 @@ public class GameBoardUI extends JPanel {
     public void addPlayerIcon(Player p, ImageIcon icon)
     {
     	playersIcons.put(p, icon);
+    	components.get(0).addPlayer(playersIcons.get(p));
     }
     public void removePlayerIcon(Player p)
     {
@@ -123,4 +124,6 @@ public class GameBoardUI extends JPanel {
         c.fill = GridBagConstraints.BOTH;
         this.add(component, c);
     }
+
+
 }

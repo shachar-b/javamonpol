@@ -25,7 +25,9 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
+import players.Player;
 import players.ComputerPlayer;
+
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
 
@@ -183,4 +185,8 @@ public class MainWindow extends JFrame {
 	private JScrollPane scrollPane1;
 	private JTextArea textualConsole;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	public void movePlayer(Player p) {
+		gameBoardUI1.movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
+		
+	}
 }
