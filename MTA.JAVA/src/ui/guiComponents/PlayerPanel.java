@@ -20,10 +20,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import players.Player;
+import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.Offerable;
-import ui.guiComponents.*;
-import ui.guiComponents.dice.Dice;
 
 /**
  * @author Shachar
