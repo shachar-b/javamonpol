@@ -3,7 +3,6 @@ package monopoly;
 import java.util.ArrayList;
 
 import monopoly.GameManager.jailActions;
-
 import players.Player;
 import squares.JailSlashFreePassSquare;
 import squares.Square;
@@ -146,6 +145,7 @@ public class Monopoly
 		player.setCurrentPosition(playerPos);
 		userInterface.notifyPlayerLanded(player, gameBoard.get(player.getCurrentPosition()));
 		gameBoard.get(playerPos).playerArrived(player);
+		
 	}
 
 	/**

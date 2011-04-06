@@ -12,6 +12,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -88,6 +90,14 @@ public class AssetGroupDialog extends JDialog {
 		}
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		//added code
+		okButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				
+			}
+		});
 		cardsPane=new JPanel(new GridLayout(1,0));
 		for(Asset ass:represntedGroup)
 		{
