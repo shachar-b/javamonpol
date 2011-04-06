@@ -2,10 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 
-import javax.swing.SwingUtilities;
-
-import monopoly.GameManager.jailActions;
 import monopoly.GameManager;
+import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
@@ -22,13 +20,13 @@ public class SwingUIBackup implements IUI {
 	MainWindow frame;
 
 	public SwingUIBackup() {
-		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                frame = new MainWindow();
-                frame.setVisible(true);
-            }
-        });
+//		SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                frame = new MainWindow();
+//                frame.setVisible(true);
+//            }
+//        });
 	}
 	@Override
 	//Display message in side console window
@@ -220,6 +218,11 @@ public class SwingUIBackup implements IUI {
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
 		
+	}
+	@Override
+	public MainWindow getFrame() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

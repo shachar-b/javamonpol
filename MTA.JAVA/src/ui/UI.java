@@ -40,6 +40,11 @@ public class UI implements IUI {
         });
 	}
 	
+	public MainWindow getFrame()
+	{
+		return frame;
+	}
+	
 	/* (non-Javadoc)
 	 * @see ui.IUI#notifyPlayerLanded(players.Player, squares.Square)
 	 */
@@ -60,7 +65,9 @@ public class UI implements IUI {
 		String message = "\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance()
 		+"\nIs currently on square " + (p.getCurrentPosition()+1) + ": " + currSQ.getName();
 		displayMessage(message);
-		//frame.setPlayerPanel(p);
+		frame.setPlayerPanel(p);
+		frame.validate();
+		frame.repaint();
 	}
 
 	/* (non-Javadoc)

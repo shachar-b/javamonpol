@@ -16,10 +16,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.border.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import monopoly.GameManager;
+
 import players.Player;
+import squares.Square;
+import ui.guiComponents.Squares.SquarePanel;
+import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.Offerable;
@@ -29,14 +35,27 @@ import assets.Offerable;
  */
 public class PlayerPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
+	
+	private Player player;
+	
 	public PlayerPanel(Player player)
 	{
 		initComponents();
+		this.player = player;
 		nameLabel.setText(player.getName());
+		Square currentSquare =GameManager.currentGame.getGameBoard().get(player.getCurrentPosition());
+		setSquarePanelContent(currentSquare);
 		initTreeModel(player);
-
 	}
 
+	
+	public void setSquarePanelContent(Square currentSquare)
+	{
+		if (CurrentSquare.getComponentCount()>3)
+			CurrentSquare.remove(0);
+		CurrentSquare.add(SqurePanelFactory.makeCorrectSqurePanel(currentSquare,false),0);
+	}
+	
 	private void initTreeModel(Player player)
 	{
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(player.getName());
@@ -65,7 +84,6 @@ public class PlayerPanel extends JPanel {
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		buttonPane = new JPanel();
-		rollDie = new JButton();
 		EndTurn = new JButton();
 		Bidding = new JButton();
 		Forfeit = new JButton();
@@ -87,12 +105,9 @@ public class PlayerPanel extends JPanel {
 		{
 			buttonPane.setLayout(new GridLayout());
 
-			//---- rollDie ----
-			rollDie.setText("Roll Die");
-			buttonPane.add(rollDie);
-
 			//---- EndTurn ----
 			EndTurn.setText("End Turn");
+			EndTurn.setEnabled(false);
 			buttonPane.add(EndTurn);
 
 			//---- Bidding ----
@@ -114,6 +129,7 @@ public class PlayerPanel extends JPanel {
 
 		//======== DicePane ========
 		{
+			DicePane.setBorder(new EtchedBorder());
 			DicePane.setLayout(new BorderLayout());
 
 			//---- useJailFreeCard ----
@@ -124,6 +140,7 @@ public class PlayerPanel extends JPanel {
 
 		//======== CurrentSquare ========
 		{
+			CurrentSquare.setBorder(new EtchedBorder());
 			CurrentSquare.setLayout(new BoxLayout(CurrentSquare, BoxLayout.Y_AXIS));
 
 			//---- showGroup ----
@@ -142,6 +159,7 @@ public class PlayerPanel extends JPanel {
 
 		//======== PlayerInformation ========
 		{
+			PlayerInformation.setBorder(new EtchedBorder());
 			PlayerInformation.setLayout(new FlowLayout());
 
 			//======== scrollPane1 ========
@@ -153,11 +171,15 @@ public class PlayerPanel extends JPanel {
 		add(PlayerInformation, BorderLayout.WEST);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		DicePane.add(Dice.getGameDice());
+		showGroup.setEnabled(false);
+		buyAsset.setEnabled(false);
+		buyHouse.setEnabled(false);
+		useJailFreeCard.setEnabled(false);
+
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
 	private JPanel buttonPane;
-	private JButton rollDie;
 	private JButton EndTurn;
 	private JButton Bidding;
 	private JButton Forfeit;

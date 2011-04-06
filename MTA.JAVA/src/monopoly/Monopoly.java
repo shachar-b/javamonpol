@@ -2,7 +2,6 @@ package monopoly;
 
 import java.util.ArrayList;
 
-import players.ComputerPlayer;
 import players.Player;
 import squares.Square;
 import ui.UI;
