@@ -6,6 +6,8 @@ import javax.management.RuntimeErrorException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionEventListener;
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
@@ -65,7 +67,14 @@ public class UI implements IUI {
 		String message = "\nRound: " + roundNumber +"\t Player: " + p.getName() + "\t Balance : " + p.getBalance()
 		+"\nIs currently on square " + (p.getCurrentPosition()+1) + ": " + currSQ.getName();
 		displayMessage(message);
-		frame.setPlayerPanel(p);
+		frame.setPlayerPanel(p).addGameActionsListener(new GameActionEventListener() {
+			
+			@Override
+			public void eventHappened(GameActionEvent gameActionEvent) {
+				GameManager.currentGame.eventDispatch(gameActionEvent.getMessage());
+				
+			}
+		});
 		frame.validate();
 		frame.repaint();
 	}

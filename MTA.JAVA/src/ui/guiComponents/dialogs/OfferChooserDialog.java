@@ -12,6 +12,7 @@ import javax.swing.border.*;
  * @author Omer
  */
 public class OfferChooserDialog extends JDialog {
+	private static final long serialVersionUID = 1L;
 	public OfferChooserDialog(Frame owner) {
 		super(owner);
 		initComponents();

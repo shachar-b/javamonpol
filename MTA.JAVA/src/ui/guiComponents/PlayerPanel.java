@@ -7,6 +7,7 @@ package ui.guiComponents;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -16,15 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.border.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
-
 import players.Player;
 import squares.Square;
-import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.guiComponents.dice.Dice;
 import assets.Asset;
@@ -33,21 +34,48 @@ import assets.Offerable;
 /**
  * @author Shachar
  */
-public class PlayerPanel extends JPanel {
+public class PlayerPanel extends GameActionsListenableClass {
 	private static final long serialVersionUID = 1L;
-	
-	private Player player;
 	
 	public PlayerPanel(Player player)
 	{
 		initComponents();
-		this.player = player;
 		nameLabel.setText(player.getName());
 		Square currentSquare =GameManager.currentGame.getGameBoard().get(player.getCurrentPosition());
 		setSquarePanelContent(currentSquare);
 		initTreeModel(player);
 	}
 
+	public void setGetOutOfJailButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		useJailFreeCard.setEnabled(value);
+	}
+	
+	public void setBuyAssetButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		buyAsset.setEnabled(value);
+	}
+	
+	public void setShowGroupButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		showGroup.setEnabled(value);
+	}
+	
+	public void setBuyHouseButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		buyHouse.setEnabled(value);
+	}
+	
+	public void setEndTurnButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		EndTurn.setEnabled(value);
+	}
+	
+	public void setBiddingButtonStatus(boolean value)
+	{//value==true -> enable button, otherwise -> disable button.
+		Bidding.setEnabled(value);
+	}
+	
 	
 	public void setSquarePanelContent(Square currentSquare)
 	{
@@ -79,6 +107,10 @@ public class PlayerPanel extends JPanel {
 		playerModel.insertNodeInto(groupsNode,root, playerModel.getChildCount(root));
 
 		PlayerHoldings.setModel(playerModel);
+	}
+
+	private void ForfeitActionPerformed(ActionEvent e) {
+		fireEvent(new GameActionEvent(this, "forfeit"));
 	}
 
 	private void initComponents() {
@@ -118,6 +150,11 @@ public class PlayerPanel extends JPanel {
 
 			//---- Forfeit ----
 			Forfeit.setText("Forfeit Game");
+			Forfeit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ForfeitActionPerformed(e);
+				}
+			});
 			buttonPane.add(Forfeit);
 		}
 		add(buttonPane, BorderLayout.SOUTH);
@@ -133,7 +170,7 @@ public class PlayerPanel extends JPanel {
 			DicePane.setLayout(new BorderLayout());
 
 			//---- useJailFreeCard ----
-			useJailFreeCard.setText("Get out of jail for FREE!");
+			useJailFreeCard.setText("Get out of jail free");
 			DicePane.add(useJailFreeCard, BorderLayout.SOUTH);
 		}
 		add(DicePane, BorderLayout.EAST);

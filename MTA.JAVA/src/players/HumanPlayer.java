@@ -79,18 +79,6 @@ public class HumanPlayer extends Player {
 	}
 
 	/* (non-Javadoc)
-	 * @see players.Player#hasGetOutOfJailFreeCard()
-	 * If player has a get out of jail free card, he is asked if he wants to use it.
-	 */
-	@Override
-	public boolean hasGetOutOfJailFreeCard()
-	{
-		if (super.hasGetOutOfJailFreeCard())
-			return GameManager.CurrentUI.askYesNoQuestion("Would you like to you your get out of jail free card?");
-		else return false;
-	}
-
-	/* (non-Javadoc)
 	 * @see players.Player#makeSellOffers()
 	 * Prompts the user for relevant choices when selling an asset/group.
 	 */

@@ -1,10 +1,10 @@
-package InnerChangeListner;
+package listeners.gameActions;
 
-public class InnerChangeEvet{
+public class GameActionEvent{
 	private Object source;
 	private String message;
 	
-	public InnerChangeEvet (Object source, String message) {
+	public GameActionEvent (Object source, String message) {
 		this.source = source;
 		this.message = message;
 	}
