@@ -6,8 +6,10 @@ package ui.guiComponents;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -22,11 +24,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SqurePanelFactory;
+import ui.guiComponents.dialogs.AssetGroupDialog;
 import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.Offerable;
@@ -36,14 +40,30 @@ import assets.Offerable;
  */
 public class PlayerPanel extends GameActionsListenableClass {
 	private static final long serialVersionUID = 1L;
-	
+	private Player representedPlayer;
+	private GameActionEventListener dieListner= new GameActionEventListener() {
+		
+		@Override
+		public void eventHappened(GameActionEvent gameActionEvent) {
+			dieRolled();
+			
+		}
+	};
+	private void dieRolled()
+	{
+		EndTurn.setEnabled(true);
+		useJailFreeCard.setEnabled(false);
+		fireEvent("throwDie");
+	}
 	public PlayerPanel(Player player)
 	{
+		representedPlayer=player;
 		initComponents();
+		Dice.getGameDice().addGameActionsListener(dieListner);
 		nameLabel.setText(player.getName());
 		Square currentSquare =GameManager.currentGame.getGameBoard().get(player.getCurrentPosition());
 		setSquarePanelContent(currentSquare);
-		initTreeModel(player);
+		initTreeModel();
 	}
 
 	public void setGetOutOfJailButtonStatus(boolean value)
@@ -84,20 +104,20 @@ public class PlayerPanel extends GameActionsListenableClass {
 		CurrentSquare.add(SqurePanelFactory.makeCorrectSqurePanel(currentSquare,false),0);
 	}
 	
-	private void initTreeModel(Player player)
+	private void initTreeModel()
 	{
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(player.getName());
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(representedPlayer.getName());
 
 		DefaultMutableTreeNode moneyNode = new DefaultMutableTreeNode("Money");
-		moneyNode.add(new DefaultMutableTreeNode("Balance = "+player.getBalance()));
+		moneyNode.add(new DefaultMutableTreeNode("Balance = "+representedPlayer.getBalance()));
 
 		DefaultMutableTreeNode assetsNode = new DefaultMutableTreeNode("Assets");
-		ArrayList<Asset> assetsList = player.getAssetList();
+		ArrayList<Asset> assetsList = representedPlayer.getAssetList();
 		for (Asset asset : assetsList)
 			assetsNode.add(new DefaultMutableTreeNode(asset.getName()));
 
 		DefaultMutableTreeNode groupsNode = new DefaultMutableTreeNode("Groups");
-		ArrayList<Offerable> groupsList = player.tradeableGroups();
+		ArrayList<Offerable> groupsList = representedPlayer.tradeableGroups();
 		for (Offerable group : groupsList)
 			groupsNode.add(new DefaultMutableTreeNode(group.getName()));
 
@@ -110,8 +130,51 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 
 	private void ForfeitActionPerformed(ActionEvent e) {
+		Dice.getGameDice().resetThrowButton();
 		fireEvent(new GameActionEvent(this, "forfeit"));
+		this.setVisible(false);
+		revalidate();
+		repaint();
 	}
+
+	private void useJailFreeCardActionPerformed(ActionEvent e) {
+		fireEvent(new GameActionEvent(this, "getOutOfJail"));
+		useJailFreeCard.setEnabled(false);
+		EndTurn.setEnabled(true);
+		//TODO:disable DieRoll button
+	}
+
+	private void EndTurnActionPerformed(ActionEvent e) {
+		Dice.getGameDice().resetThrowButton();
+		Dice.getGameDice().removeListener(dieListner);
+		fireEvent("endTurn");
+		this.setVisible(false);
+		revalidate();
+		repaint();
+	}
+
+	private void BiddingActionPerformed(ActionEvent e) {
+		//TODO:add my cool dialog here
+	}
+
+	private void showGroupActionPerformed(ActionEvent e) 
+	{
+		
+		AssetGroupDialog groups=
+			new AssetGroupDialog((Frame)GameManager.CurrentUI.getFrame() , ((Asset)GameManager.currentGame.getGameBoard().get(representedPlayer.getCurrentPosition())).getGroup());
+		groups.setVisible(true);
+	}
+
+	private void buyAssetActionPerformed(ActionEvent e) {
+		buyAsset.setEnabled(false);
+		fireEvent("buyAsset");
+	}
+
+	private void buyHouseActionPerformed(ActionEvent e) {
+		buyHouse.setEnabled(false);
+		fireEvent("buyHouse");
+	}
+	
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -140,12 +203,22 @@ public class PlayerPanel extends GameActionsListenableClass {
 			//---- EndTurn ----
 			EndTurn.setText("End Turn");
 			EndTurn.setEnabled(false);
+			EndTurn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EndTurnActionPerformed(e);
+				}
+			});
 			buttonPane.add(EndTurn);
 
 			//---- Bidding ----
 			Bidding.setText("Go On Bidding");
 			Bidding.setEnabled(false);
 			Bidding.setToolTipText("Go On Bidding");
+			Bidding.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BiddingActionPerformed(e);
+				}
+			});
 			buttonPane.add(Bidding);
 
 			//---- Forfeit ----
@@ -171,6 +244,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 
 			//---- useJailFreeCard ----
 			useJailFreeCard.setText("Get out of jail free");
+			useJailFreeCard.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					useJailFreeCardActionPerformed(e);
+				}
+			});
 			DicePane.add(useJailFreeCard, BorderLayout.SOUTH);
 		}
 		add(DicePane, BorderLayout.EAST);
@@ -182,14 +260,29 @@ public class PlayerPanel extends GameActionsListenableClass {
 
 			//---- showGroup ----
 			showGroup.setText("Show Group");
+			showGroup.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showGroupActionPerformed(e);
+				}
+			});
 			CurrentSquare.add(showGroup);
 
 			//---- buyAsset ----
 			buyAsset.setText("Buy Asset");
+			buyAsset.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buyAssetActionPerformed(e);
+				}
+			});
 			CurrentSquare.add(buyAsset);
 
 			//---- buyHouse ----
 			buyHouse.setText("Buy House");
+			buyHouse.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					buyHouseActionPerformed(e);
+				}
+			});
 			CurrentSquare.add(buyHouse);
 		}
 		add(CurrentSquare, BorderLayout.CENTER);

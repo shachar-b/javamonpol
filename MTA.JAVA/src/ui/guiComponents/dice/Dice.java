@@ -1,26 +1,42 @@
 package ui.guiComponents.dice;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 
 import ui.utils.Utils;
 
-public class Dice extends JLabel{
+public class Dice extends GameActionsListenableClass{
 	private static final long serialVersionUID = 1L;
 	private static Dice gameDice = new Dice();
 	ButtonListener throwButton;
+	JButton button;
 	int dice1Outcome;
 	int dice2Outcome;
 
-    private Dice(){
+	private void RollButtonPressed(){
+		button.setEnabled(false);
+		fireEvent("throwDie");
+	}
+	public void resetThrowButton() {
+		button.setEnabled(true);
+	}
+	private Dice() {
         JLabel dice1 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
         JLabel dice2 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
-        JButton button = new JButton("Throw");
+        button = new JButton("Throw");
+        button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RollButtonPressed();
+			}
+		});
         JLabel text = new JLabel("Total: 2");
         this.setLayout(new BorderLayout());
         this.add(dice1,BorderLayout.WEST);
