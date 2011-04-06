@@ -12,6 +12,7 @@ import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
+import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.MainWindow;
 import assets.Asset;
@@ -58,6 +59,11 @@ public class UI implements IUI {
 		displayMessage(message);
 		frame.movePlayer(p);
 		frame.getPlayerPanel().setSquarePanelContent(currSQ);
+		Square lastSquare=GameManager.currentGame.getGameBoard().get(p.getLastKnownPosition());
+		if(!(lastSquare instanceof GoToJailSquare))
+		{
+			frame.getPlayerPanel().setBiddingButtonStatus(!p.getAssetList().isEmpty());
+		}
 	}
 
 	/* (non-Javadoc)
@@ -121,6 +127,8 @@ public class UI implements IUI {
 	{
 		String message = player.getName() + " bought " + asset.getName() + " for " + asset.getCost() + "!";
 		displayMessage(message);
+		frame.getPlayerPanel().setBiddingButtonStatus(true);
+
 	}
 
 	/* (non-Javadoc)
