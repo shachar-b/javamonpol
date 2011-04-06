@@ -6,6 +6,7 @@ import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
+import ui.guiComponents.MainWindow;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -19,6 +20,8 @@ import cards.ActionCard;
  * @author Omer Shenhar and Shachar Butnaro
  */
 public interface IUI {
+	
+	public MainWindow getFrame();
 	
 	/**
 	 * method void displayMessage(String message)

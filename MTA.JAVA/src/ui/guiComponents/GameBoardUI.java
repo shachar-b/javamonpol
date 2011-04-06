@@ -36,6 +36,11 @@ public class GameBoardUI extends JPanel {
         initUI();
 	}
     
+    public SquarePanel getSquareAtIndex(int index)
+    {
+    	return components.get(index);
+    }
+    
     public void movePlayer(Player player,int from,int to)
     {
     	components.get(from).removePlayer(playersIcons.get(player));

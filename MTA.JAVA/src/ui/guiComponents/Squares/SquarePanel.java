@@ -6,7 +6,6 @@ package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
@@ -20,7 +19,6 @@ import monopoly.GameManager;
 
 import squares.Square;
 import ui.utils.ImagePanel;
-import ui.utils.Utils;
 
 /**
  * @author Shachar

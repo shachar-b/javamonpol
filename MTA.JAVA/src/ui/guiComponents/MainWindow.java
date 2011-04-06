@@ -4,15 +4,13 @@
 
 package ui.guiComponents;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -24,10 +22,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.*;
 
-import players.Player;
 import players.ComputerPlayer;
-
+import players.Player;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
 
@@ -42,6 +40,11 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		initComponents();
 		//splitPane2.setTopComponent(new PlayerPanel(new ComputerPlayer()));
+	}
+	
+	public JTextArea getTextualConsole()
+	{
+		return textualConsole;
 	}
 
 	private void menuItem1ActionPerformed(ActionEvent e) {
@@ -67,6 +70,8 @@ public class MainWindow extends JFrame {
 	public void addLineToConsole(String message)
 	{
 		textualConsole.append(message+"\n");
+		textualConsole.validate();
+		textualConsole.repaint();
 	}
 
 	private void initComponents() {
@@ -80,6 +85,7 @@ public class MainWindow extends JFrame {
 		splitPane1 = new JSplitPane();
 		gameBoardUI1 = new GameBoardUI();
 		splitPane2 = new JSplitPane();
+		playerPanelArea = new JPanel();
 		scrollPane1 = new JScrollPane();
 		textualConsole = new JTextArea();
 
@@ -150,6 +156,12 @@ public class MainWindow extends JFrame {
 			{
 				splitPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
+				//======== playerPanelArea ========
+				{
+					playerPanelArea.setLayout(new FlowLayout());
+				}
+				splitPane2.setTopComponent(playerPanelArea);
+
 				//======== scrollPane1 ========
 				{
 
@@ -180,6 +192,7 @@ public class MainWindow extends JFrame {
 	private JSplitPane splitPane1;
 	private GameBoardUI gameBoardUI1;
 	private JSplitPane splitPane2;
+	private JPanel playerPanelArea;
 	private JScrollPane scrollPane1;
 	private JTextArea textualConsole;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
@@ -191,5 +204,10 @@ public class MainWindow extends JFrame {
 	{
 		return gameBoardUI1;
 	}
-	
+
+	public void setPlayerPanel(Player p) {
+		PlayerPanel currentPanel = new PlayerPanel(p);
+		playerPanelArea.removeAll();
+		playerPanelArea.add(currentPanel);
+	}	
 }
