@@ -3,11 +3,20 @@ package ui.guiComponents.dice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
+
 import javax.swing.JLabel;
 
-class ButtonListener implements ActionListener {
+import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionEventListener;
+import listeners.gameActions.GameActionsListenableClass;
+
+class ButtonListener extends GameActionsListenableClass implements ActionListener {
     
-    private JLabel dice1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel dice1;
     private JLabel dice2;
     private JLabel text;
 
@@ -19,6 +28,18 @@ class ButtonListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text), 0, 100);
+        GameActionEventListener preformWhenDone= new GameActionEventListener() {
+			
+			@Override
+			public void eventHappened(GameActionEvent innerChangeEvet) {
+				done();
+				
+			}
+		};
+        timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text,preformWhenDone), 0, 100);
     }
+    private  void  done() {
+    	fireEvent("throwDie");
+	}
 }
+

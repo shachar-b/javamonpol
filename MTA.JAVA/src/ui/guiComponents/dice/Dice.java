@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 
@@ -32,11 +34,6 @@ public class Dice extends GameActionsListenableClass{
         JLabel dice1 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
         JLabel dice2 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
         button = new JButton("Throw");
-        button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RollButtonPressed();
-			}
-		});
         JLabel text = new JLabel("Total: 2");
         this.setLayout(new BorderLayout());
         this.add(dice1,BorderLayout.WEST);
@@ -44,6 +41,14 @@ public class Dice extends GameActionsListenableClass{
         this.add(button,BorderLayout.NORTH);
         this.add(text,BorderLayout.SOUTH);
         throwButton = new ButtonListener(dice1, dice2, text);
+        throwButton.addGameActionsListener(new GameActionEventListener() {
+			
+			@Override
+			public void eventHappened(GameActionEvent gameActionEvent) {
+				RollButtonPressed();
+				
+			}
+		});
         button.addActionListener(throwButton);
         this.setBorder(BorderFactory.createEtchedBorder());
         this.setVisible(true);
