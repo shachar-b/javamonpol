@@ -102,6 +102,10 @@ public class PlayerPanel extends GameActionsListenableClass {
 		if (CurrentSquare.getComponentCount()>3)
 			CurrentSquare.remove(0);
 		CurrentSquare.add(SqurePanelFactory.makeCorrectSqurePanel(currentSquare,false),0);
+		if(currentSquare instanceof Asset)
+		{
+			showGroup.setEnabled(true);
+		}
 	}
 	
 	private void initTreeModel()

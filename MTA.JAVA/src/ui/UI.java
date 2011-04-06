@@ -57,6 +57,7 @@ public class UI implements IUI {
 		+ currSQ.getName(); 
 		displayMessage(message);
 		frame.movePlayer(p);
+		frame.getPlayerPanel().setSquarePanelContent(currSQ);
 	}
 
 	/* (non-Javadoc)
