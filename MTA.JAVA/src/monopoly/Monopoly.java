@@ -217,7 +217,7 @@ public class Monopoly
 	private void endTurn()
 	{
 		playerIndex++;
-		if (playerIndex>gamePlayers.size())
+		if (playerIndex>=gamePlayers.size())
 		{
 			playerIndex=0;
 			roundNumber++;

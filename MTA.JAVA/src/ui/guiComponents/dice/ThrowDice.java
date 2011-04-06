@@ -5,6 +5,9 @@ import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
+import listeners.gameActions.GameActionEvent;
+import listeners.gameActions.GameActionEventListener;
+import listeners.innerChangeEventListener.InnerChangeEventListner;
 import monopoly.GameManager;
 
 import ui.utils.Utils;
@@ -17,13 +20,15 @@ class ThrowDice extends TimerTask {
     private int count;
     int dice1Outcome;
     int dice2Outcome;
+    GameActionEventListener preformWhenDone;
     public final static int NUM_OF_THROWS = 20;
 
-    public ThrowDice(JLabel dice1, JLabel dice2, JLabel text) {
+    public ThrowDice(JLabel dice1, JLabel dice2, JLabel text,GameActionEventListener preformWhenDone) {
         this.dice1 = dice1;
         this.dice2 = dice2;
         this.text = text;
         count = NUM_OF_THROWS;
+        this.preformWhenDone=preformWhenDone;
     }
     public void run(){
         if(count > 0){
@@ -38,6 +43,7 @@ class ThrowDice extends TimerTask {
         }
         else{
             Dice.getGameDice().setDieOutcome(dice1Outcome,dice2Outcome);
+            preformWhenDone.eventHappened(new GameActionEvent(this, "throwDie"));
             this.cancel();
         }
     }
