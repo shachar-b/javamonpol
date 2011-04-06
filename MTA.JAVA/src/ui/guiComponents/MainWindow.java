@@ -4,27 +4,29 @@
 
 package ui.guiComponents;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.*;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.*;
 
-import players.ComputerPlayer;
 import players.Player;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
@@ -39,14 +41,8 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
-		//splitPane2.setTopComponent(new PlayerPanel(new ComputerPlayer()));
 	}
 	
-	public JTextArea getTextualConsole()
-	{
-		return textualConsole;
-	}
-
 	private void menuItem1ActionPerformed(ActionEvent e) {
 		JDialog aboutDialog = new ui.guiComponents.dialogs.aboutDialog(this);
 		aboutDialog.setVisible(true);
@@ -205,9 +201,16 @@ public class MainWindow extends JFrame {
 		return gameBoardUI1;
 	}
 
-	public void setPlayerPanel(Player p) {
+	public PlayerPanel setPlayerPanel(Player p) {
 		PlayerPanel currentPanel = new PlayerPanel(p);
 		playerPanelArea.removeAll();
 		playerPanelArea.add(currentPanel);
-	}	
+		return currentPanel;
+	}
+	
+	public PlayerPanel getPlayerPanel()
+	{
+		return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a PlayerPanel
+	}
+	
 }

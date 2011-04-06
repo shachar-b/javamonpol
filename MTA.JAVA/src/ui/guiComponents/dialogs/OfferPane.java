@@ -4,10 +4,10 @@
 
 package ui.guiComponents.dialogs;
 
-import java.awt.*;
-import java.util.Collection;
+import java.awt.FlowLayout;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTree;
 
 import monopoly.buyOffer;
 
@@ -15,8 +15,8 @@ import monopoly.buyOffer;
  * @author Omer
  */
 public class OfferPane extends JPanel {
-	
-	
+	private static final long serialVersionUID = 1L;
+
 	public OfferPane(buyOffer offer) {
 		initComponents(offer);
 	}

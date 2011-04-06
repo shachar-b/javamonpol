@@ -1,6 +1,6 @@
 package squares;
 
-import InnerChangeListner.InnerChangeListenableClass;
+import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import players.Player;
 
 /**

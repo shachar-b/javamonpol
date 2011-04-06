@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import InnerChangeListner.InnerChangeListenableClass;
 
+import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import monopoly.GameManager;
 
 import players.Player;

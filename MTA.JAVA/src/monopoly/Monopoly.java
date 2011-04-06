@@ -22,6 +22,9 @@ public class Monopoly
 	private ShaffledDeck surprise = new ShaffledDeck();
 	private ShaffledDeck callUp = new ShaffledDeck();
 	private ArrayList<Square> gameBoard;
+	private int playerIndex=0;
+	private int roundNumber = 1;
+	private Player currentActivePlayer;
 
 
 	/**
@@ -55,7 +58,6 @@ public class Monopoly
 	 */
 	public void play()
 	{
-		int roundNumber = 1;
 		while (getActualNumPlayers()>1)
 		{
 			doRound(roundNumber);
@@ -72,29 +74,22 @@ public class Monopoly
 	private void doRound(int roundNumber)
 	{
 		int currDieSum;
-		for (int playerIndex=0; playerIndex<gamePlayers.size() ; playerIndex++)
+		for (playerIndex=0; playerIndex<gamePlayers.size() ; playerIndex++)
 		{
-			Player p = gamePlayers.get(playerIndex);
-			userInterface.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
-			if (p.chooseToForfeit())
-			{
-				removePlayerFromGame(p);
-				playerIndex--;
-				if (gamePlayers.size()==1)
-					break;
-				else
-					continue;
-			}
-			if (gameBoard.get(p.getCurrentPosition()).shouldPlayerMove(p))
+			currentActivePlayer = gamePlayers.get(playerIndex);
+			userInterface.notifyNewRound(currentActivePlayer, roundNumber, gameBoard.get(currentActivePlayer.getCurrentPosition()));
+			if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
 			{
 				currDieSum=rollDie();
-				movePlayer(p ,currDieSum,true);
-				if (p.getGoOnNextTurn()) //If player cannot move due to new position, he can't sell offers.
-					p.makeSellOffers();
+				movePlayer(currentActivePlayer ,currDieSum,true);
+				if (currentActivePlayer.getGoOnNextTurn()) //If player cannot move due to new position, he can't sell offers.
+					currentActivePlayer.makeSellOffers();
 			}
 		}
 	}
 
+	
+	
 	/**
 	 * method private int rollDie()
 	 * this method rool all the dice
@@ -223,5 +218,56 @@ public class Monopoly
 	
 	public ArrayList<Square> getGameBoard(){
 		return gameBoard;
+	}
+
+	
+	private void endTurn()
+	{
+		playerIndex++;
+		if (playerIndex>gamePlayers.size())
+			{
+				playerIndex=0;
+				roundNumber++;
+			}
+		Player p = gamePlayers.get(playerIndex);
+		if (getActualNumPlayers()==1)
+			GameManager.CurrentUI.notifyGameWinner(gamePlayers.get(0));
+		else
+			GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
+	}
+	
+	public void eventDispatch(String message) {
+		if(message.equals("forfeit"))
+		{
+			Player p = gamePlayers.get(playerIndex);
+			removePlayerFromGame(p);
+			playerIndex--;
+			endTurn();
+		}
+		else if(message.equals("endTurn"))
+		{
+			endTurn();
+		}
+		else if(message.equals("getOutOfJail"))
+		{
+			
+		}
+		else if (message.equals("goOnBidding"))
+		{
+			
+		}
+		else if (message.equals("buyHouse"))
+		{
+			
+		}
+		else if (message.equals("buyAsset"))
+		{
+			
+			
+		}
+		else if(message.equals("throwDie"))
+		{
+			
+		}
 	}
 }

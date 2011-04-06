@@ -45,13 +45,11 @@ public class JailSlashFreePassSquare extends Square {
 		{
 			if (player.hasGetOutOfJailFreeCard()) //Player will also be asked if he wants to use
 			{		
+				GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(true);
 				currAction=jailActions.USED_CARD;
-				player.setGoOnNextTurn(true);
-				GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
-				player.setGetOutOfJailFreeCardPlaceHolder(null);
 			}
 			else if (GameManager.currentGame.rollForADouble())
-			{	
+			{	//TODO : FIX THIS SHIT
 				currAction=jailActions.ROLLED_DOUBLE;
 				player.setGoOnNextTurn(true);
 			}
@@ -63,5 +61,12 @@ public class JailSlashFreePassSquare extends Square {
 			GameManager.CurrentUI.notifyJailAction(player, currAction);
 			return false;
 		}
+	}
+	
+	public void playerUsesGetOutOfJailCard(Player player)
+	{
+		player.setGoOnNextTurn(true);
+		GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
+		player.setGetOutOfJailFreeCardPlaceHolder(null);
 	}
 }

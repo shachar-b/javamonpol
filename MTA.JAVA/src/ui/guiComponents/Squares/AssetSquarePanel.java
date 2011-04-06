@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import listeners.innerChangeEventListener.InnerChangeEventListner;
+import listeners.innerChangeEventListener.InnerChangeEvet;
 import monopoly.GameManager;
-import InnerChangeListner.InnerChangeEventListner;
-import InnerChangeListner.InnerChangeEvet;
 import assets.Asset;
 import assets.City;
 import assets.UtilOrTranspoAsset;

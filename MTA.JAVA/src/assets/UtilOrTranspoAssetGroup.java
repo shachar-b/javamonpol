@@ -3,8 +3,8 @@
  */
 package assets;
 
-import InnerChangeListner.InnerChangeEventListner;
-import InnerChangeListner.InnerChangeEvet;
+import listeners.innerChangeEventListener.InnerChangeEventListner;
+import listeners.innerChangeEventListener.InnerChangeEvet;
 
 /**
  * class UtilOrTranspoAssetGroup extends AssetGroup

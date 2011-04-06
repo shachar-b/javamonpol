@@ -1,4 +1,4 @@
-package InnerChangeListner;
+package listeners.innerChangeEventListener;
 
 public interface InnerChangeEventListner {
 

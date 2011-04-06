@@ -1,10 +1,10 @@
 package players;
 import java.util.ArrayList;
 
+import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import monopoly.GameManager;
 import monopoly.buyOffer;
 import ui.utils.ImagePanel;
-import InnerChangeListner.InnerChangeListenableClass;
 import assets.Asset;
 import assets.City;
 import assets.Country;

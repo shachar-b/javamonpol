@@ -5,8 +5,9 @@ package assets;
 
 import javax.management.RuntimeErrorException;
 
-import InnerChangeListner.InnerChangeEventListner;
-import InnerChangeListner.InnerChangeEvet;
+import listeners.innerChangeEventListener.InnerChangeEventListner;
+import listeners.innerChangeEventListener.InnerChangeEvet;
+
 
 
 /**
