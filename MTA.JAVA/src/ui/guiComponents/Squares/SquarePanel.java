@@ -79,11 +79,13 @@ public class SquarePanel extends JPanel{
 		//---- Group ----
 		groupLabel = new JLabel();
 		groupLabel.setEnabled(false);
+		groupLabel.setFont(GameManager.DefaultFont);
 		titleArea.add(groupLabel);
 		
 		//---- Name ----
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBackground(new Color(51, 51, 255));
+		titleArea.setFont(GameManager.DefaultFont);
 		titleArea.add(titleLabel);
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		titleLabel.setText(representedSquare.getName());

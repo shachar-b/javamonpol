@@ -1,5 +1,7 @@
 package monopoly;
 
+import java.awt.Font;
+
 import players.Player;
 import ui.IUI;
 
@@ -21,6 +23,7 @@ public class GameManager {
 	public static final String MoneySign = "$"; //This is the currency symbol
 	public static Monopoly currentGame;
 	public static IUI CurrentUI;
+	public static final Font DefaultFont=new Font("Serif", Font.BOLD, 10);
 	
 	
 

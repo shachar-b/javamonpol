@@ -18,13 +18,18 @@ import assets.Asset;
  */
 public class SqurePanelFactory {
 	
-	
 	public static SquarePanel  makeCorrectSqurePanel(Square represent)
+	{
+		return makeCorrectSqurePanel(represent, true);
+	}
+
+	
+	public static SquarePanel  makeCorrectSqurePanel(Square represent,boolean isHover)
 	{
 		String SquareIconsFolder = GameManager.IMAGES_FOLDER+"SquareIcons/";
 		if((represent instanceof Asset))
 		{
-			return new AssetSquarePanel((Asset) represent);
+			return new AssetSquarePanel((Asset) represent,isHover);
 			
 		}
 		else if((represent instanceof StartSquare))

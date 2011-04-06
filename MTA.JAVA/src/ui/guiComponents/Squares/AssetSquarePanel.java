@@ -2,9 +2,12 @@ package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,10 +25,15 @@ public class AssetSquarePanel extends SquarePanel {
 	private DefaultTableModel AssetInformationModel;
 	JTable AssetInformation;
 	Asset representedAsset;
+	JLabel SaleOrRentPrice=new JLabel();
+	JLabel owner=new JLabel();
+	JPanel DataArea= new JPanel(new GridLayout(0,1));
 	
 	public AssetSquarePanel(Asset representedAsset)
 	{
 		this(representedAsset,true);
+		owner.setFont(GameManager.DefaultFont);
+		SaleOrRentPrice.setFont(GameManager.DefaultFont);
 	}
 	public AssetSquarePanel(Asset representedAsset,boolean enableHoverMode) {
 		super(representedAsset);
@@ -36,9 +44,12 @@ public class AssetSquarePanel extends SquarePanel {
 		
 		groupLabel.setEnabled(true);
 		groupLabel.setText(representedAsset.getGroup().getName()+":");
+		groupLabel.setFont(GameManager.DefaultFont);
 		
 		titleLabel.setText(titleLabel.getText());
+		titleLabel.setFont(GameManager.DefaultFont);
 		UpdateTable();
+		this.add(DataArea,BorderLayout.CENTER);
 		if(enableHoverMode)
 		{
 			this.addMouseListener(new MouseAdapter() {
@@ -47,11 +58,16 @@ public class AssetSquarePanel extends SquarePanel {
 					makeHover();
 				}
 			});
+			SaleOrRentPrice.setText("Cost:"+representedAsset.getCost());
+			owner.setText("");
+			DataArea.add(SaleOrRentPrice ,BorderLayout.CENTER);
+			DataArea.add(owner ,BorderLayout.CENTER);
+			this.setToolTipText("click the square for more details");
 			
 		}
 		else
 		{
-			this.add(AssetInformation,BorderLayout.CENTER);
+			DataArea.add(AssetInformation,BorderLayout.CENTER);
 		}
 		representedAsset.addInnerChangeEventListner(new InnerChangeEventListner() {
 			
@@ -77,6 +93,16 @@ public class AssetSquarePanel extends SquarePanel {
 	}
 
 	public void UpdateTable(){
+		if(representedAsset.getOwner()!=GameManager.assetKeeper)
+		{
+			owner.setText("owner "+ representedAsset.getOwner().getName());
+			SaleOrRentPrice.setText("rent:"+representedAsset.getRentPrice());
+		}
+		else
+		{
+			owner.setText("");
+			SaleOrRentPrice.setText("Cost:"+representedAsset.getCost());
+		}
 		
 		AssetInformationModel= new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
