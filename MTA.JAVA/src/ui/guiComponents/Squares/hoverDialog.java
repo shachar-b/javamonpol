@@ -4,10 +4,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 
 
 public class hoverDialog extends JDialog {
+
+	JPanel dataArea;
 	/**
 	 * 
 	 */
@@ -16,8 +19,10 @@ public class hoverDialog extends JDialog {
 	public hoverDialog(AssetSquarePanel owner) {
 		this.owner=owner;
 		this.setLayout(new BorderLayout());
-		this.setUndecorated(true);	
-		this.add(new AssetSquarePanel(owner.representedAsset, false),BorderLayout.CENTER);
+		this.setUndecorated(true);
+		dataArea=new JPanel(new BorderLayout());
+		this.add(dataArea,BorderLayout.CENTER);
+		dataArea.add(new AssetSquarePanel(owner.representedAsset, false),BorderLayout.CENTER);
 		this.setLocation(owner.getLocation());
 		this.setMinimumSize(owner.getSize());
 		this.pack();
