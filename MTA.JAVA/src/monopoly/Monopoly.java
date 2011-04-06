@@ -2,10 +2,15 @@ package monopoly;
 
 import java.util.ArrayList;
 
+import monopoly.GameManager.jailActions;
+
 import players.Player;
+import squares.JailSlashFreePassSquare;
 import squares.Square;
 import ui.UI;
+import ui.guiComponents.dice.Dice;
 import assets.Asset;
+import assets.City;
 import cards.ShaffledDeck;
 
 /**
@@ -18,7 +23,7 @@ public class Monopoly
 {
 	private UI userInterface;
 	private ArrayList<Player> gamePlayers;
-	private Dice[] die; 
+	private OldDice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();
 	private ShaffledDeck callUp = new ShaffledDeck();
 	private ArrayList<Square> gameBoard;
@@ -50,7 +55,7 @@ public class Monopoly
 	{
 		this.gamePlayers=gamePlayers;
 	}
-	
+
 	/**
 	 * method public void play()
 	 * this methods handles the game
@@ -78,18 +83,16 @@ public class Monopoly
 		{
 			currentActivePlayer = gamePlayers.get(playerIndex);
 			userInterface.notifyNewRound(currentActivePlayer, roundNumber, gameBoard.get(currentActivePlayer.getCurrentPosition()));
-			if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
+
 			{
-				currDieSum=rollDie();
-				movePlayer(currentActivePlayer ,currDieSum,true);
 				if (currentActivePlayer.getGoOnNextTurn()) //If player cannot move due to new position, he can't sell offers.
 					currentActivePlayer.makeSellOffers();
 			}
 		}
 	}
 
-	
-	
+
+
 	/**
 	 * method private int rollDie()
 	 * this method rool all the dice
@@ -98,7 +101,7 @@ public class Monopoly
 	private int rollDie()
 	{
 		int result=0;
-		for (Dice d : die)
+		for (OldDice d : die)
 		{
 			int currRoll = d.rollDice();
 			result+=currRoll;
@@ -113,13 +116,8 @@ public class Monopoly
 	 */
 	public boolean rollForADouble()
 	{
-		int firstRollOutcome = die[0].rollDice();
-		for (int i=1; i<GameManager.NUM_OF_DIE ; i++)
-		{
-			if (die[i].rollDice()!=firstRollOutcome)
-				return false;
-		}
-		return true; //Will only get here if all rolls were the same
+		int[] result = Dice.getGameDice().getDieOutcome();
+		return (result[0]==result[1]);
 	}	
 
 	/**
@@ -215,31 +213,32 @@ public class Monopoly
 	public ShaffledDeck getCallUp() {
 		return callUp;
 	}
-	
+
 	public ArrayList<Square> getGameBoard(){
 		return gameBoard;
 	}
 
-	
+
 	private void endTurn()
 	{
 		playerIndex++;
 		if (playerIndex>gamePlayers.size())
-			{
-				playerIndex=0;
-				roundNumber++;
-			}
+		{
+			playerIndex=0;
+			roundNumber++;
+		}
 		Player p = gamePlayers.get(playerIndex);
 		if (getActualNumPlayers()==1)
 			GameManager.CurrentUI.notifyGameWinner(gamePlayers.get(0));
 		else
 			GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 	}
-	
+
 	public void eventDispatch(String message) {
+		Player p = gamePlayers.get(playerIndex);
+		Square sq = gameBoard.get(p.getCurrentPosition());
 		if(message.equals("forfeit"))
 		{
-			Player p = gamePlayers.get(playerIndex);
 			removePlayerFromGame(p);
 			playerIndex--;
 			endTurn();
@@ -250,24 +249,33 @@ public class Monopoly
 		}
 		else if(message.equals("getOutOfJail"))
 		{
-			
-		}
-		else if (message.equals("goOnBidding"))
-		{
-			
+			((JailSlashFreePassSquare)sq).playerUsesGetOutOfJailCard(p);
 		}
 		else if (message.equals("buyHouse"))
-		{
-			
+		{ 
+			((City)sq).BuyHouse(p);
 		}
 		else if (message.equals("buyAsset"))
 		{
-			
-			
+			((Asset)sq).buyAsset(p);			
 		}
 		else if(message.equals("throwDie"))
 		{
-			
+			if (sq instanceof JailSlashFreePassSquare && !sq.shouldPlayerMove(p))
+				{
+					boolean hasDouble = rollForADouble();
+					if (hasDouble)
+						GameManager.CurrentUI.notifyJailAction(p, jailActions.ROLLED_DOUBLE);
+					else
+						GameManager.CurrentUI.notifyJailAction(p, jailActions.STAY_IN_JAIL);
+					GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
+				}
+			if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
+			{
+				int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
+				int dieSum = result[0]+result[1];
+				movePlayer(p, dieSum, true);
+			}
 		}
 	}
 }

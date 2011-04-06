@@ -37,6 +37,12 @@ public class Dice extends JLabel{
 		return gameDice;
 	}
 	
+	public int[] getDieOutcome()
+	{
+		int[] results = {dice1Outcome,dice2Outcome};
+		return results;
+	}
+	
 	void setDieOutcome(int dice1Roll, int dice2Roll)
 	{
 		dice1Outcome = dice1Roll;
