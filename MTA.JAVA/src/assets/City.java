@@ -64,14 +64,7 @@ public class City extends Asset {
 				{
 					if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
 					{
-						if (player.buyHouseDecision(this))
-						{
-							player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
-							numHouses++;
-							GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
-							fireEvent("user bought house at "+this.getName()); // if anything changed notify Listeners
-
-						}
+						GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(true);
 					}
 				}
 			}	
@@ -79,6 +72,13 @@ public class City extends Asset {
 			justBoughtCity=false; //This way you don't buy a house in the exact 
 								  //same turn you buy the last city in the country.
 		}
+	}
+	public void BuyHouse(Player player)
+	{
+		player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
+		numHouses++;
+		GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
+		fireEvent("user bought house at "+this.getName()); // if anything changed notify Listeners
 	}
 
 
@@ -110,7 +110,7 @@ public class City extends Asset {
 		if (owner==GameManager.assetKeeper) //Player has been removed from game.	
 		{
 			numHouses=0;
-			fireEvent("house demolished at "+this.getName()); // if anything changed notify
+			fireEvent("keeper"); // if anything changed notify
 		}
 		
 		

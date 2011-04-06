@@ -29,12 +29,12 @@ public class Init implements MonopolyInitilizer{
 	 * @see monopoly.MonopolyInitilizer#initDie()
 	 */
 	@Override
-	public Dice[] initDie()
+	public OldDice[] initDie()
 	{
-		Dice[] die = new Dice[GameManager.NUM_OF_DIE];
+		OldDice[] die = new OldDice[GameManager.NUM_OF_DIE];
 		for (int i =0; i<die.length; i++)
 		{
-			die[i]=new Dice();
+			die[i]=new OldDice();
 			die[i].initGenerator();
 		}
 		return die;

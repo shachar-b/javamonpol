@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
-public class Dice {
+public class OldDice {
 	private Random generator;
 	
 	/**

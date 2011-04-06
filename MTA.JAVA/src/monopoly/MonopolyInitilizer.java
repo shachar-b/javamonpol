@@ -20,7 +20,7 @@ public interface MonopolyInitilizer {
 	 * @visibility public
 	 * @return a array of die with 2 dice
 	 */
-	public Dice[] initDie();
+	public OldDice[] initDie();
 
 	/**
 	 * method ShaffledDeck initSurprise();
