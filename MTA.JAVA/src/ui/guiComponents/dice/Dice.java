@@ -48,9 +48,9 @@ public class Dice extends GameActionsListenableClass{
 	private Dice() {
 		dice1 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
 		dice2 = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone1.gif"));
-		diceA=new JSpinner(new SpinnerNumberModel(1, 1, 6, 1));
+		diceA=new JSpinner(new SpinnerNumberModel(1, 0, 18, 1));
 		diceA.setVisible(false);
-		diceB=new JSpinner(new SpinnerNumberModel(1, 1, 6, 1));
+		diceB=new JSpinner(new SpinnerNumberModel(1, 0, 18, 1));
 		diceB.setVisible(false);
 		button = new JButton("Throw");
 		text = new JLabel("Total: 2");

@@ -19,7 +19,7 @@ public class City extends Asset {
 	private int numHouses;
 	private int costOfHouse;
 
-	
+
 	/**
 	 * method City(AssetGroup group, String name, int costOfCity ,int costOfHouse, int[] rentPrices)
 	 * @visibility public
@@ -56,22 +56,13 @@ public class City extends Asset {
 	public void playerArrived(Player player)
 	{
 		super.playerArrived(player); //Check for the other options
-		if  (owner==player)//Owner is player
+		if(canHouseBeBuilt(player))
 		{
-			if (group.isOfSoleOwnership())
-			{
-				if (justBoughtCity==false)
-				{
-					if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
-					{
-						GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(true);
-					}
-				}
-			}	
-			//If the arriving player is the owner, need to set justBoughtCity to false.
-			justBoughtCity=false; //This way you don't buy a house in the exact 
-								  //same turn you buy the last city in the country.
+			GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(true);
 		}
+
+
+
 	}
 	public void BuyHouse(Player player)
 	{
@@ -79,6 +70,24 @@ public class City extends Asset {
 		numHouses++;
 		GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
 		fireEvent("user bought house at "+this.getName()); // if anything changed notify Listeners
+	}
+	public boolean canHouseBeBuilt(Player byWhom)
+	{
+
+		if  (owner==byWhom)//Owner is player
+		{
+			if (group.isOfSoleOwnership())
+			{
+				if (numHouses<GameManager.MAX_NUMBER_OF_HOUSES)
+				{
+					return true;
+				}
+
+			}
+		}
+		return false;
+
+
 	}
 
 
@@ -112,8 +121,8 @@ public class City extends Asset {
 			numHouses=0;
 			fireEvent("keeper"); // if anything changed notify
 		}
-		
-		
+
+
 	}
 	/**
 	 * @return a array of prices in the city where ret[i] is the price with i houses
