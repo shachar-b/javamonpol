@@ -33,8 +33,6 @@ public class Monopoly
 	private Player currentActivePlayer;
 	private Square currentPlayerSquare;
 	private int state=0;
-	private boolean isCompCommand=false;
-
 
 	/**
 	 * method void init (package protected)
@@ -73,6 +71,7 @@ public class Monopoly
 	private void doComputerRound()
 	{
 		PlayerPanel pane=GameManager.CurrentUI.getFrame().getPlayerPanel();
+		currentPlayerSquare=gameBoard.get(currentActivePlayer.getCurrentPosition());
 		switch (state) {
 		case 0:
 			state++;
@@ -91,7 +90,7 @@ public class Monopoly
 		case 2:
 			state++;
 			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
-			{
+			{//unowned asset
 				if(currentActivePlayer.buyDecision(((Asset) currentPlayerSquare)))
 				{
 					pane.ClickBuyAssetButton();
@@ -104,17 +103,15 @@ public class Monopoly
 			state++;
 			if(currentPlayerSquare instanceof City)
 			{
-				if(((City) currentPlayerSquare).getNumHouses() < GameManager.MAX_NUMBER_OF_HOUSES
-							&& currentActivePlayer.buyHouseDecision(((City) currentPlayerSquare)))
+				if(((City)currentPlayerSquare).canHouseBeBuilt(currentActivePlayer))
 				{
-					
 					//wait
 					pane.ClickBuyHouseButton();
 					break;
 				}
 				
 			}
-		default://case 4
+		case 4://case 4
 			state=0;
 			pane.ClickEndTurnButton();
 			break;
@@ -214,6 +211,19 @@ public class Monopoly
 			surprise.add(player.getGetOutOfJailFreeCardPlaceHolder());
 		gamePlayers.remove(player);
 		GameManager.CurrentUI.notifyPlayerLeftGame(player);
+		if(player==currentActivePlayer)
+		{
+			endTurn();
+		}
+		else
+		{//it must be in the list
+			playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
+		}
+		if(gamePlayers.size()==1)
+		{
+			userInterface.notifyGameWinner(gamePlayers.get(0));
+		}
+		
 	}
 
 	/**
