@@ -265,12 +265,12 @@ public class Monopoly
 		{
 			boolean hasDouble = rollForADouble();
 			((JailSlashFreePassSquare)currentPlayerSquare).release(currentActivePlayer, hasDouble);		}
-	if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
-	{
+		else if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
+		{
 		int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
 		int dieSum = result[0]+result[1];
 		movePlayer(currentActivePlayer, dieSum, true);
-	}
+		}
 		
 	}
 
