@@ -203,14 +203,19 @@ public class MainWindow extends JFrame {
 
 	public PlayerPanel setPlayerPanel(Player p) {
 		PlayerPanel currentPanel = new PlayerPanel(p);
-		playerPanelArea.removeAll();
+		clearPlayerPanelArea();
 		playerPanelArea.add(currentPanel);
 		return currentPanel;
 	}
 	
+	public void clearPlayerPanelArea()
+	{
+		playerPanelArea.removeAll();
+	}
+	
 	public PlayerPanel getPlayerPanel()
 	{
-		return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a PlayerPanel
+		return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a single PlayerPanel
 	}
 	
 }

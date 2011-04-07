@@ -32,6 +32,7 @@ import monopoly.GameManager;
 import players.ComputerPlayer;
 import players.HumanPlayer;
 import players.Player;
+import ui.UI;
 import ui.guiComponents.MainWindow;
 
 /**
