@@ -2,14 +2,13 @@ package ui.guiComponents.dice;
 
 import java.util.Random;
 import java.util.TimerTask;
+
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
 import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
-import listeners.innerChangeEventListener.InnerChangeEventListner;
 import monopoly.GameManager;
-
 import ui.utils.Utils;
 
 class ThrowDice extends TimerTask {
@@ -38,7 +37,11 @@ class ThrowDice extends TimerTask {
             Icon icon1 = Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone" + (dice1Outcome) + ".gif");
             Icon icon2 = Utils.getImageIcon(GameManager.IMAGES_FOLDER+"dice/"+"stone" + (dice2Outcome) + ".gif");
             dice1.setIcon(icon1);
+            dice1.revalidate();
+            dice1.repaint();
             dice2.setIcon(icon2);
+            dice2.revalidate();
+            dice2.repaint();
             text.setText("Total: " + (dice1Outcome+dice2Outcome));
         }
         else{

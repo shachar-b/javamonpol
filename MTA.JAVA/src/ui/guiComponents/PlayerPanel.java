@@ -27,6 +27,7 @@ import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
+import players.ComputerPlayer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.Squares.SqurePanelFactory;
@@ -70,10 +71,18 @@ public class PlayerPanel extends GameActionsListenableClass {
 	{//value==true -> enable button, otherwise -> disable button.
 		useJailFreeCard.setEnabled(value);
 	}
+	public void ClickGetOutOfJailButton()
+	{
+		useJailFreeCard.doClick();
+	}
 	
 	public void setBuyAssetButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		buyAsset.setEnabled(value);
+	}
+	public void ClickBuyAssetButton()
+	{
+		buyAsset.doClick();
 	}
 	
 	public void setShowGroupButtonStatus(boolean value)
@@ -85,10 +94,18 @@ public class PlayerPanel extends GameActionsListenableClass {
 	{//value==true -> enable button, otherwise -> disable button.
 		buyHouse.setEnabled(value);
 	}
+	public void ClickBuyHouseButton()
+	{
+		buyAsset.doClick();
+	}
 	
 	public void setEndTurnButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		EndTurn.setEnabled(value);
+	}
+	public void ClickEndTurnButton()
+	{
+		EndTurn.doClick();
 	}
 	
 	public void setBiddingButtonStatus(boolean value)
@@ -106,6 +123,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 		{
 			showGroup.setEnabled(true);
 		}
+		initTreeModel();
 	}
 	
 	private void initTreeModel()
@@ -172,11 +190,13 @@ public class PlayerPanel extends GameActionsListenableClass {
 	private void buyAssetActionPerformed(ActionEvent e) {
 		buyAsset.setEnabled(false);
 		fireEvent("buyAsset");
+		initTreeModel();
 	}
 
 	private void buyHouseActionPerformed(ActionEvent e) {
 		buyHouse.setEnabled(false);
 		fireEvent("buyHouse");
+		initTreeModel();
 	}
 	
 
