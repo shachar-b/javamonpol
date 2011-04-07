@@ -1,12 +1,14 @@
 package monopoly;
 
+import java.awt.Frame;
 import java.util.ArrayList;
 
-import monopoly.GameManager.jailActions;
+import players.ComputerPlayer;
 import players.Player;
 import squares.JailSlashFreePassSquare;
 import squares.Square;
 import ui.UI;
+import ui.guiComponents.PlayerPanel;
 import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.City;
@@ -22,13 +24,16 @@ public class Monopoly
 {
 	private UI userInterface;
 	private ArrayList<Player> gamePlayers;
-	private OldDice[] die; 
+	//private OldDice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();
 	private ShaffledDeck callUp = new ShaffledDeck();
 	private ArrayList<Square> gameBoard;
 	private int playerIndex=0;
 	private int roundNumber = 1;
 	private Player currentActivePlayer;
+	private Square currentPlayerSquare;
+	private int state=0;
+	private boolean isCompCommand=false;
 
 
 	/**
@@ -44,7 +49,7 @@ public class Monopoly
 		GameManager.CurrentUI = new UI();
 		userInterface = (UI)GameManager.CurrentUI;
 		//init die
-		die = gameInitializer.initDie();
+	//	die = gameInitializer.initDie();
 		//init CARDS
 		surprise = gameInitializer.initSurprise();
 		callUp = gameInitializer.initCallUp();		
@@ -65,25 +70,57 @@ public class Monopoly
 		userInterface.notifyNewRound(gamePlayers.get(0), roundNumber, gameBoard.get(0));
 	}
 
-	/**
-	 * method private void doRound(int roundNumber)
-	 * this method handles a single round of monopoly
-	 * @param roundNumber - the round number
-	 */
-	private void doComputerRound(int roundNumber)
+	private void doComputerRound()
 	{
-		int currDieSum;
-		for (playerIndex=0; playerIndex<gamePlayers.size() ; playerIndex++)
-		{
-			currentActivePlayer = gamePlayers.get(playerIndex);
-			userInterface.notifyNewRound(currentActivePlayer, roundNumber, gameBoard.get(currentActivePlayer.getCurrentPosition()));
-
+		PlayerPanel pane=GameManager.CurrentUI.getFrame().getPlayerPanel();
+		switch (state) {
+		case 0:
+			state++;
+			if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
+					!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
 			{
-				if (currentActivePlayer.getGoOnNextTurn()) //If player cannot move due to new position, he can't sell offers.
-					currentActivePlayer.makeSellOffers();
+				//wait
+				pane.ClickGetOutOfJailButton();
+				break;
+				
 			}
+		case 1:
+				state++;
+				rollDie();
+				break;
+		case 2:
+			state++;
+			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
+			{
+				if(currentActivePlayer.buyDecision(((Asset) currentPlayerSquare)))
+				{
+					pane.ClickBuyAssetButton();
+					//wait
+					break;
+				}
+				
+			}
+		case 3:
+			state++;
+			if(currentPlayerSquare instanceof City)
+			{
+				if(((City) currentPlayerSquare).getNumHouses() < GameManager.MAX_NUMBER_OF_HOUSES
+							&& currentActivePlayer.buyHouseDecision(((City) currentPlayerSquare)))
+				{
+					
+					//wait
+					pane.ClickBuyHouseButton();
+					break;
+				}
+				
+			}
+		default://case 4
+			state=0;
+			pane.ClickEndTurnButton();
+			break;
 		}
 	}
+	
 
 
 
@@ -92,15 +129,9 @@ public class Monopoly
 	 * this method rool all the dice
 	 * @return the sum of the dice roll
 	 */
-	private int rollDie()
+	private void rollDie()
 	{
-		int result=0;
-		for (OldDice d : die)
-		{
-			int currRoll = d.rollDice();
-			result+=currRoll;
-		}
-		return result;
+		Dice.getGameDice().makeItRoll();
 	}
 
 	/**
@@ -229,14 +260,55 @@ public class Monopoly
 			GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 	}
 
+	private void thrownDie() {
+		if (currentPlayerSquare instanceof JailSlashFreePassSquare && !currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+		{
+			boolean hasDouble = rollForADouble();
+			((JailSlashFreePassSquare)currentPlayerSquare).release(currentActivePlayer, hasDouble);		}
+	if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
+	{
+		int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
+		int dieSum = result[0]+result[1];
+		movePlayer(currentActivePlayer, dieSum, true);
+	}
+		
+	}
+
+	private void buyHouse() {
+		((City)currentPlayerSquare).BuyHouse(currentActivePlayer);
+		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(false);
+		
+	}
+
+	private void useGetOutOfJail() {
+		((JailSlashFreePassSquare)currentPlayerSquare).playerUsesGetOutOfJailCard(currentActivePlayer);
+		GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
+		
+	}
+
+	private void forfit() {
+		removePlayerFromGame(currentActivePlayer);
+		playerIndex--;
+		endTurn();
+		
+	}
+
+	private void buyAsset() {
+		((Asset)currentPlayerSquare).buyAsset(currentActivePlayer);	
+		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
+		
+	}
+
 	public void eventDispatch(String message) {
 		currentActivePlayer = gamePlayers.get(playerIndex);
-		Square sq = gameBoard.get(currentActivePlayer.getCurrentPosition());
-		if(message.equals("forfeit"))
+		currentPlayerSquare = gameBoard.get(currentActivePlayer.getCurrentPosition());
+		if(message.equals("computer"))
 		{
-			removePlayerFromGame(currentActivePlayer);
-			playerIndex--;
-			endTurn();
+			doComputerRound();
+		}
+		else if(message.equals("forfeit"))
+		{
+			forfit();
 		}
 		else if(message.equals("endTurn"))
 		{
@@ -244,37 +316,35 @@ public class Monopoly
 		}
 		else if(message.equals("getOutOfJail"))
 		{
-			((JailSlashFreePassSquare)sq).playerUsesGetOutOfJailCard(currentActivePlayer);
-			GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
+			useGetOutOfJail();
+			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			{
+				doComputerRound();
+			}
 		}
 		else if (message.equals("buyHouse"))
 		{ 
-			((City)sq).BuyHouse(currentActivePlayer);
-			GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(false);
-			
+			buyHouse();
+			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			{
+				doComputerRound();
+			}
 		}
 		else if (message.equals("buyAsset"))
 		{
-			((Asset)sq).buyAsset(currentActivePlayer);	
-			GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
-
+			buyAsset();
+			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			{
+				doComputerRound();
+			}
+	
 		}
 		else if(message.equals("throwDie"))
 		{
-			if (sq instanceof JailSlashFreePassSquare && !sq.shouldPlayerMove(currentActivePlayer))
-				{
-					boolean hasDouble = rollForADouble();
-					if (hasDouble)
-						GameManager.CurrentUI.notifyJailAction(currentActivePlayer, jailActions.ROLLED_DOUBLE);
-					else
-						GameManager.CurrentUI.notifyJailAction(currentActivePlayer, jailActions.STAY_IN_JAIL);
-					GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
-				}
-			if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
+			thrownDie();
+			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
 			{
-				int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
-				int dieSum = result[0]+result[1];
-				movePlayer(currentActivePlayer, dieSum, true);
+				doComputerRound();
 			}
 		
 		}

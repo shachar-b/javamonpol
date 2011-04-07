@@ -11,6 +11,7 @@ import listeners.gameActions.GameActionEventListener;
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
 import monopoly.buyOffer;
+import players.ComputerPlayer;
 import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
@@ -82,6 +83,10 @@ public class UI implements IUI {
 				
 			}
 		});
+		if(p instanceof ComputerPlayer)
+		{
+			GameManager.currentGame.eventDispatch("computer");
+		}
 		frame.validate();
 		frame.repaint();
 	}

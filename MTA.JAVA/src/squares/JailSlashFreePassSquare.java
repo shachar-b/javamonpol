@@ -38,27 +38,15 @@ public class JailSlashFreePassSquare extends Square {
 	@Override
 	public boolean shouldPlayerMove(Player player)
 	{
-		jailActions currAction;
 		if (player.getGoOnNextTurn())
 			return true;
 		else
 		{
-			if (player.hasGetOutOfJailFreeCard()) //Player will also be asked if he wants to use
+			if (player.hasGetOutOfJailFreeCard()) //enable the option to use card
 			{		
 				GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(true);
-				currAction=jailActions.USED_CARD;
 			}
-			else if (GameManager.currentGame.rollForADouble())
-			{	//TODO : FIX THIS SHIT
-				currAction=jailActions.ROLLED_DOUBLE;
-				player.setGoOnNextTurn(true);
-			}
-			else
-			{
-				currAction=jailActions.STAY_IN_JAIL;
-				player.setGoOnNextTurn(false);
-			}
-			GameManager.CurrentUI.notifyJailAction(player, currAction);
+			
 			return false;
 		}
 	}
@@ -68,5 +56,22 @@ public class JailSlashFreePassSquare extends Square {
 		player.setGoOnNextTurn(true);
 		GameManager.currentGame.getSurprise().add(player.getGetOutOfJailFreeCardPlaceHolder());
 		player.setGetOutOfJailFreeCardPlaceHolder(null);
+		GameManager.CurrentUI.notifyJailAction(player, jailActions.USED_CARD);
+
+		
+	}
+
+	public void release(Player player,boolean hasDouble) {
+		if(hasDouble)
+		{
+			player.setGoOnNextTurn(true);
+			GameManager.CurrentUI.notifyJailAction(player, jailActions.ROLLED_DOUBLE);
+
+		}
+		else
+		{
+			player.setGoOnNextTurn(false);
+			GameManager.CurrentUI.notifyJailAction(player, jailActions.STAY_IN_JAIL);
+		}
 	}
 }
