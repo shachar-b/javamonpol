@@ -138,5 +138,10 @@ public class Dice extends GameActionsListenableClass{
 		dice1Outcome = dice1Roll;
 		dice2Outcome = dice2Roll;
 	}
+	
+	public void setButton(boolean value)
+	{//Will activate the button IFF value==true.
+		button.setEnabled(value);
+	}
 
 }

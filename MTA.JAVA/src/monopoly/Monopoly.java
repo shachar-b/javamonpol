@@ -50,7 +50,7 @@ public class Monopoly
 	//	die = gameInitializer.initDie();
 		//init CARDS
 		surprise = gameInitializer.initSurprise();
-		callUp = gameInitializer.initCallUp();		
+		callUp = gameInitializer.initCallUp();	
 	}
 
 	public void setGamePlayers(ArrayList<Player> gamePlayers)
@@ -220,7 +220,7 @@ public class Monopoly
 			playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
 		}
 		if(gamePlayers.size()==1)
-		{
+		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 		}
 		

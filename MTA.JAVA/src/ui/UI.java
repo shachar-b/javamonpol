@@ -59,7 +59,7 @@ public class UI implements IUI {
 		+ currSQ.getName(); 
 		displayMessage(message);
 		frame.movePlayer(p);
-		frame.getPlayerPanel().setSquarePanelContent(currSQ);
+		frame.getPlayerPanel().setSquarePanelContent(currSQ,p);
 		Square lastSquare=GameManager.currentGame.getGameBoard().get(p.getLastKnownPosition());
 		if(!(lastSquare instanceof GoToJailSquare))
 		{
@@ -98,6 +98,18 @@ public class UI implements IUI {
 	{
 		String message = "The winner is: " + player.getName() + "!!!";
 		JOptionPane.showMessageDialog(frame,message);
+		cleanupSequence();
+	}
+	
+	public void cleanupSequence()
+	{
+		for (Player p : GameManager.currentGame.getGamePlayers())
+		{
+			frame.getGameboard().removePlayerIcon(p);			
+		}
+		frame.clearPlayerPanelArea();
+		frame.validate();
+		frame.repaint();
 	}
 
 	/* (non-Javadoc)

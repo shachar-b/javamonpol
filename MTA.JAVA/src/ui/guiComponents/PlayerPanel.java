@@ -29,6 +29,7 @@ import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 import players.ComputerPlayer;
 import players.Player;
+import squares.ParkingSquare;
 import squares.Square;
 import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.guiComponents.dialogs.AssetGroupDialog;
@@ -63,7 +64,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 		Dice.getGameDice().addGameActionsListener(dieListner);
 		nameLabel.setText(player.getName());
 		Square currentSquare =GameManager.currentGame.getGameBoard().get(player.getCurrentPosition());
-		setSquarePanelContent(currentSquare);
+		setSquarePanelContent(currentSquare,player);
 		initTreeModel();
 	}
 
@@ -114,7 +115,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 	
 	
-	public void setSquarePanelContent(Square currentSquare)
+	public void setSquarePanelContent(Square currentSquare, Player player)
 	{
 		if (CurrentSquare.getComponentCount()>3)
 			CurrentSquare.remove(0);
@@ -123,12 +124,17 @@ public class PlayerPanel extends GameActionsListenableClass {
 		{
 			showGroup.setEnabled(true);
 		}
+		if (!currentSquare.shouldPlayerMove(player)&&currentSquare instanceof ParkingSquare)
+		{
+			Dice.getGameDice().setButton(false);
+			setEndTurnButtonStatus(true);
+		}
 		initTreeModel();
 	}
 	
 	private void initTreeModel()
 	{
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode(representedPlayer.getName());
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(representedPlayer.getName()+"     ");
 
 		DefaultMutableTreeNode moneyNode = new DefaultMutableTreeNode("Money");
 		moneyNode.add(new DefaultMutableTreeNode("Balance = "+representedPlayer.getBalance()));
