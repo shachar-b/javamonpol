@@ -47,7 +47,7 @@ public class Monopoly
 		GameManager.CurrentUI = new UI();
 		userInterface = (UI)GameManager.CurrentUI;
 		//init die
-	//	die = gameInitializer.initDie();
+		//	die = gameInitializer.initDie();
 		//init CARDS
 		surprise = gameInitializer.initSurprise();
 		callUp = gameInitializer.initCallUp();	
@@ -81,12 +81,12 @@ public class Monopoly
 				//wait
 				pane.ClickGetOutOfJailButton();
 				break;
-				
+
 			}
 		case 1:
-				state++;
-				rollDie();
-				break;
+			state++;
+			rollDie();
+			break;
 		case 2:
 			state++;
 			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
@@ -97,7 +97,7 @@ public class Monopoly
 					//wait
 					break;
 				}
-				
+
 			}
 		case 3:
 			state++;
@@ -109,7 +109,7 @@ public class Monopoly
 					pane.ClickBuyHouseButton();
 					break;
 				}
-				
+
 			}
 		case 4://case 4
 			state=0;
@@ -117,7 +117,7 @@ public class Monopoly
 			break;
 		}
 	}
-	
+
 
 
 
@@ -173,7 +173,7 @@ public class Monopoly
 		player.setCurrentPosition(playerPos);
 		userInterface.notifyPlayerLanded(player, gameBoard.get(player.getCurrentPosition()));
 		gameBoard.get(playerPos).playerArrived(player);
-		
+
 	}
 
 	/**
@@ -223,7 +223,7 @@ public class Monopoly
 		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 		}
-		
+
 	}
 
 	/**
@@ -257,15 +257,18 @@ public class Monopoly
 
 	private void endTurn()
 	{
-		playerIndex++;
-		if (playerIndex>=gamePlayers.size())
-		{
-			playerIndex=0;
-			roundNumber++;
+		if (!gamePlayers.isEmpty()) //To prevent trying to end when all players were removed
+		{							//(Happens if trying to start a new game, mid current game.)
+			playerIndex++;
+			if (playerIndex>=gamePlayers.size())
+			{
+				playerIndex=0;
+				roundNumber++;
+			}
+			Player p = gamePlayers.get(playerIndex);
+			if (getActualNumPlayers()!=1)
+				GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 		}
-		Player p = gamePlayers.get(playerIndex);
-		if (getActualNumPlayers()!=1)
-			GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 	}
 
 	private void thrownDie() {
@@ -275,36 +278,36 @@ public class Monopoly
 			((JailSlashFreePassSquare)currentPlayerSquare).release(currentActivePlayer, hasDouble);		}
 		else if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
 		{
-		int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
-		int dieSum = result[0]+result[1];
-		movePlayer(currentActivePlayer, dieSum, true);
+			int[] result = ui.guiComponents.dice.Dice.getGameDice().getDieOutcome();
+			int dieSum = result[0]+result[1];
+			movePlayer(currentActivePlayer, dieSum, true);
 		}
-		
+
 	}
 
 	private void buyHouse() {
 		((City)currentPlayerSquare).BuyHouse(currentActivePlayer);
 		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(false);
-		
+
 	}
 
 	private void useGetOutOfJail() {
 		((JailSlashFreePassSquare)currentPlayerSquare).playerUsesGetOutOfJailCard(currentActivePlayer);
 		GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
-		
+
 	}
 
 	private void forfit() {
 		removePlayerFromGame(currentActivePlayer);
 		playerIndex--;
 		endTurn();
-		
+
 	}
 
 	private void buyAsset() {
 		((Asset)currentPlayerSquare).buyAsset(currentActivePlayer);	
 		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
-		
+
 	}
 
 	public void eventDispatch(String message) {
@@ -345,7 +348,7 @@ public class Monopoly
 			{
 				doComputerRound();
 			}
-	
+
 		}
 		else if(message.equals("throwDie"))
 		{
@@ -354,8 +357,8 @@ public class Monopoly
 			{
 				doComputerRound();
 			}
-		
+
 		}
-		
+
 	}
 }
