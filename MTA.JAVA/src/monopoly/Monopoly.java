@@ -78,14 +78,16 @@ public class Monopoly
 					!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
 			{
 				//wait
+				state=4;
 				pane.ClickGetOutOfJailButton();
 				break;
 
 			}
+			
 		case 1:
 			state++;
-			if (currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
-				{
+			if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+				{//dont do it only on parking- if used GOJC this wont be reached
 				rollDie();
 				break;
 				}
