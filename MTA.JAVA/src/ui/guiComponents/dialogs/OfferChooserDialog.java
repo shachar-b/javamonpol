@@ -5,25 +5,25 @@
 package ui.guiComponents.dialogs;
 
 import java.awt.*;
+import java.util.Collection;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import monopoly.buyOffer;
 
 /**
  * @author Omer
  */
 public class OfferChooserDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
-	public OfferChooserDialog(Frame owner) {
+
+	public OfferChooserDialog(Frame owner,Collection<buyOffer> offers) {
 		super(owner);
-		initComponents();
+		initComponents(offers);
 	}
 
-	public OfferChooserDialog(Dialog owner) {
-		super(owner);
-		initComponents();
-	}
-
-	private void initComponents() {
+	private void initComponents(Collection<buyOffer> offers) {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
@@ -73,6 +73,16 @@ public class OfferChooserDialog extends JDialog {
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+		//added code
+		
+		for(buyOffer curr:offers)
+		{
+			JPanel offer = new JPanel();
+			JTree tree;
+			
+			tabbedPane1.addTab(curr.getOfferMaker().getName(),offer);
+			
+		}
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
