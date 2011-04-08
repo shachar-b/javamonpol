@@ -105,9 +105,11 @@ public class UI implements IUI {
 	
 	public void cleanupSequence()
 	{
-		for (Player p : GameManager.currentGame.getGamePlayers())
+		ArrayList<Player> players = GameManager.currentGame.getGamePlayers();
+		while (!players.isEmpty())
 		{
-			frame.getGameboard().removePlayerIcon(p);			
+			frame.getGameboard().removePlayerIcon(players.get(0));
+			GameManager.currentGame.removePlayerFromGame(players.get(0));
 		}
 		frame.clearConsole();
 		frame.clearPlayerPanelArea();
@@ -387,7 +389,7 @@ public class UI implements IUI {
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
 		String message="player "+p.getName()+	" has left the game!"; 
-		frame.getGameboard().removePlayerIcon(p);
+		//frame.getGameboard().removePlayerIcon(p);
 		displayMessage(message);
 		
 	}
