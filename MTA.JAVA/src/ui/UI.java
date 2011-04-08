@@ -16,7 +16,6 @@ import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.MainWindow;
-import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -109,7 +108,7 @@ public class UI implements IUI {
 		while (!players.isEmpty())
 		{
 			frame.getGameboard().removePlayerIcon(players.get(0));
-			GameManager.currentGame.removePlayerFromGame(players.get(0));
+			GameManager.currentGame.removePlayerFromGame(players.get(0),true);
 		}
 		frame.clearConsole();
 		frame.clearPlayerPanelArea();

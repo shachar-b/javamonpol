@@ -1,6 +1,5 @@
 package monopoly;
 
-import java.awt.Frame;
 import java.util.ArrayList;
 
 import players.ComputerPlayer;
@@ -195,12 +194,18 @@ public class Monopoly
 		movePlayer(player, numOfSteps, getBonus);
 	}
 
+	public void removePlayerFromGame(Player player)
+	{
+		removePlayerFromGame(player, false);
+	}
+	
 	/**
 	 * method public void removePlayerFromGame(Player player)
 	 * this method safely removes a player from game (returns all his assets to treasury ,demolish houses and so on)
 	 * @param player a non null active player to be removed
+	 * @param gameAborted a boolean to signify if removing player due to a starting a new game.
 	 */
-	public void removePlayerFromGame(Player player)
+	public void removePlayerFromGame(Player player, boolean gameAborted)
 	{
 		ArrayList<Asset> assetList=player.getAssetList();
 		while (!assetList.isEmpty())//remove ownership from all remaining assets
@@ -215,11 +220,14 @@ public class Monopoly
 		{
 			endTurn();
 		}
-		else
-		{//it must be in the list
-			playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
-		}
-		if(gamePlayers.size()==1 )
+		else if (!gameAborted)//No need to do the following if a new game was started in the middle of a current one.\
+			{
+				{//it must be in the list
+					playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
+				}
+			}
+
+		if(gamePlayers.size()==1 && !gameAborted )
 		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 		}
