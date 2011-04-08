@@ -25,6 +25,7 @@ public class GameBoardUI extends JPanel {
 	private static final int LINE_SIZE = 9;
 	private List<SquarePanel> components;
 	private HashMap<Player,ImagePanel> playersIcons =new HashMap<Player,ImagePanel>();
+	CenterPanel innerPanel;
 	
 	
     public GameBoardUI() {
@@ -94,7 +95,7 @@ public class GameBoardUI extends JPanel {
         }
 
         // Main Inner Area Notice Starts at (1,1) and takes up 11x11
-        CenterPanel innerPanel = new CenterPanel();
+        innerPanel = new CenterPanel();
         this.add(innerPanel,
             new GridBagConstraints(1,
                     1,
@@ -117,5 +118,9 @@ public class GameBoardUI extends JPanel {
         this.add(component, c);
     }
 
+    public void updatePlayersLegend()
+    {
+    	innerPanel.updateLegend();
+    }
 
 }

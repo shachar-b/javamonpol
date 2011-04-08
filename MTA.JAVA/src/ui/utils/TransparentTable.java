@@ -2,30 +2,31 @@ package ui.utils;
 
 import java.awt.Component;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 public class TransparentTable extends JTable {
-	
+
 	private static final long serialVersionUID = 1L;
 	public TransparentTable() {
 		super();
 		resetModel();
 		setOpaque(false);
 	}
-	
+
 	public void resetModel() {
 		setModel(new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
-		        return false;
-		    }
+				return false;
+			}
 		});
-		
+
 	}
 
 	@Override

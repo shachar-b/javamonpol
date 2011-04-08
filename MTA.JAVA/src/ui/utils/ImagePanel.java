@@ -14,16 +14,29 @@ public class ImagePanel extends JPanel {
 	private Image scaledImage;
 	private int imageWidth = 0;
 	private int imageHeight = 0;
+	private String imagePath;
 	//private long paintCount = 0;
+	private boolean retainAspectRatio=false;
 
 	public ImagePanel(String string) {
 		super();
+		imagePath = string;
 		try {
 			loadImage(string);
 		} catch (IOException e) {
 			throw new RuntimeException("missing component:  A compunent failed to load an Image from "+string);
 		}
 		setOpaque(true);
+	}
+
+	public ImagePanel getCopy()
+	{
+		return new ImagePanel(imagePath);
+	}
+
+	public ImageIcon getIcon()
+	{
+		return (new ImageIcon(image));
 	}
 
 	public void loadImage(String file) throws IOException {
@@ -58,16 +71,27 @@ public class ImagePanel extends JPanel {
 			float ih = imageHeight;
 			float pw = this.getWidth();   //panel width
 			float ph = this.getHeight();  //panel height
-			
+
 			/* compare some ratios and then decide which side of image to anchor to panel
                    and scale the other side
                    (this is all based on empirical observations and not at all grounded in theory)*/
 
 			//System.out.println("pw/ph=" + pw/ph + ", iw/ih=" + iw/ih);
-
-			iw =pw;
-			ih = ph;
-
+			if(retainAspectRatio)
+			{
+				if ( (pw / ph) > (iw / ih) ) { 
+					iw = -1; 
+					ih = ph; 
+				} else { 
+					iw = pw; 
+					ih = -1; 
+				} 
+			}
+			else
+			{
+				iw =pw;
+				ih = ph;
+			}
 
 			//prevent errors if panel is 0 wide or high
 			if (iw == 0) {
@@ -84,6 +108,10 @@ public class ImagePanel extends JPanel {
 			scaledImage = image;
 		}
 
+	}
+	
+	public void setRetainAspectRatio(boolean retain) {
+		retainAspectRatio=retain;
 	}
 
 
