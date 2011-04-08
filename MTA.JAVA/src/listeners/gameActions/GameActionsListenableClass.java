@@ -23,7 +23,9 @@ public abstract class GameActionsListenableClass extends JPanel{
 	public void removeListener(GameActionEventListener listener) {
 		listeners.remove(listener);
 	}
-
+	public void removeAllListeners() {
+		listeners.clear();
+	}
 	protected void fireEvent (String message) {
 		for (GameActionEventListener listener : listeners) {
 			listener.eventHappened(new GameActionEvent(this, message));

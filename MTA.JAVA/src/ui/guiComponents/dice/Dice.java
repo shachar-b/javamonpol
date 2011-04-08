@@ -95,8 +95,9 @@ public class Dice extends GameActionsListenableClass{
 	{
 		button.doClick();
 	}
-	public void resetThrowButton() {
+	public void resetDiceButtonAndLisners() {
 		button.setEnabled(true);
+		removeAllListeners();//this is done to avoid dead listeners
 	}
 	private void revertState() {
 		if(isCheatMode.isSelected())

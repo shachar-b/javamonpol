@@ -45,6 +45,7 @@ public class EntryDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
+	private static boolean firstGame=true;
 	
 	public EntryDialog(Frame owner) {
 		super(owner);
@@ -104,6 +105,10 @@ public class EntryDialog extends JDialog {
 					,GameManager.IMAGES_FOLDER+"/playerIcons/"+(i+computerPlayers+1)+".png"));
 		}
 		Collections.shuffle(gamePlayers);
+		if(!firstGame)
+			((UI)(GameManager.CurrentUI)).cleanupSequence();
+		else
+			firstGame=false;
 		GameManager.currentGame.setGamePlayers(gamePlayers);
 		for (Player player : gamePlayers)
 		{
