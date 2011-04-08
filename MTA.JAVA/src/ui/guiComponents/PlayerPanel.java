@@ -158,7 +158,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 
 	private void ForfeitActionPerformed(ActionEvent e) {
-		Dice.getGameDice().resetThrowButton();
+		Dice.getGameDice().resetDiceButtonAndLisners();
 		fireEvent(new GameActionEvent(this, "forfeit"));
 		this.setVisible(false);
 		revalidate();
@@ -173,7 +173,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 
 	private void EndTurnActionPerformed(ActionEvent e) {
-		Dice.getGameDice().resetThrowButton();
+		Dice.getGameDice().resetDiceButtonAndLisners();
 		Dice.getGameDice().removeListener(dieListner);
 		fireEvent("endTurn");
 		this.setVisible(false);

@@ -16,6 +16,7 @@ import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.MainWindow;
+import ui.guiComponents.dice.Dice;
 import assets.Asset;
 import assets.AssetGroup;
 import assets.City;
@@ -98,7 +99,8 @@ public class UI implements IUI {
 	{
 		String message = "The winner is: " + player.getName() + "!!!";
 		JOptionPane.showMessageDialog(frame,message);
-		cleanupSequence();
+		frame.clearPlayerPanelArea();
+		
 	}
 	
 	public void cleanupSequence()
@@ -107,6 +109,7 @@ public class UI implements IUI {
 		{
 			frame.getGameboard().removePlayerIcon(p);			
 		}
+		frame.clearConsole();
 		frame.clearPlayerPanelArea();
 		frame.validate();
 		frame.repaint();

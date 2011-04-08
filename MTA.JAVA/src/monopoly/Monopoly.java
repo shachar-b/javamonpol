@@ -219,7 +219,7 @@ public class Monopoly
 		{//it must be in the list
 			playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
 		}
-		if(gamePlayers.size()==1)
+		if(gamePlayers.size()==1 )
 		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 		}
@@ -264,9 +264,7 @@ public class Monopoly
 			roundNumber++;
 		}
 		Player p = gamePlayers.get(playerIndex);
-		if (getActualNumPlayers()==1)
-			GameManager.CurrentUI.notifyGameWinner(gamePlayers.get(0));
-		else
+		if (getActualNumPlayers()!=1)
 			GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
 	}
 

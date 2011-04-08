@@ -30,6 +30,7 @@ import javax.swing.WindowConstants;
 import players.Player;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
+import ui.guiComponents.dice.Dice;
 
 /**
  * @author Shachar
@@ -165,7 +166,7 @@ public class MainWindow extends JFrame {
 					textualConsole.setBackground(new Color(240, 240, 240));
 					textualConsole.setEditable(false);
 					textualConsole.setLineWrap(true);
-					textualConsole.setText("Game information console:\n");
+					clearConsole();//adds the start line only
 					scrollPane1.setViewportView(textualConsole);
 				}
 				splitPane2.setBottomComponent(scrollPane1);
@@ -202,6 +203,7 @@ public class MainWindow extends JFrame {
 	}
 
 	public PlayerPanel setPlayerPanel(Player p) {
+		Dice.getGameDice().resetDiceButtonAndLisners();
 		PlayerPanel currentPanel = new PlayerPanel(p);
 		clearPlayerPanelArea();
 		playerPanelArea.add(currentPanel);
@@ -211,11 +213,20 @@ public class MainWindow extends JFrame {
 	public void clearPlayerPanelArea()
 	{
 		playerPanelArea.removeAll();
+		playerPanelArea.revalidate();
+		playerPanelArea.repaint();
 	}
 	
 	public PlayerPanel getPlayerPanel()
 	{
 		return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a single PlayerPanel
+	}
+
+	public void clearConsole() {
+		textualConsole.setText("Game information console:\n");
+		textualConsole.revalidate();
+		textualConsole.repaint();
+		
 	}
 	
 }
