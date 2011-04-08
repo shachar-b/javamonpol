@@ -8,12 +8,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import listeners.innerChangeEventListener.InnerChangeEventListner;
 import listeners.innerChangeEventListener.InnerChangeEvet;
 import monopoly.GameManager;
+import ui.utils.TransparentTable;
 import assets.Asset;
 import assets.City;
 import assets.UtilOrTranspoAsset;
@@ -23,7 +23,7 @@ public class AssetSquarePanel extends SquarePanel {
 	
 
 	private DefaultTableModel AssetInformationModel;
-	JTable AssetInformation;
+	TransparentTable AssetInformation;
 	Asset representedAsset;
 	JLabel SaleOrRentPrice=new JLabel();
 	JLabel owner=new JLabel();
@@ -40,7 +40,7 @@ public class AssetSquarePanel extends SquarePanel {
 		this.representedAsset=representedAsset;
 		//to disallow editing
 		
-		AssetInformation=new JTable();
+		AssetInformation=new TransparentTable();
 		
 		groupLabel.setEnabled(true);
 		groupLabel.setText(representedAsset.getGroup().getName()+":");
@@ -103,15 +103,8 @@ public class AssetSquarePanel extends SquarePanel {
 			owner.setText("");
 			SaleOrRentPrice.setText("Cost:"+representedAsset.getCost());
 		}
-		
-		AssetInformationModel= new DefaultTableModel() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
-		        return false;
-		    }
-		};
+		AssetInformation.resetModel();
+		AssetInformationModel=(DefaultTableModel) AssetInformation.getModel();
 		AssetInformation.setModel(AssetInformationModel);
 			AssetInformation.setCellSelectionEnabled(false);
 			AssetInformation.setColumnSelectionAllowed(false);
@@ -144,7 +137,6 @@ public class AssetSquarePanel extends SquarePanel {
 				
 			}
 			AssetInformation.setFont(new Font("Tahoma", Font.PLAIN, 8));
-			
 	}
 	
 	

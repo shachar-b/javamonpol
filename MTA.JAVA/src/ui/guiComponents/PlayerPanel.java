@@ -27,7 +27,6 @@ import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
-import players.ComputerPlayer;
 import players.Player;
 import squares.ParkingSquare;
 import squares.Square;

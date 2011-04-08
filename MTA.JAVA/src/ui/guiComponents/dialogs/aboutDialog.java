@@ -4,20 +4,20 @@
 
 package ui.guiComponents.dialogs;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.Frame;
-import java.awt.SystemColor;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+
+import monopoly.GameManager;
+import ui.utils.Utils;
 
 /**
  * @author Shachar
@@ -30,6 +30,8 @@ public class aboutDialog extends JDialog {
 	public aboutDialog(Frame owner) {
 		super(owner);
 		initComponents();
+		PicturePanel.add(new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/GameIcon.png")));
+		this.pack();
 	}
 
 	public aboutDialog(Dialog owner) {
@@ -48,6 +50,7 @@ public class aboutDialog extends JDialog {
 		textPane1 = new JTextPane();
 		buttonBar = new JPanel();
 		okButton = new JButton();
+		PicturePanel = new JPanel();
 
 		//======== this ========
 		Container contentPane = getContentPane();
@@ -85,6 +88,12 @@ public class aboutDialog extends JDialog {
 				buttonBar.add(okButton, BorderLayout.CENTER);
 			}
 			dialogPane.add(buttonBar, BorderLayout.SOUTH);
+
+			//======== PicturePanel ========
+			{
+				PicturePanel.setLayout(new FlowLayout());
+			}
+			dialogPane.add(PicturePanel, BorderLayout.NORTH);
 		}
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		pack();
@@ -98,5 +107,6 @@ public class aboutDialog extends JDialog {
 	private JTextPane textPane1;
 	private JPanel buttonBar;
 	private JButton okButton;
+	private JPanel PicturePanel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
