@@ -33,6 +33,7 @@ import players.ComputerPlayer;
 import players.HumanPlayer;
 import players.Player;
 import ui.UI;
+import ui.guiComponents.CenterPanel;
 import ui.guiComponents.MainWindow;
 
 /**
@@ -115,6 +116,7 @@ public class EntryDialog extends JDialog {
 			MW.getGameboard().addPlayerIcon(player,player.getIconPanel());
 		}
 		this.dispose();
+		GameManager.CurrentUI.getFrame().getGameboard().updatePlayersLegend();
 		GameManager.currentGame.play();
 	}
 

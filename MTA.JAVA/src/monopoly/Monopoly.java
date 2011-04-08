@@ -84,8 +84,11 @@ public class Monopoly
 			}
 		case 1:
 			state++;
-			rollDie();
-			break;
+			if (currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+				{
+				rollDie();
+				break;
+				}
 		case 2:
 			state++;
 			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
@@ -148,6 +151,11 @@ public class Monopoly
 	private int getActualNumPlayers()
 	{
 		return getGamePlayers().size();
+	}
+	
+	public int getRoundNumber()
+	{
+		return roundNumber;
 	}
 
 	/**

@@ -21,6 +21,7 @@ public class ParkingSquare extends Square {
 	@Override
 	public void playerArrived(Player player) {
 		GameManager.CurrentUI.notifyPlayerLandsOnParkingSquare(player);
+		player.setParkedOnRound(GameManager.currentGame.getRoundNumber());
 		player.setGoOnNextTurn(false);
 	}
 	
@@ -31,7 +32,7 @@ public class ParkingSquare extends Square {
 	@Override
 	public boolean shouldPlayerMove (Player player)
 	{//No need to check the die here - This is Parking
-		if(player.getGoOnNextTurn()==false)
+		if(player.getParkedOnRound()+2!=GameManager.currentGame.getRoundNumber())
 		{
 			GameManager.CurrentUI.notifyPlayerIsParked(player);
 			player.setGoOnNextTurn(true);

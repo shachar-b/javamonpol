@@ -27,6 +27,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	private ActionCard getOutOfJailFreeCardPlaceHolder = null;
 	private int lastKnownPosition = 0; 
 	ImagePanel playerIcon = null;
+	private int ParkedOnRound=0;
 
 	/**
 	 * Constructor for Player
@@ -372,4 +373,12 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * @return index of winning offer.
 	 */
 	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers);
+
+	public void setParkedOnRound(int parkedOnRound) {
+		ParkedOnRound = parkedOnRound;
+	}
+
+	public int getParkedOnRound() {
+		return ParkedOnRound;
+	}
 }

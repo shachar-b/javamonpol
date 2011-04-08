@@ -5,16 +5,27 @@
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
+import players.Player;
+
+import listeners.innerChangeEventListener.InnerChangeEventListner;
+import listeners.innerChangeEventListener.InnerChangeEvet;
 import monopoly.GameManager;
+import ui.utils.IconCellRenderer;
+import ui.utils.ImagePanel;
 import ui.utils.TransparentTable;
 import ui.utils.Utils;
 
@@ -27,32 +38,52 @@ public class CenterPanel extends JPanel {
 		initComponents();
 		initGameLogo();
 		initCardPanels();
+		initLegendArea();
 		initLegend();
 	}
-	
+
+	private void initLegendArea()
+	{
+		legendTable = new TransparentTable();
+		LegendPanel.add(new JScrollPane(legendTable)); //JScrollPane is to show column headers
+		legendTable.setRowHeight(66); //Set row height to enable showing images appropriately
+	}
+
 	private void initLegend()
 	{
-		TransparentTable legendTable = new TransparentTable();
-		LegendPanel.add(new JScrollPane(legendTable)); //JScrollPane is to show column headers
 		DefaultTableModel model =(DefaultTableModel)legendTable.getModel();
 		model.addColumn("Icon");
 		model.addColumn("Name");
-		model.addColumn("Balance"); 
-		
-		LegendPanel.setBorder(new EtchedBorder());
+		model.addColumn("Balance");
+		TableColumn col = legendTable.getColumnModel().getColumn(0);
+		col.setCellRenderer(new IconCellRenderer());
 	}
-	
-	private void updateLegend()
+
+	public void updateLegend()
 	{
-		
+		legendTable.resetModel();
+		initLegend(); //To reset the model
+		ArrayList<Player> players = GameManager.currentGame.getGamePlayers();
+		DefaultTableModel model =(DefaultTableModel)legendTable.getModel();
+
+		for (Player player : players)//Add players' information
+		{
+			player.removeListener(playerListner);//avoid duplicates
+			player.addInnerChangeEventListner(playerListner);
+			Object icon = player.getIconPanel();
+			Object name = player.getName();
+			Object balance = player.getBalance();
+			Object[] rowData = {icon,name,balance};
+			model.addRow(rowData);
+		}
 	}
-	
+
 	private void initGameLogo()
 	{
 		JLabel logoLabel = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/logo.gif"));
 		this.add(logoLabel, BorderLayout.NORTH);
 	}
-	
+
 	private void initCardPanels()
 	{
 		JLabel callUpLabel = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/CallUp.gif"));
@@ -60,7 +91,7 @@ public class CenterPanel extends JPanel {
 		CallUpCardsPanel.add(callUpLabel, BorderLayout.CENTER);
 		CallUpCardsPanel.add(surpriseLabel, BorderLayout.CENTER);
 	}
-	
+
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		CallUpCardsPanel = new JPanel();
@@ -87,4 +118,13 @@ public class CenterPanel extends JPanel {
 	private JPanel CallUpCardsPanel;
 	private JPanel LegendPanel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	private TransparentTable legendTable;
+	InnerChangeEventListner playerListner =new InnerChangeEventListner() {
+		
+		@Override
+		public void eventHappened(InnerChangeEvet innerChangeEvet) {
+			updateLegend();
+			
+		}
+	};
 }
