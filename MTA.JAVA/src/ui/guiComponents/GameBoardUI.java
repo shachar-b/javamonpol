@@ -1,7 +1,5 @@
 package ui.guiComponents;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,9 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import monopoly.GameManager;
@@ -98,7 +94,7 @@ public class GameBoardUI extends JPanel {
         }
 
         // Main Inner Area Notice Starts at (1,1) and takes up 11x11
-        JPanel innerPanel = createInnerPanel("CENTER");
+        CenterPanel innerPanel = new CenterPanel();
         this.add(innerPanel,
             new GridBagConstraints(1,
                     1,
@@ -109,16 +105,6 @@ public class GameBoardUI extends JPanel {
                     GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
 	}
-
-    private JPanel createInnerPanel(String text) {
-        JPanel panel = new JPanel(new BorderLayout()) ;
-        panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLUE));
-        JLabel label = new JLabel(text);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
-        panel.add(label, BorderLayout.CENTER);
-        return panel;
-    }
 
     private void addComponent(int gridX, int gridY, JComponent component) {
         GridBagConstraints c = new GridBagConstraints();

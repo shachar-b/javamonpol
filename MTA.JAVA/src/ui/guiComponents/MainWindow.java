@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -27,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
+import monopoly.GameManager;
 import players.Player;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
@@ -42,6 +44,7 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
+		setIconImage(new ImageIcon(GameManager.IMAGES_FOLDER+"/MiscIcons/GameIcon.png").getImage());
 	}
 	
 	private void menuItem1ActionPerformed(ActionEvent e) {
@@ -166,7 +169,7 @@ public class MainWindow extends JFrame {
 					textualConsole.setBackground(new Color(240, 240, 240));
 					textualConsole.setEditable(false);
 					textualConsole.setLineWrap(true);
-					clearConsole();//adds the start line only
+					textualConsole.setText("Game information console:\n");
 					scrollPane1.setViewportView(textualConsole);
 				}
 				splitPane2.setBottomComponent(scrollPane1);
