@@ -107,7 +107,6 @@ public class Dice extends GameActionsListenableClass{
 			diceB.setVisible(true);
 			button.removeActionListener(throwButton);
 			button.addActionListener(cheatListner);
-			System.out.println("BOOM");
 
 		}
 		else
@@ -118,8 +117,6 @@ public class Dice extends GameActionsListenableClass{
 			diceB.setVisible(false);
 			button.removeActionListener(cheatListner);
 			button.addActionListener(throwButton);
-			System.out.println("bam");
-
 		}
 
 	}
