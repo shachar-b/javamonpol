@@ -85,11 +85,7 @@ public class UI implements IUI {
 			
 			@Override
 			public void eventHappened(GameActionEvent gameActionEvent) {
-				if (gameActionEvent.getGameID()==GameManager.gameID)
 					GameManager.currentGame.eventDispatch(gameActionEvent.getMessage());
-				else
-					; //Do nothing.
-				
 			}
 		});
 		if(p instanceof ComputerPlayer)
@@ -109,22 +105,6 @@ public class UI implements IUI {
 		JOptionPane.showMessageDialog(frame,message);
 		frame.clearPlayerPanelArea();
 		
-	}
-	
-	public void cleanupSequence()
-	{
-		ArrayList<Player> players = GameManager.currentGame.getGamePlayers();
-		while (!players.isEmpty())
-		{
-			frame.getGameboard().removePlayerIcon(players.get(0));
-			GameManager.currentGame.removePlayerFromGame(players.get(0),true);
-		}
-		frame.clearConsole();
-		frame.clearPlayerPanelArea();
-		GameManager.currentGame.resetRoundNumber();
-		GameManager.gameID++;
-		frame.validate();
-		frame.repaint();	
 	}
 
 	/* (non-Javadoc)
@@ -423,6 +403,5 @@ public class UI implements IUI {
 		displayMessage(message);
 		
 	}
-	
 }
 

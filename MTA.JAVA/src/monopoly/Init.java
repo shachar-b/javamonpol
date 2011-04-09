@@ -24,22 +24,7 @@ import cards.ShaffledDeck;
  *
  */
 public class Init implements MonopolyInitilizer{
-		
-	/* (non-Javadoc)
-	 * @see monopoly.MonopolyInitilizer#initDie()
-	 */
-	@Override
-	public OldDice[] initDie()
-	{
-		OldDice[] die = new OldDice[GameManager.NUM_OF_DIE];
-		for (int i =0; i<die.length; i++)
-		{
-			die[i]=new OldDice();
-			die[i].initGenerator();
-		}
-		return die;
-	}
-	
+			
 	/* (non-Javadoc)
 	 * @see monopoly.MonopolyInitilizer#initSurprise()
 	 */
