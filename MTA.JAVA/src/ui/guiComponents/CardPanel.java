@@ -15,7 +15,7 @@ import ui.utils.Utils;
 import cards.ActionCard;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class CardPanel extends JPanel {
 	

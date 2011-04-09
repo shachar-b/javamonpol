@@ -16,7 +16,7 @@ import assets.Offerable;
 /**
  * class HumanPlayer extends Player
  * @see Player
- * @visibility public
+ * public
  * A human player in the Monopoly game.
  * @author Omer Shenhar and Shachar Butnaro
  */
@@ -109,7 +109,7 @@ public class HumanPlayer extends Player {
 								offersMade--;
 							skipRun=true;
 						}
-						
+
 					}
 					if (!assetsForSaleList.isEmpty() && !skipRun)
 					{
@@ -127,7 +127,7 @@ public class HumanPlayer extends Player {
 				}
 				else
 					break;
-				
+
 				assetsForSaleList=this.tradeableAssets();
 				assetGroupsForSaleList=this.tradeableGroups();
 			}
@@ -137,10 +137,10 @@ public class HumanPlayer extends Player {
 				GameManager.CurrentUI.notifyPlayerExceededSellOfferCount(this);
 		}
 	}
-	
+
 	/**
 	 * method buyOffer makeBuyOffer()
-	 * @visibility private
+	 * private
 	 * Prompts the user to make a buy offer and returns the formulated offer. 
 	 * @return A buy offer made by the player.
 	 */

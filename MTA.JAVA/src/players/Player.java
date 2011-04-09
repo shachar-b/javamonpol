@@ -42,7 +42,7 @@ public abstract class Player extends InnerChangeListenableClass {
 		GoOnNextTurn=true;
 		this.playerIcon = playerIcon2;
 	}	
-	
+
 	/**
 	 * method Boolean equals(Player other)
 	 * @visibility public
@@ -92,7 +92,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	public String getName() {
 		return Name;
 	}
-	
+
 	/**
 	 * method String getIconPanel()
 	 * @visibility public
@@ -163,7 +163,6 @@ public abstract class Player extends InnerChangeListenableClass {
 			Balance+=amount;
 			fireEvent("added");
 			return 0;
-			
 		}
 	}
 
@@ -195,7 +194,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	public int getLastKnownPosition(){
 		return lastKnownPosition;
 	}
-	
+
 	/**
 	 * method int getCurrentPosition()
 	 * @visibility public
@@ -374,10 +373,21 @@ public abstract class Player extends InnerChangeListenableClass {
 	 */
 	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers);
 
+	/**
+	 * public void setParkedOnRound(int parkedOnRound)
+	 * Sets the field  ParkedOnRound to the supplied value.
+	 * @param parkedOnRound - 	an integer representing the round
+	 *							on which the user landed on Parking Square.
+	 */
 	public void setParkedOnRound(int parkedOnRound) {
 		ParkedOnRound = parkedOnRound;
 	}
 
+	/**
+	 * public int getParkedOnRound()
+	 * Returns the last round on which the player landed on Parking Square.
+	 * @return an integer representing a round number.
+	 */
 	public int getParkedOnRound() {
 		return ParkedOnRound;
 	}

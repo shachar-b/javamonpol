@@ -6,7 +6,7 @@ import ui.OfferType;
 
 /**
  * public abstract class Asset extends Square implements Offerable
- * @visibility public
+ * public
  * @see Offerable
  * this class represent a Square which can be bought and sold by a player
  * @author Omer Shenhar and Shachar Butnaro
@@ -14,14 +14,14 @@ import ui.OfferType;
  */
 
 public abstract class Asset extends Square implements Offerable{
-	
+
 	protected Player owner;
 	protected AssetGroup group;
 	protected int cost;
 
 	/**
 	 * method  Asset(AssetGroup group)
-	 * @visibility public
+	 * public
 	 * this method is a constructor to be used by classes extending Asset
 	 * @param group - an non null AssetGroup
 	 */
@@ -31,10 +31,10 @@ public abstract class Asset extends Square implements Offerable{
 		this.group = group;
 		group.add(this);
 	}
-	
+
 	/**
 	 * method Boolean isOwnedBy(Player player)
-	 * @visibility public
+	 * public
 	 * @param player - a player
 	 * @return true if the player is the owner false otherwise
 	 */
@@ -42,17 +42,17 @@ public abstract class Asset extends Square implements Offerable{
 	{
 		return owner.equals(player);
 	}
-	
+
 	/**
 	 * method int getCost()
-	 * @visibility public
+	 * public
 	 * @return the buy cost of the asset
 	 */
 	public int getCost()
 	{
 		return cost;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see squares.Square#playerArrived(players.Player)
 	 * also offers the player an option to  buy the asset if there is no owner
@@ -71,21 +71,21 @@ public abstract class Asset extends Square implements Offerable{
 			this.owner.ChangeBalance(amountRcvd, GameManager.ADD);
 		}
 	}
-	
+
 	public void buyAsset(Player player)
 	{//TODO : Stuff
 		player.ChangeBalance(cost, GameManager.SUBTRACT);
 		setOwner(player);
 		GameManager.CurrentUI.notifyPlayerBoughtAsset(player, this);
 	}
-	
+
 	/**
 	 * method  abstract int getRentPrice()
-	 * @visibility public
+	 * public
 	 * @return the current rent price of the asset
 	 */
 	public abstract int getRentPrice();
-	
+
 	/* (non-Javadoc)
 	 * @see assets.Offerable#setOwner(players.Player)
 	 */
@@ -98,30 +98,30 @@ public abstract class Asset extends Square implements Offerable{
 		if(newOwner!=GameManager.assetKeeper)
 			newOwner.addToAssetList(this);
 		this.owner = newOwner;
-		
+
 		fireEvent("owner"); //notify of a change
 	}
 
 	/**
 	 * method Player getOwner()
-	 * @visibility public
+	 * public
 	 * @return the owner of the Asset
 	 */
 	public Player getOwner()
 	{
 		return owner;
 	}
-	
+
 	/**
 	 * method AssetGroup getGroup()
-	 * @visibility public
+	 * public
 	 * @return the group this Asset belongs to
 	 */
 	public AssetGroup getGroup()
 	{
 		return group;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see assets.Offerable#getType()
 	 */
@@ -129,7 +129,7 @@ public abstract class Asset extends Square implements Offerable{
 	{
 		return OfferType.Assets;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

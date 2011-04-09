@@ -6,7 +6,7 @@ package monopoly;
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class Main {
-	
+
 	/**
 	 * This is the entry point.
 	 */

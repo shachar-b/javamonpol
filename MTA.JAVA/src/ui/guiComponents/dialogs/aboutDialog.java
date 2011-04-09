@@ -20,13 +20,11 @@ import monopoly.GameManager;
 import ui.utils.Utils;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class aboutDialog extends JDialog {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	public aboutDialog(Frame owner) {
 		super(owner);
 		initComponents();

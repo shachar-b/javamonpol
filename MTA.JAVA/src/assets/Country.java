@@ -5,7 +5,7 @@ import javax.management.RuntimeErrorException;
 /**
  * class Country extends AssetGroup
  * a Country in the monopoly game - contains only members of class City 
- * @visibility public
+ * public
  * @see AssetGroup
  * @author Omer Shenhar and Shachar Butnaro
  *
@@ -16,17 +16,17 @@ public class Country extends AssetGroup {
 	/**
 	 * method Country(String nameOfCountry)
 	 *  a constructor for type Country
-	 * @visibility public 
+	 * public 
 	 * @param nameOfCountry - a string sets the name of the country
 	 */
 	public Country(String nameOfCountry) {
 		super(nameOfCountry);
 	}
 
-	
+
 	/**
 	 * method boolean hasHousesConstructed()
-	 * @visibility public
+	 * public
 	 * @return true if one of the contained City has houses constructed false otherwise
 	 * @throws  RuntimeErrorException iff the group has been added an non city object 
 	 */

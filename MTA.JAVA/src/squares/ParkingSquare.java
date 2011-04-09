@@ -6,10 +6,9 @@ import players.Player;
 /**
  * public class StartSquare extends Square
  * @see Square
- * @visibility public
+ * public
  * a parking Square in the monopoly game 
  * @author Omer Shenhar and Shachar Butnaro
- *
  */
 
 public class ParkingSquare extends Square {
@@ -24,10 +23,10 @@ public class ParkingSquare extends Square {
 		player.setParkedOnRound(GameManager.currentGame.getRoundNumber());
 		player.setGoOnNextTurn(false);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see squares.Square#shouldPlayerMove(players.Player)
-	 * @return false if the Player landed on the last turn false otherwise
+	 * @return false if the Player landed on the last turn, false otherwise
 	 */
 	@Override
 	public boolean shouldPlayerMove (Player player)

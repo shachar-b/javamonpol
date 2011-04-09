@@ -28,6 +28,7 @@ import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 import players.Player;
+import squares.JailSlashFreePassSquare;
 import squares.ParkingSquare;
 import squares.Square;
 import ui.guiComponents.Squares.SqurePanelFactory;
@@ -37,7 +38,7 @@ import assets.Asset;
 import assets.Offerable;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class PlayerPanel extends GameActionsListenableClass {
 	private static final long serialVersionUID = 1L;
@@ -64,6 +65,8 @@ public class PlayerPanel extends GameActionsListenableClass {
 		Square currentSquare =GameManager.currentGame.getGameBoard().get(player.getCurrentPosition());
 		setSquarePanelContent(currentSquare,player);
 		initTreeModel();
+		if (currentSquare instanceof JailSlashFreePassSquare && !currentSquare.shouldPlayerMove(player))
+			useJailFreeCard.setEnabled(player.hasGetOutOfJailFreeCard());
 	}
 
 	public void setGetOutOfJailButtonStatus(boolean value)
@@ -124,7 +127,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 		}
 		if (!currentSquare.shouldPlayerMove(player)&&currentSquare instanceof ParkingSquare)
 		{
-			Dice.getGameDice().setButton(false);
+			Dice.getGameDice().setButtonEnabled(false);
 			setEndTurnButtonStatus(true);
 		}
 		initTreeModel();
@@ -164,10 +167,10 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 
 	private void useJailFreeCardActionPerformed(ActionEvent e) {
-		fireEvent(new GameActionEvent(this, "getOutOfJail"));
 		useJailFreeCard.setEnabled(false);
 		EndTurn.setEnabled(true);
-		//TODO:disable DieRoll button
+		Dice.getGameDice().setButtonEnabled(false);
+		fireEvent(new GameActionEvent(this, "getOutOfJail"));
 	}
 
 	private void EndTurnActionPerformed(ActionEvent e) {
@@ -193,12 +196,14 @@ public class PlayerPanel extends GameActionsListenableClass {
 
 	private void buyAssetActionPerformed(ActionEvent e) {
 		buyAsset.setEnabled(false);
+		EndTurn.setEnabled(true);
 		fireEvent("buyAsset");
 		initTreeModel();
 	}
 
 	private void buyHouseActionPerformed(ActionEvent e) {
 		buyHouse.setEnabled(false);
+		EndTurn.setEnabled(true);
 		fireEvent("buyHouse");
 		initTreeModel();
 	}

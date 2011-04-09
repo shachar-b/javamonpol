@@ -18,19 +18,13 @@ import monopoly.buyOffer;
  *
  */
 public class MoneyOfferPane extends JPanel {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JSlider MoneySelectionSlider;
 	private JTextField textArea;
 	
 	private buyOffer res;
 
-	/**
-	 * 
-	 */
 	public MoneyOfferPane(buyOffer offer) {
 		initComponets(offer.getOfferMaker().getBalance());
 		res=offer;

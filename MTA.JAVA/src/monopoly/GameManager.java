@@ -17,28 +17,27 @@ public class GameManager {
 	public static final String IMAGES_FOLDER = "res/images/";
 	public static final int ADD = 1;
 	public static final int SUBTRACT = -1;
-	public static final int NUM_OF_DIE = 2;
 	public static final int MAX_NUM_OF_SELL_OFFERS = 3;
 	public static final Player assetKeeper = null; //This is the "Kupa"
 	public static final String MoneySign = "$"; //This is the currency symbol
 	public static Monopoly currentGame;	
 	public static IUI CurrentUI;
 	public static final Font DefaultFont=new Font("Serif", Font.BOLD, 10);
-	
-	
+
+
 
 	/**
 	 * enumerated type jailActions
-	 * @visibility public
+	 * public
 	 * Specifies the action taken by a player in jail.
 	 * @author Omer Shenhar and Shachar Butnaro
 	 */
 	public static enum jailActions {USED_CARD, ROLLED_DOUBLE, STAY_IN_JAIL}
-		
-	
+
+
 	/**
 	 * enumerated type AgainstWho
-	 * @visibility public
+	 * public
 	 * Specifies whether a card is against other players or the treasury.
 	 * @author Omer Shenhar and Shachar Butnaro
 	 */
@@ -52,7 +51,7 @@ public class GameManager {
 		{
 			this.code = code;
 		}
-		
+
 		public int getCode()
 		{
 			return code;

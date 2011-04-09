@@ -12,8 +12,8 @@ import players.Player;
 import ui.OfferType;
 
 /**
- * abstract class AssetGroup implements Collection<Asset>, Offerable
- * @visibility public
+ * abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable
+ * public
  * @see java.util.Collection
  * @see Offerable
  * @author Omer Shenhar and Shachar Butnaro
@@ -22,14 +22,14 @@ import ui.OfferType;
 
 public abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable {
 
-	
+
 	protected ArrayList<Asset> assetsInGroup;
 	protected String nameOfGroup;
 
 
 	/**
 	 * method AssetGroup(String nameOfGroup) - a constructor for an AssetGroup to be used by extending class
-	 * @visibility : public
+	 * : public
 	 * @param nameOfGroup - the name to set for the group
 	 * @post : this.name=nameOfGroup
 	 *
@@ -38,10 +38,10 @@ public abstract class AssetGroup extends InnerChangeListenableClass implements C
 		this.assetsInGroup = new ArrayList<Asset>();
 		this.nameOfGroup = nameOfGroup;
 	}
-	
+
 	/**
 	 * method String getName() - get the name of the group
-	 * @visibility public 
+	 * public 
 	 * @return the nameOfGroup - returns the name of the group
 	 */
 	public String getName() {
@@ -50,7 +50,7 @@ public abstract class AssetGroup extends InnerChangeListenableClass implements C
 
 	/**
 	 * method Asset get(int index) -get an Asset at an index
-	 * @visibility public
+	 * public
 	 * @param index - an index
 	 * @return the Asset in the index place
 	 */
@@ -72,11 +72,11 @@ public abstract class AssetGroup extends InnerChangeListenableClass implements C
 
 	/**
 	 * method  boolean isOfSoleOwnership()
-	 * @visibility public
+	 * public
 	 * @pre group is not empty
 	 * @return true if and only if  the group is owned by a single player false otherwise
 	 */
- 	public boolean isOfSoleOwnership()
+	public boolean isOfSoleOwnership()
 	{	
 		Player owner=this.get(0).getOwner();
 		for(Asset curr:this)

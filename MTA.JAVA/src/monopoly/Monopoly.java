@@ -23,7 +23,6 @@ public class Monopoly
 {
 	private UI userInterface;
 	private ArrayList<Player> gamePlayers;
-	//private OldDice[] die; 
 	private ShaffledDeck surprise = new ShaffledDeck();
 	private ShaffledDeck callUp = new ShaffledDeck();
 	private ArrayList<Square> gameBoard;
@@ -35,6 +34,9 @@ public class Monopoly
 	private boolean gameRunning=false;
 	private  Thread stateMechThread= new Thread(new Runnable() {
 		
+		/* (non-Javadoc)
+		 * @see doComputerRound() documentation
+		 */
 		@Override
 		public void run() {
 			PlayerPanel pane=GameManager.CurrentUI.getFrame().getPlayerPanel();
@@ -42,8 +44,8 @@ public class Monopoly
 			switch (state) {
 			case 0:
 				state++;//next state is roll die
-				if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
-						!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
+				if(currentPlayerSquare instanceof JailSlashFreePassSquare && currentActivePlayer.hasGetOutOfJailFreeCard() &&
+						!currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
 				{
 					try {
 						Thread.sleep(1000);
@@ -55,11 +57,11 @@ public class Monopoly
 					break;
 
 				}
-				
+
 			case 1:
 				state++;//next state is 2- try to buy an asset 
 				if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
-					{//dont do it only on parking- if GOJC was used this wont be reached
+				{//dont do it only on parking- if GOJC was used this wont be reached
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -67,7 +69,7 @@ public class Monopoly
 					}
 					rollDie();
 					break;
-					}
+				}
 			case 2:
 				state++;//if you dont buy the asset next state is 3-try to buy a house
 				if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
@@ -77,7 +79,7 @@ public class Monopoly
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
-							throw new RuntimeException("state mechin problem");
+							throw new RuntimeException("state machine problem");
 						}
 						state=4;//Can't buy house in the same turn you bought the asset
 						pane.ClickBuyAssetButton();
@@ -95,7 +97,7 @@ public class Monopoly
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
-							throw new RuntimeException("state mechin problem");
+							throw new RuntimeException("state machine problem");
 						}
 						pane.ClickBuyHouseButton();
 						break;
@@ -106,13 +108,12 @@ public class Monopoly
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					throw new RuntimeException("state mechin problem");
+					throw new RuntimeException("state machine problem");
 				}
 				state=0;//restart state machine for next player
 				pane.ClickEndTurnButton();
 				break;
 			}
-			
 		}
 	});
 
@@ -128,13 +129,16 @@ public class Monopoly
 		// init UI
 		GameManager.CurrentUI = new UI();
 		userInterface = (UI)GameManager.CurrentUI;
-		//init die
-		//	die = gameInitializer.initDie();
 		//init CARDS
 		surprise = gameInitializer.initSurprise();
 		callUp = gameInitializer.initCallUp();	
 	}
 
+	/**
+	 * method public void setGamePlayers(ArrayList<Player> gamePlayers)
+	 * Sets the game players.
+	 * @param gamePlayers an ArrayList of Players
+	 */
 	public void setGamePlayers(ArrayList<Player> gamePlayers)
 	{
 		this.gamePlayers=gamePlayers;
@@ -142,26 +146,28 @@ public class Monopoly
 
 	/**
 	 * method public void play()
-	 * this methods handles the game
-	 * 
+	 * this methods starts the first round.
 	 */
 	public void play()
 	{
 		userInterface.notifyNewRound(gamePlayers.get(0), roundNumber, gameBoard.get(0));
 	}
 
+	/**
+	 * private void doComputerRound()
+	 * Computers are controlled by a state machine, on a separate Thread.
+	 * The run() function of the Thread directs the computer player to take appropriate
+	 * actions, depending on the current state (depicted by the field "state".
+	 * The function also resets the state when the player is done. 
+	 */
 	private void doComputerRound()
 	{
 		stateMechThread.run();
 	}
 
-
-
-
 	/**
-	 * method private int rollDie()
-	 * this method rool all the dice
-	 * @return the sum of the dice roll
+	 * method private void rollDie()
+	 * this method rolls the die.
 	 */
 	private void rollDie()
 	{
@@ -170,10 +176,10 @@ public class Monopoly
 
 	/**
 	 * method public boolean rollForADouble()
-	 * this is a method to be used by jail square . it rolls the die once
-	 * @return true if the dice are the same false otherwise
+	 * this is a method to be used by jail square.
+	 * @return true IFF the last die throw was a double.
 	 */
-	public boolean rollForADouble()
+	public boolean checkForDouble()
 	{
 		int[] result = Dice.getGameDice().getDieOutcome();
 		return (result[0]==result[1]);
@@ -187,15 +193,14 @@ public class Monopoly
 	{
 		return getGamePlayers().size();
 	}
-	
+
+	/**
+	 * public int getRoundNumber()
+	 * @return an integer representing the current round number.
+	 */
 	public int getRoundNumber()
 	{
 		return roundNumber;
-	}
-	
-	public void resetRoundNumber()
-	{
-		roundNumber=1;
 	}
 
 	/**
@@ -220,7 +225,6 @@ public class Monopoly
 		player.setCurrentPosition(playerPos);
 		userInterface.notifyPlayerLanded(player, gameBoard.get(player.getCurrentPosition()));
 		gameBoard.get(playerPos).playerArrived(player);
-
 	}
 
 	/**
@@ -242,11 +246,17 @@ public class Monopoly
 		movePlayer(player, numOfSteps, getBonus);
 	}
 
+	/**
+	 * public void removePlayerFromGame(Player player) 
+	 * This method calls removePlayerFromGame(Player player, boolean gameAborted)
+	 * with the boolean as false, for when the game is not aborted.
+	 * @param player a non null active player to be removed
+	 */
 	public void removePlayerFromGame(Player player)
 	{
 		removePlayerFromGame(player, false);
 	}
-	
+
 	/**
 	 * method public void removePlayerFromGame(Player player)
 	 * this method safely removes a player from game (returns all his assets to treasury ,demolish houses and so on)
@@ -269,17 +279,16 @@ public class Monopoly
 			endTurn();
 		}
 		else if (!gameAborted)//No need to do the following if a new game was started in the middle of a current one.\
-			{
-				{//it must be in the list
-					playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
-				}
+		{
+			{//it must be in the list
+				playerIndex=gamePlayers.lastIndexOf(currentActivePlayer);
 			}
+		}
 
 		if(gamePlayers.size()==1 && !gameAborted )
 		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 		}
-
 	}
 
 	/**
@@ -306,15 +315,20 @@ public class Monopoly
 		return callUp;
 	}
 
+	/**
+	 * public ArrayList<Square> getGameBoard()
+	 * @return an ArrayList of Squares representing the game board.
+	 */
 	public ArrayList<Square> getGameBoard(){
 		return gameBoard;
 	}
 
-
+	/**
+	 * method private void endTurn()
+	 * Ends the current turn of the active player.
+	 */
 	private void endTurn()
 	{
-		if (!gamePlayers.isEmpty()) //To prevent trying to end when all players were removed
-		{							//(Happens if trying to start a new game, mid current game.)
 			playerIndex++;
 			if (playerIndex>=gamePlayers.size())
 			{
@@ -324,13 +338,16 @@ public class Monopoly
 			Player p = gamePlayers.get(playerIndex);
 			if (getActualNumPlayers()!=1)
 				GameManager.CurrentUI.notifyNewRound(p, roundNumber, gameBoard.get(p.getCurrentPosition()));
-		}
 	}
 
+	/**
+	 * method private void thrownDie()
+	 * This method handles the operations neccesary after throwing the die.
+	 */
 	private void thrownDie() {
 		if (currentPlayerSquare instanceof JailSlashFreePassSquare && !currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
 		{
-			boolean hasDouble = rollForADouble();
+			boolean hasDouble = checkForDouble();
 			((JailSlashFreePassSquare)currentPlayerSquare).release(currentActivePlayer, hasDouble);		}
 		else if (gameBoard.get(currentActivePlayer.getCurrentPosition()).shouldPlayerMove(currentActivePlayer))
 		{
@@ -338,43 +355,65 @@ public class Monopoly
 			int dieSum = result[0]+result[1];
 			movePlayer(currentActivePlayer, dieSum, true);
 		}
-
 	}
 
+	/**
+	 * method private void buyHouse()
+	 * This method activates the buyHouse method in the currentPlayerSquare
+	 */
 	private void buyHouse() {
 		((City)currentPlayerSquare).BuyHouse(currentActivePlayer);
-		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyHouseButtonStatus(false);
-
 	}
 
+	/**
+	 * method private void useGetOutOfJail() 
+	 * This method activates the get out of jail method in a JailSlashFreePassSquare.
+	 */
 	private void useGetOutOfJail() {
 		((JailSlashFreePassSquare)currentPlayerSquare).playerUsesGetOutOfJailCard(currentActivePlayer);
-		GameManager.CurrentUI.getFrame().getPlayerPanel().setGetOutOfJailButtonStatus(false);
-
 	}
 
-	private void forfit() {
+	/**
+	 * method private void forfeit()
+	 * This method removes the current player from the game.
+	 * As a by-product, ends his turn.
+	 */
+	private void forfeit() {
 		removePlayerFromGame(currentActivePlayer);
 		playerIndex--;
 		endTurn();
 	}
-	
+
+	/**
+	 * method private void buyAsset()
+	 * This method invokes the buyAsset method in an Asset.
+	 */
 	private void buyAsset() {
 		((Asset)currentPlayerSquare).buyAsset(currentActivePlayer);	
-		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
-
 	}
-	
+
+	/**
+	 * method public void signalGameRunning()
+	 * Signifies that a game has been started - e.g. that Play() has been called.
+	 */
 	public void signalGameRunning()
 	{
 		gameRunning=true;
 	}
-	
+
+	/**
+	 * @return true IFF a game is running - e.g. that play() has been called.
+	 */
 	public boolean getGameRunning()
 	{
 		return gameRunning;
 	}
 
+	/**
+	 * method public void eventDispatch(String message)
+	 * @param message a String depicting the event being dispatched by the player.
+	 * Note that for any illegal message nothing would happen.
+	 */
 	public void eventDispatch(String message) {
 		currentActivePlayer = gamePlayers.get(playerIndex);
 		currentPlayerSquare = gameBoard.get(currentActivePlayer.getCurrentPosition());
@@ -384,7 +423,7 @@ public class Monopoly
 		}
 		else if(message.equals("forfeit"))
 		{
-			forfit();
+			forfeit();
 		}
 		else if(message.equals("endTurn"))
 		{
@@ -413,7 +452,6 @@ public class Monopoly
 			{
 				doComputerRound();
 			}
-
 		}
 		else if(message.equals("throwDie"))
 		{
@@ -422,8 +460,6 @@ public class Monopoly
 			{
 				doComputerRound();
 			}
-
 		}
-
 	}
 }

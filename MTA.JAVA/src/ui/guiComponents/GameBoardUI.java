@@ -19,6 +19,9 @@ import ui.guiComponents.Squares.SquarePanel;
 import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.utils.ImagePanel;
 
+/**
+ * @author Liron Blecher. Modified by Omer Shenhar and Shachar Butnaro.
+ */
 public class GameBoardUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;

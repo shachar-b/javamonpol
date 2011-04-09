@@ -19,7 +19,7 @@ import assets.Offerable;
 /**
  * class ComputerPlayer extends Player
  * @see Player
- * @visibility public
+ * public
  * A computer player in the Monopoly game.
  * @author Omer Shenhar and Shachar Butnaro
  */
@@ -38,12 +38,6 @@ public class ComputerPlayer extends Player {
 		generatedComputerNumber++;
 	}
 
-	
-	public static void resetComputerNumber()
-	{
-		generatedComputerNumber = 1;
-	}
-	
 	/* (non-Javadoc)
 	 * @see players.Player#buyDecision(java.lang.String, assets.Asset, int)
 	 * If computer will be left with BUY_THRESHHOLD or more after buying - chooses to buy.
@@ -116,7 +110,7 @@ public class ComputerPlayer extends Player {
 
 	/**
 	 * method buyOffer makeBuyOffer(Asset asset)
-	 * @visibility private
+	 * private
 	 * Generates a monetary value and adds it to a buy offer. Will not trade assets.
 	 * @param asset The asset being auctioned.
 	 * @return A formulated buy offer.
@@ -134,7 +128,7 @@ public class ComputerPlayer extends Player {
 
 	/**
 	 * method buyOffer makeBuyOffer(AssetGroup group)
-	 * @visibility private
+	 * private
 	 * Generates a monetary value by summing up value of assets in group, and adds it to a buy offer.
 	 * @param group The group being auctioned.
 	 * @return A formulated buy offer.
@@ -178,6 +172,5 @@ public class ComputerPlayer extends Player {
 			index++;
 		}
 		return maxIndex;
-	}
-	
+	}	
 }

@@ -11,18 +11,18 @@ import cards.ShaffledDeck;
 /**
  * public class ActionCardSquare extends Square
  * @see Square
- * @visibility public
+ * public
  * a Call up or Surprise Square in the monopoly game 
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 public class ActionCardSquare extends Square {
-	
+
 	int sign;
-	
+
 	/**
 	 * method public ActionCardSquare(int sign1)
-	 * @visibility public
+	 * public
 	 * a constructor for ActionCardSquare
 	 * @param sign1 - either -1 for call up or 1 for surprise
 	 */
@@ -31,13 +31,13 @@ public class ActionCardSquare extends Square {
 		sign=sign1;
 	}
 
-	
+
 	/* (non-Javadoc)
 	 * @see squares.Square#getName()
 	 */
 	@Override
 	public String getName() {return sign==1?"Surprise":"CallUp";}
-	
+
 	/* (non-Javadoc)
 	 * @see squares.Square#playerArrived(players.Player)
 	 * gives the player a card from the correct deck and makes an action according to it
@@ -47,19 +47,19 @@ public class ActionCardSquare extends Square {
 		ShaffledDeck currDeck=sign==1?GameManager.currentGame.getSurprise():GameManager.currentGame.getCallUp();
 		ActionCard currCard = currDeck.takeCard();
 		GameManager.CurrentUI.notifyPlayerGotCard(player, currCard);
-		
+
 		if (currCard.isGetOutOfJailFreeCard())
 			player.setGetOutOfJailFreeCardPlaceHolder(currCard);
 		else
 			currCard.doCard(player);
 	}
-	
+
 	/**
-	 * @return true if it is call up false if it is supprise
+	 * @return true if it is call up false if it is surprise
 	 */
 	public boolean IsCallUp()
 	{
 		return sign==-1;
-		
+
 	}
 }

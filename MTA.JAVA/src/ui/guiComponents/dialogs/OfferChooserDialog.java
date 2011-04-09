@@ -13,7 +13,7 @@ import javax.swing.border.*;
 import monopoly.buyOffer;
 
 /**
- * @author Omer
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class OfferChooserDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -78,7 +78,6 @@ public class OfferChooserDialog extends JDialog {
 		for(buyOffer curr:offers)
 		{
 			JPanel offer = new JPanel();
-			JTree tree;
 			
 			tabbedPane1.addTab(curr.getOfferMaker().getName(),offer);
 			
