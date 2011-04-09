@@ -79,10 +79,7 @@ public class Dice extends GameActionsListenableClass{
 
 			@Override
 			public void eventHappened(GameActionEvent gameActionEvent) {
-				if (gameActionEvent.getGameID()==GameManager.gameID)
 					RollButtonPressed();
-				else
-					; //Do nothing - event hopped games illegally!
 			}
 		});
 		button.addActionListener(throwButton);

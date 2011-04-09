@@ -16,13 +16,6 @@ import cards.ShaffledDeck;
 public interface MonopolyInitilizer {
 
 	/**
-	 * method Dice[] initDie()
-	 * @visibility public
-	 * @return a array of die with 2 dice
-	 */
-	public OldDice[] initDie();
-
-	/**
 	 * method ShaffledDeck initSurprise();
 	 * @visibility public
 	 * @return a ShaffledDeck of surprise cards

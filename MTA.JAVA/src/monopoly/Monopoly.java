@@ -32,6 +32,7 @@ public class Monopoly
 	private Player currentActivePlayer;
 	private Square currentPlayerSquare;
 	private int state=0;
+	private boolean gameRunning=false;
 	private  Thread stateMechThread= new Thread(new Runnable() {
 		
 		@Override
@@ -362,6 +363,16 @@ public class Monopoly
 		((Asset)currentPlayerSquare).buyAsset(currentActivePlayer);	
 		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
 
+	}
+	
+	public void signalGameRunning()
+	{
+		gameRunning=true;
+	}
+	
+	public boolean getGameRunning()
+	{
+		return gameRunning;
 	}
 
 	public void eventDispatch(String message) {

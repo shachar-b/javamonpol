@@ -32,6 +32,7 @@ import monopoly.GameManager;
 import players.Player;
 import ui.guiComponents.dialogs.EntryDialog;
 import ui.guiComponents.dialogs.ExitDiaglog;
+import ui.guiComponents.dialogs.midGameEntryDialog;
 import ui.guiComponents.dice.Dice;
 
 /**
@@ -45,7 +46,9 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		initComponents();
 		setIconImage(new ImageIcon(GameManager.IMAGES_FOLDER+"/MiscIcons/GameIcon.png").getImage());
+		new EntryDialog(this).setVisible(true);
 	}
+	
 	
 	private void menuItem1ActionPerformed(ActionEvent e) {
 		JDialog aboutDialog = new ui.guiComponents.dialogs.aboutDialog(this);
@@ -53,8 +56,13 @@ public class MainWindow extends JFrame {
 	}
 
 	private void NewGameActionPerformed(ActionEvent e) {
-		JDialog newGameDialog = new EntryDialog(this);
-		newGameDialog.setVisible(true);
+		JDialog newDialog;
+		if (GameManager.currentGame.getGameRunning())
+			newDialog=new midGameEntryDialog(this);
+		else
+			newDialog=new EntryDialog(this);
+		
+		newDialog.setVisible(true);
 	}
 
 	private void ExitActionPerformed(ActionEvent e) {

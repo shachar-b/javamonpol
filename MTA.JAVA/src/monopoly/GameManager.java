@@ -24,7 +24,6 @@ public class GameManager {
 	public static Monopoly currentGame;	
 	public static IUI CurrentUI;
 	public static final Font DefaultFont=new Font("Serif", Font.BOLD, 10);
-	public static int gameID = 0;
 	
 	
 
