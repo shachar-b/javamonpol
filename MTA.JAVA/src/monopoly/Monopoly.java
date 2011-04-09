@@ -73,30 +73,31 @@ public class Monopoly
 		currentPlayerSquare=gameBoard.get(currentActivePlayer.getCurrentPosition());
 		switch (state) {
 		case 0:
-			state++;
+			state++;//next state is roll die
 			if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
 					!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
 			{
 				//wait
-				state=4;
+				state=4;//nothing more to do in this turn
 				pane.ClickGetOutOfJailButton();
 				break;
 
 			}
 			
 		case 1:
-			state++;
+			state++;//next state is 2- try to buy an asset 
 			if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
-				{//dont do it only on parking- if used GOJC this wont be reached
+				{//dont do it only on parking- if GOJC was used this wont be reached
 				rollDie();
 				break;
 				}
 		case 2:
-			state++;
+			state++;//if you dont buy the asset next state is 3-try to buy a house
 			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
 			{//unowned asset
 				if(currentActivePlayer.buyDecision(((Asset) currentPlayerSquare)))
 				{
+					state=4;//Can't buy house in the same turn you bought the asset
 					pane.ClickBuyAssetButton();
 					//wait
 					break;
@@ -104,7 +105,7 @@ public class Monopoly
 
 			}
 		case 3:
-			state++;
+			state++;//next state is end turn no meter what happens here
 			if(currentPlayerSquare instanceof City)
 			{
 				if(((City)currentPlayerSquare).canHouseBeBuilt(currentActivePlayer))
@@ -116,7 +117,7 @@ public class Monopoly
 
 			}
 		case 4://case 4
-			state=0;
+			state=0;//restart state machine for next player
 			pane.ClickEndTurnButton();
 			break;
 		}
