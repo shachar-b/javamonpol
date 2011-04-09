@@ -33,7 +33,6 @@ import players.ComputerPlayer;
 import players.HumanPlayer;
 import players.Player;
 import ui.UI;
-import ui.guiComponents.CenterPanel;
 import ui.guiComponents.MainWindow;
 
 /**
@@ -96,6 +95,7 @@ public class EntryDialog extends JDialog {
 		int totalPlayers = totalSlider.getValue();
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
 		
+		ComputerPlayer.resetComputerNumber();
 		for (int i=0; i<computerPlayers; i++)
 		{
 			gamePlayers.add(new ComputerPlayer());

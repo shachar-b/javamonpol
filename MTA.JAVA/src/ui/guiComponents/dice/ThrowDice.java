@@ -46,7 +46,7 @@ class ThrowDice extends TimerTask {
         }
         else{
             Dice.getGameDice().setDieOutcome(dice1Outcome,dice2Outcome);
-            preformWhenDone.eventHappened(new GameActionEvent(this, "throwDie"));
+            preformWhenDone.eventHappened(new GameActionEvent(this, "throwDie",GameManager.gameID));
             this.cancel();
         }
     }

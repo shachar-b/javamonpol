@@ -5,27 +5,21 @@
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-
-import players.Player;
 
 import listeners.innerChangeEventListener.InnerChangeEventListner;
 import listeners.innerChangeEventListener.InnerChangeEvet;
 import monopoly.GameManager;
+import players.Player;
 import ui.utils.IconCellRenderer;
-import ui.utils.ImagePanel;
 import ui.utils.TransparentTable;
 import ui.utils.Utils;
 

@@ -47,7 +47,7 @@ public class Monopoly
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						throw new RuntimeException("state mechin problem");
+						throw new RuntimeException("state machine problem");
 					}
 					state=4;//nothing more to do in this turn
 					pane.ClickGetOutOfJailButton();
@@ -152,7 +152,6 @@ public class Monopoly
 	private void doComputerRound()
 	{
 		stateMechThread.run();
-		
 	}
 
 
@@ -191,6 +190,11 @@ public class Monopoly
 	public int getRoundNumber()
 	{
 		return roundNumber;
+	}
+	
+	public void resetRoundNumber()
+	{
+		roundNumber=1;
 	}
 
 	/**
@@ -352,9 +356,8 @@ public class Monopoly
 		removePlayerFromGame(currentActivePlayer);
 		playerIndex--;
 		endTurn();
-
 	}
-
+	
 	private void buyAsset() {
 		((Asset)currentPlayerSquare).buyAsset(currentActivePlayer);	
 		GameManager.CurrentUI.getFrame().getPlayerPanel().setBuyAssetButtonStatus(false);
