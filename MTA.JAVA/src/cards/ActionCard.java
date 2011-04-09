@@ -16,6 +16,8 @@ import squares.Square;
 
 public class ActionCard {
 	
+	public static final int CALLUP_CARD = -1;
+	public static final int SURPRISE_CARD = 1;
 	private int sign;
 	private String action;
 	private int amount;
@@ -67,6 +69,10 @@ public class ActionCard {
 		return (goOnNext==Square.class);
 	}
 	
+	public boolean isSurprise()
+	{
+		return (this.sign == SURPRISE_CARD);
+	}
 
 	/**
 	 * Method doCard(Player player)- performs actions as specified in the constructor
