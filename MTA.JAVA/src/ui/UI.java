@@ -124,7 +124,7 @@ public class UI implements IUI {
 		GameManager.currentGame.resetRoundNumber();
 		GameManager.gameID++;
 		frame.validate();
-		frame.repaint();
+		frame.repaint();	
 	}
 
 	/* (non-Javadoc)
