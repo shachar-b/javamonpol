@@ -98,7 +98,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 	}
 	public void ClickBuyHouseButton()
 	{
-		buyAsset.doClick();
+		buyHouse.doClick();
 	}
 	
 	public void setEndTurnButtonStatus(boolean value)
