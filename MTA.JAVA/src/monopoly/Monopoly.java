@@ -32,6 +32,88 @@ public class Monopoly
 	private Player currentActivePlayer;
 	private Square currentPlayerSquare;
 	private int state=0;
+	private  Thread stateMechThread= new Thread(new Runnable() {
+		
+		@Override
+		public void run() {
+			PlayerPanel pane=GameManager.CurrentUI.getFrame().getPlayerPanel();
+			currentPlayerSquare=gameBoard.get(currentActivePlayer.getCurrentPosition());
+			switch (state) {
+			case 0:
+				state++;//next state is roll die
+				if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
+						!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
+				{
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						throw new RuntimeException("state mechin problem");
+					}
+					state=4;//nothing more to do in this turn
+					pane.ClickGetOutOfJailButton();
+					break;
+
+				}
+				
+			case 1:
+				state++;//next state is 2- try to buy an asset 
+				if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+					{//dont do it only on parking- if GOJC was used this wont be reached
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						throw new RuntimeException("state mechin problem");
+					}
+					rollDie();
+					break;
+					}
+			case 2:
+				state++;//if you dont buy the asset next state is 3-try to buy a house
+				if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
+				{//unowned asset
+					if(currentActivePlayer.buyDecision(((Asset) currentPlayerSquare)))
+					{
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							throw new RuntimeException("state mechin problem");
+						}
+						state=4;//Can't buy house in the same turn you bought the asset
+						pane.ClickBuyAssetButton();
+						//wait
+						break;
+					}
+
+				}
+			case 3:
+				state++;//next state is end turn no meter what happens here
+				if(currentPlayerSquare instanceof City)
+				{
+					if(((City)currentPlayerSquare).canHouseBeBuilt(currentActivePlayer))
+					{
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							throw new RuntimeException("state mechin problem");
+						}
+						pane.ClickBuyHouseButton();
+						break;
+					}
+
+				}
+			case 4://case 4
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					throw new RuntimeException("state mechin problem");
+				}
+				state=0;//restart state machine for next player
+				pane.ClickEndTurnButton();
+				break;
+			}
+			
+		}
+	});
 
 	/**
 	 * method void init (package protected)
@@ -69,58 +151,8 @@ public class Monopoly
 
 	private void doComputerRound()
 	{
-		PlayerPanel pane=GameManager.CurrentUI.getFrame().getPlayerPanel();
-		currentPlayerSquare=gameBoard.get(currentActivePlayer.getCurrentPosition());
-		switch (state) {
-		case 0:
-			state++;//next state is roll die
-			if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
-					!currentPlayerSquare.shouldPlayerMove(currentActivePlayer) &&(currentPlayerSquare instanceof JailSlashFreePassSquare))
-			{
-				//wait
-				state=4;//nothing more to do in this turn
-				pane.ClickGetOutOfJailButton();
-				break;
-
-			}
-			
-		case 1:
-			state++;//next state is 2- try to buy an asset 
-			if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
-				{//dont do it only on parking- if GOJC was used this wont be reached
-				rollDie();
-				break;
-				}
-		case 2:
-			state++;//if you dont buy the asset next state is 3-try to buy a house
-			if(currentPlayerSquare instanceof Asset && ((Asset) currentPlayerSquare).getOwner()==GameManager.assetKeeper )
-			{//unowned asset
-				if(currentActivePlayer.buyDecision(((Asset) currentPlayerSquare)))
-				{
-					state=4;//Can't buy house in the same turn you bought the asset
-					pane.ClickBuyAssetButton();
-					//wait
-					break;
-				}
-
-			}
-		case 3:
-			state++;//next state is end turn no meter what happens here
-			if(currentPlayerSquare instanceof City)
-			{
-				if(((City)currentPlayerSquare).canHouseBeBuilt(currentActivePlayer))
-				{
-					//wait
-					pane.ClickBuyHouseButton();
-					break;
-				}
-
-			}
-		case 4://case 4
-			state=0;//restart state machine for next player
-			pane.ClickEndTurnButton();
-			break;
-		}
+		stateMechThread.run();
+		
 	}
 
 
