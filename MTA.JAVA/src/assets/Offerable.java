@@ -10,25 +10,25 @@ import ui.OfferType;
  */
 
 public interface Offerable {
-	
+
 	/**
 	 * method getName()
-	 * @visibility : public
+	 * public
 	 * @return the name of the Item 
 	 */
 	public String getName();
-	
+
 	/**
 	 * method setOwner(Player owner) -sets the given player as the owner of the Item
-	 * @visibility : public
+	 * public
 	 * @param owner - a valid Player
 	 * @post this.owner=owner
 	 */
 	public void setOwner(Player owner);
-	
+
 	/** 
 	 * method getType() -get the OfferType
-	 * @visibility : public
+	 * public
 	 * @return - the OfferType of the Item  
 	 */
 	public OfferType getType();

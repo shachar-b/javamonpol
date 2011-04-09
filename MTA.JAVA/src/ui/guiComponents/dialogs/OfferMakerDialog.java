@@ -26,17 +26,11 @@ import ui.guiComponents.dialogs.OfferMakerPanes.OfferableSelectionPane;
 import assets.Offerable;
 
 /**
- * @author Omer
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class OfferMakerDialog extends JDialog {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+
 	private MoneyOfferPane moneyPane;
 	private OfferMakerButtonPane buttonPane=OfferMakerButtonPane.getOfferMakerButtonPane();
 	private OfferableSelectionPane GroupPane;

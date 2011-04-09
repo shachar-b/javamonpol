@@ -10,13 +10,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * @author Omer
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class GameInstructionsDialog extends JDialog {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	public GameInstructionsDialog(Frame owner) {
 		super(owner);
 		initComponents();

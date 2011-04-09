@@ -35,13 +35,11 @@ import players.Player;
 import ui.guiComponents.MainWindow;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class EntryDialog extends JDialog {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
 	
@@ -94,7 +92,6 @@ public class EntryDialog extends JDialog {
 		GameManager.currentGame.signalGameRunning();
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
 		
-		ComputerPlayer.resetComputerNumber();
 		for (int i=0; i<computerPlayers; i++)
 		{
 			gamePlayers.add(new ComputerPlayer());

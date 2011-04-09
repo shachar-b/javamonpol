@@ -22,11 +22,8 @@ import assets.Offerable;
  *
  */
 public class OfferableSelectionPane extends JPanel {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel checkPanel = new JPanel(new GridLayout(0, 1));	
 	private buyOffer res;
 	

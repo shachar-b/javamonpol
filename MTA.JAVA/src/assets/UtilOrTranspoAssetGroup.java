@@ -9,20 +9,20 @@ import listeners.innerChangeEventListener.InnerChangeEvet;
 /**
  * class UtilOrTranspoAssetGroup extends AssetGroup
  * a Utility Or Transport asset Group in the monopoly game - contains only members of class UtilOrTranspoAsset 
- * @visibility public
+ * public
  * @see AssetGroup
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 
 public class UtilOrTranspoAssetGroup extends AssetGroup {
-	
-	
+
+
 
 	int fullRental;
 	/** 
 	 * method UtilOrTranspoAssetGroup(String nameOfGroup, int priceForEntireGroup)
-	 * @visibility public
+	 * public
 	 * this is the constructor of class UtilOrTranspoAssetGroup 
 	 * @param nameOfGroup
 	 * @param priceForEntireGroup : A positive integer which depicts the rental price for
@@ -32,8 +32,8 @@ public class UtilOrTranspoAssetGroup extends AssetGroup {
 		super(nameOfGroup);
 		fullRental=priceForEntireGroup;
 	}
-	
-	
+
+
 	//collection functions
 	/* (non-Javadoc)
 	 * @see java.util.Collection#add(java.lang.Object)
@@ -41,21 +41,20 @@ public class UtilOrTranspoAssetGroup extends AssetGroup {
 	@Override
 	public boolean add(Asset asset) {
 		asset.addInnerChangeEventListner(new InnerChangeEventListner() {
-			
+
 			@Override
 			public void eventHappened(InnerChangeEvet innerChangeEvet) {
 				if(innerChangeEvet.getMessage().equals("owner"))
 					fireEvent("group");
-				
 			}
 		});
 		return assetsInGroup.add(asset);
 	}
 
-	
+
 	/**
 	 * method int getFullRental()
-	 * @visibility public
+	 * public
 	 * @return the full rental price for a single asset in this group if it is of sole ownership
 	 */
 	public int getFullRental() {

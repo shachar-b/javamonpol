@@ -31,7 +31,7 @@ import cards.ActionCard;
 /**
  * public class ConsoleUI implements IUI
  * @see IUI
- * @visibility public
+ * public
  * A console UI for the Monopoly game
  * @author Omer Shenhar and Shachar Butnaro
  */
@@ -396,10 +396,12 @@ public class UI implements IUI {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see ui.IUI#notifyPlayerLeftGame(players.Player)
+	 */
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
 		String message="player "+p.getName()+	" has left the game!"; 
-		//frame.getGameboard().removePlayerIcon(p);
 		displayMessage(message);
 		
 	}

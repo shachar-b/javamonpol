@@ -6,7 +6,7 @@ import players.Player;
 /**
  * public class GoToJailSquare extends Square
  * @see Square
- * @visibility public
+ * public
  * a GoToJailSquare Square in the monopoly game 
  * @author Omer Shenhar and Shachar Butnaro
  *

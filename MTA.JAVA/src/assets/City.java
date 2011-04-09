@@ -9,7 +9,7 @@ import players.Player;
 /**
  * class City extends Asset
  * @see Asset
- * @visibility public
+ * public
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
@@ -22,7 +22,7 @@ public class City extends Asset {
 
 	/**
 	 * method City(AssetGroup group, String name, int costOfCity ,int costOfHouse, int[] rentPrices)
-	 * @visibility public
+	 * public
 	 * this is the constructor for a city in the monopoly game
 	 * @param group - a valid non null Country which this City belongs to 
 	 * @param name - the name of the city
@@ -64,6 +64,14 @@ public class City extends Asset {
 
 
 	}
+
+
+	/**
+	 * public void BuyHouse(Player player)
+	 * public
+	 * @param player - a valid non null player
+	 * Deducts money from player, increases number of houses in city, and fires a notifier event to the listeners.
+	 */
 	public void BuyHouse(Player player)
 	{
 		player.ChangeBalance(costOfHouse, GameManager.SUBTRACT);
@@ -71,9 +79,15 @@ public class City extends Asset {
 		GameManager.CurrentUI.notifyPlayerBoughtHouse(player, this);
 		fireEvent("user bought house at "+this.getName()); // if anything changed notify Listeners
 	}
+
+
+	/**
+	 * public boolean canHouseBeBuilt(Player byWhom)
+	 * @param byWhom - A valid non null player who wants to buy a house
+	 * @return true IFF house can be built by player.
+	 */
 	public boolean canHouseBeBuilt(Player byWhom)
 	{
-
 		if  (owner==byWhom)//Owner is player
 		{
 			if (group.isOfSoleOwnership())
@@ -82,18 +96,14 @@ public class City extends Asset {
 				{
 					return true;
 				}
-
 			}
 		}
 		return false;
-
-
 	}
-
 
 	/**
 	 * method int getNumHouses()
-	 * @visibility public
+	 * public
 	 * @return the number of houses in the city
 	 */
 	public int getNumHouses() {
@@ -102,7 +112,7 @@ public class City extends Asset {
 
 	/**
 	 * method int getCostOfHouse()
-	 * @visibility public
+	 * public
 	 * @return the cost for a single house in the city
 	 */
 	public int getCostOfHouse() {
@@ -121,9 +131,8 @@ public class City extends Asset {
 			numHouses=0;
 			fireEvent("keeper"); // if anything changed notify
 		}
-
-
 	}
+
 	/**
 	 * @return a array of prices in the city where ret[i] is the price with i houses
 	 */

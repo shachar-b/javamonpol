@@ -25,13 +25,11 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class ExitDiaglog extends JDialog {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	public ExitDiaglog(Frame owner) {
 		super(owner);
 		initComponents();

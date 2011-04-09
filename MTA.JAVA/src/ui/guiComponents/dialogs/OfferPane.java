@@ -12,7 +12,7 @@ import javax.swing.JTree;
 import monopoly.buyOffer;
 
 /**
- * @author Omer
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class OfferPane extends JPanel {
 	private static final long serialVersionUID = 1L;

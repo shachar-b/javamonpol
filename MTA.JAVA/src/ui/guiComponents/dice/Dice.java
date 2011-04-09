@@ -20,6 +20,11 @@ import listeners.gameActions.GameActionsListenableClass;
 import monopoly.GameManager;
 import ui.utils.Utils;
 
+/**
+ * @author Stijn Strickx, from http://www.proglogic.com/code/java/game/rolldice.php.
+ * Modified by Omer Shenhar and Shachar Butnaro.
+ *
+ */
 public class Dice extends GameActionsListenableClass{
 	private static final long serialVersionUID = 1L;
 	private static Dice gameDice = new Dice();
@@ -79,7 +84,7 @@ public class Dice extends GameActionsListenableClass{
 
 			@Override
 			public void eventHappened(GameActionEvent gameActionEvent) {
-					RollButtonPressed();
+				RollButtonPressed();
 			}
 		});
 		button.addActionListener(throwButton);
@@ -135,8 +140,8 @@ public class Dice extends GameActionsListenableClass{
 		dice1Outcome = dice1Roll;
 		dice2Outcome = dice2Roll;
 	}
-	
-	public void setButton(boolean value)
+
+	public void setButtonEnabled(boolean value)
 	{//Will activate the button IFF value==true.
 		button.setEnabled(value);
 	}

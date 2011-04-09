@@ -13,7 +13,7 @@ import monopoly.GameManager;
 import monopoly.Monopoly;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class midGameEntryDialog extends JDialog {
 	private static final long serialVersionUID = 1L;

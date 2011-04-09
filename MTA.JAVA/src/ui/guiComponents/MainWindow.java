@@ -36,7 +36,7 @@ import ui.guiComponents.dialogs.midGameEntryDialog;
 import ui.guiComponents.dice.Dice;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class MainWindow extends JFrame {
 	/**

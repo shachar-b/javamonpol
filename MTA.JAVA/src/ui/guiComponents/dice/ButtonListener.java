@@ -10,36 +10,38 @@ import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
 
+/**
+ * @author Stijn Strickx, from http://www.proglogic.com/code/java/game/rolldice.php.
+ * Modified by Omer Shenhar and Shachar Butnaro.
+ *
+ */
 class ButtonListener extends GameActionsListenableClass implements ActionListener {
-    
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel dice1;
-    private JLabel dice2;
-    private JLabel text;
+	private JLabel dice2;
+	private JLabel text;
 
-    public ButtonListener(JLabel dice1, JLabel dice2, JLabel text) {
-        this.dice1 = dice1;
-        this.dice2 = dice2;
-        this.text = text;
-    }
+	public ButtonListener(JLabel dice1, JLabel dice2, JLabel text) {
+		this.dice1 = dice1;
+		this.dice2 = dice2;
+		this.text = text;
+	}
 
-    public void actionPerformed(ActionEvent e) {
-        Timer timer = new Timer();
-        GameActionEventListener preformWhenDone= new GameActionEventListener() {
-			
+	public void actionPerformed(ActionEvent e) {
+		Timer timer = new Timer();
+		GameActionEventListener preformWhenDone= new GameActionEventListener() {
+
 			@Override
 			public void eventHappened(GameActionEvent innerChangeEvet) {
 				done();
-				
+
 			}
 		};
-        timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text,preformWhenDone), 0, 100);
-    }
-    private  void  done() {
-    	fireEvent("throwDie");
+		timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text,preformWhenDone), 0, 100);
+	}
+	private  void  done() {
+		fireEvent("throwDie");
 	}
 }
 

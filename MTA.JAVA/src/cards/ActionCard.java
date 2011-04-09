@@ -9,13 +9,13 @@ import squares.Square;
 
 /**
  *  class ActionCard represent an action card in the monopoly game
- *  @visibility public
+ *  public
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 
 public class ActionCard {
-	
+
 	public static final int CALLUP_CARD = -1;
 	public static final int SURPRISE_CARD = 1;
 	private int sign;
@@ -28,7 +28,7 @@ public class ActionCard {
 	/**
 	 * method ActionCard(int sign, String action, int amount, AgainstWho against,Class<? extends Square> goOnNext, boolean collectBonus)
 	 * a constructor for an action card
-	 * @visibility : public
+	 * public
 	 * @param sign - an int only 1 or -1 are allowed
 	 * @param action - a String representing the action
 	 * @param amount - an positive int the amount of money the card has to give or take
@@ -50,7 +50,7 @@ public class ActionCard {
 		CollectBonus = collectBonus;
 	}
 
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -58,17 +58,21 @@ public class ActionCard {
 	public String toString(){
 		return action;
 	}
-	
+
 	/**
 	 * method boolean isGetOutOfJailFreeCard()
-	 * @visibility : public
+	 * public
 	 * @return : true if this is a get out of jail card False otherwise
 	 */
 	public boolean isGetOutOfJailFreeCard()
 	{
 		return (goOnNext==Square.class);
 	}
-	
+
+	/**
+	 * public boolean isSurprise() 
+	 * @return true IFF Card is a surprise card.
+	 */
 	public boolean isSurprise()
 	{
 		return (this.sign == SURPRISE_CARD);
@@ -76,7 +80,7 @@ public class ActionCard {
 
 	/**
 	 * Method doCard(Player player)- performs actions as specified in the constructor
-	 * @visibility : public
+	 * public
 	 * @param player a non null initialized Player who is a member of the current game
 	 */
 	public void doCard(Player player)

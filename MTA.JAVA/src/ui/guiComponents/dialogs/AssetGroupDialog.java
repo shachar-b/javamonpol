@@ -27,16 +27,11 @@ import assets.Asset;
 import assets.AssetGroup;
 
 /**
- * @author Omer
+ * @author Omer Shenhar and Shachar Butnaro
  */
-
-
 public class AssetGroupDialog extends JDialog {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	AssetGroup represntedGroup;
 	ArrayList<SquarePanel> componets =new ArrayList<SquarePanel>();
 	public AssetGroupDialog(Frame owner,AssetGroup groupToShow) {

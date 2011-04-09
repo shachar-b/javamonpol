@@ -24,7 +24,7 @@ import ui.utils.TransparentTable;
 import ui.utils.Utils;
 
 /**
- * @author Shachar
+ * @author Omer Shenhar and Shachar Butnaro
  */
 public class CenterPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
