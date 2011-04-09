@@ -2,7 +2,6 @@ package ui.utils;
 
 import java.awt.Component;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

@@ -35,7 +35,7 @@ public class ExitDiaglog extends JDialog {
 	public ExitDiaglog(Frame owner) {
 		super(owner);
 		initComponents();
-	}
+}
 
 	public ExitDiaglog(Dialog owner) {
 		super(owner);

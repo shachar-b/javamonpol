@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import monopoly.GameManager;
+
 public abstract class GameActionsListenableClass extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +30,7 @@ public abstract class GameActionsListenableClass extends JPanel{
 	}
 	protected void fireEvent (String message) {
 		for (GameActionEventListener listener : listeners) {
-			listener.eventHappened(new GameActionEvent(this, message));
+			listener.eventHappened(new GameActionEvent(this, message, GameManager.gameID));
 		}
 	}
 	protected void fireEvent(GameActionEvent e)

@@ -46,8 +46,10 @@ public class PlayerPanel extends GameActionsListenableClass {
 		
 		@Override
 		public void eventHappened(GameActionEvent gameActionEvent) {
-			dieRolled();
-			
+			if (gameActionEvent.getGameID()==GameManager.gameID)
+				dieRolled();
+			else
+				;//Do nothing.			
 		}
 	};
 	private void dieRolled()
@@ -158,14 +160,14 @@ public class PlayerPanel extends GameActionsListenableClass {
 
 	private void ForfeitActionPerformed(ActionEvent e) {
 		Dice.getGameDice().resetDiceButtonAndLisners();
-		fireEvent(new GameActionEvent(this, "forfeit"));
+		fireEvent(new GameActionEvent(this, "forfeit", GameManager.gameID));
 		this.setVisible(false);
 		revalidate();
 		repaint();
 	}
 
 	private void useJailFreeCardActionPerformed(ActionEvent e) {
-		fireEvent(new GameActionEvent(this, "getOutOfJail"));
+		fireEvent(new GameActionEvent(this, "getOutOfJail", GameManager.gameID));
 		useJailFreeCard.setEnabled(false);
 		EndTurn.setEnabled(true);
 		//TODO:disable DieRoll button

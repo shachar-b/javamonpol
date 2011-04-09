@@ -38,6 +38,12 @@ public class ComputerPlayer extends Player {
 		generatedComputerNumber++;
 	}
 
+	
+	public static void resetComputerNumber()
+	{
+		generatedComputerNumber = 1;
+	}
+	
 	/* (non-Javadoc)
 	 * @see players.Player#buyDecision(java.lang.String, assets.Asset, int)
 	 * If computer will be left with BUY_THRESHHOLD or more after buying - chooses to buy.

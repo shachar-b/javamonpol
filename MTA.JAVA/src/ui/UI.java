@@ -79,7 +79,10 @@ public class UI implements IUI {
 			
 			@Override
 			public void eventHappened(GameActionEvent gameActionEvent) {
-				GameManager.currentGame.eventDispatch(gameActionEvent.getMessage());
+				if (gameActionEvent.getGameID()==GameManager.gameID)
+					GameManager.currentGame.eventDispatch(gameActionEvent.getMessage());
+				else
+					; //Do nothing.
 				
 			}
 		});
@@ -112,6 +115,8 @@ public class UI implements IUI {
 		}
 		frame.clearConsole();
 		frame.clearPlayerPanelArea();
+		GameManager.currentGame.resetRoundNumber();
+		GameManager.gameID++;
 		frame.validate();
 		frame.repaint();
 	}
