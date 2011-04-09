@@ -1,10 +1,15 @@
 package ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
@@ -15,6 +20,7 @@ import players.ComputerPlayer;
 import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
+import ui.guiComponents.CardPanel;
 import ui.guiComponents.MainWindow;
 import assets.Asset;
 import assets.AssetGroup;
@@ -261,10 +267,30 @@ public class UI implements IUI {
 	 * @see ui.IUI#notifyPlayerGotCard(players.Player, cards.ActionCard)
 	 */
 	public void notifyPlayerGotCard(Player player, ActionCard card) {
+		displaySelfClosingCardDialog(player, card);
 		String message = player.getName() + " received card : " + card;
 		displayMessage(message);
 	}
 
+	private void displaySelfClosingCardDialog(Player player, ActionCard card)
+	{
+		final JDialog cardDialog = new JDialog(frame, player.getName()+" got a card!", true);
+		cardDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		cardDialog.add(new CardPanel(card));
+		cardDialog.pack();
+		
+		Timer timer = new Timer(5000, new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                cardDialog.setVisible(false); 
+                cardDialog.dispose(); 
+            } 
+        }); 
+        timer.setRepeats(false); 
+        timer.start();
+        cardDialog.setVisible(true);
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see ui.IUI#notifyPlayerCantBuy(players.Player, java.lang.String, int)
 	 */

@@ -48,15 +48,15 @@ public class Init implements MonopolyInitilizer{
 	{
 		ShaffledDeck surprise = new ShaffledDeck();
 		// read surprise cards
-		surprise.add(new ActionCard(1, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
-		surprise.add(new ActionCard(1, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));		
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "you recived an inhertnce of 200", 200, GameManager.AgainstWho.Treasury, null, true));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "for your army service get 250", 250, GameManager.AgainstWho.Treasury, null, true));		
 		
-		surprise.add(new ActionCard(1, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
-		surprise.add(new ActionCard(1, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "Go start and get the bounus 200 from treasury", 0, GameManager.AgainstWho.Treasury, StartSquare.class, true));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "Go to next utility or transport squre you dont get a start bounus", 0, GameManager.AgainstWho.Treasury, UtilOrTranspoAsset.class, false));
 
-		surprise.add(new ActionCard(1, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
-		surprise.add(new ActionCard(1, "you won the anuual player poker tournumet take 450 from all the other losers", 450, GameManager.AgainstWho.OtherPlayers, null, true));
-		surprise.add(new ActionCard(1, "Get out of jail free card!", 0, GameManager.AgainstWho.Treasury, Square.class, false));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "for your wedding get 200 from each other player", 200, GameManager.AgainstWho.OtherPlayers, null, true));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "you won the anuual player poker tournumet take 450 from all the other losers", 450, GameManager.AgainstWho.OtherPlayers, null, true));
+		surprise.add(new ActionCard(ActionCard.SURPRISE_CARD, "Get out of jail free card!", 0, GameManager.AgainstWho.Treasury, Square.class, false));
 
 		return surprise;
 	}
@@ -69,13 +69,13 @@ public class Init implements MonopolyInitilizer{
 	{
 		ShaffledDeck callUp = new ShaffledDeck();
 		// read call-up cards
-		callUp.add(new ActionCard(-1, "income tax is on to you! you have to pay them 245 ", 200, GameManager.AgainstWho.Treasury, null, true));
-		callUp.add(new ActionCard(-1, "DOH! your car got stuck becuse it has no gas pay 200 for a taxi and 400 for a tank of gas", 600, GameManager.AgainstWho.Treasury, null, true));
-		callUp.add(new ActionCard(-1, "parked in a handicap parking pay 1000", 1000, GameManager.AgainstWho.Treasury, null, true));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "income tax is on to you! you have to pay them 245 ", 200, GameManager.AgainstWho.Treasury, null, true));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "DOH! your car got stuck becuse it has no gas pay 200 for a taxi and 400 for a tank of gas", 600, GameManager.AgainstWho.Treasury, null, true));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "parked in a handicap parking pay 1000", 1000, GameManager.AgainstWho.Treasury, null, true));
 		
-		callUp.add(new ActionCard(-1, "you lost a law suite,pay all other players 100 for giving them food poisening", 100, GameManager.AgainstWho.OtherPlayers, null, true));
-		callUp.add(new ActionCard(-1, "its saint patric day! go and have a drink in the next city and pay 100 for the texi", 100, GameManager.AgainstWho.OtherPlayers, City.class, false));
-		callUp.add(new ActionCard(-1, "you were scammed! you bought a car with no engine pay 350 for the engine parts and go to the parking lot for a turn dont collect start bouns", 350, GameManager.AgainstWho.Treasury, ParkingSquare.class, false));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "you lost a law suite,pay all other players 100 for giving them food poisening", 100, GameManager.AgainstWho.OtherPlayers, null, true));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "its saint patric day! go and have a drink in the next city and pay 100 for the texi", 100, GameManager.AgainstWho.OtherPlayers, City.class, false));
+		callUp.add(new ActionCard(ActionCard.CALLUP_CARD, "you were scammed! you bought a car with no engine pay 350 for the engine parts and go to the parking lot for a turn dont collect start bouns", 350, GameManager.AgainstWho.Treasury, ParkingSquare.class, false));
 
 		return callUp;
 	}
