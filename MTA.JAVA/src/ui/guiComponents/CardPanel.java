@@ -32,7 +32,7 @@ public class CardPanel extends JPanel {
 		else //Card is a Callup card
 		{
 			this.setBackground(new Color(255, 168, 125));
-			CardTypeLabel.setText("Surprise Card");
+			CardTypeLabel.setText("Call Up Card");
 			CardPictureLabel.setIcon(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/CallUp2.gif"));
 		}
 		CardStringLabel.setText(currentCard.toString());

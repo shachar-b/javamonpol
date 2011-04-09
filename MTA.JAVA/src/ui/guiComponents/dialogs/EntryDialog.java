@@ -90,7 +90,7 @@ public class EntryDialog extends JDialog {
 	}
 
 	private void okButtonActionPerformed(ActionEvent e) {
-		MainWindow MW = (MainWindow) getParent();
+		MainWindow MW = GameManager.CurrentUI.getFrame();
 		int computerPlayers = computersSlider.getValue();
 		int totalPlayers = totalSlider.getValue();
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();

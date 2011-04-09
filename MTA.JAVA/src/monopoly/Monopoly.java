@@ -62,7 +62,7 @@ public class Monopoly
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						throw new RuntimeException("state mechin problem");
+						throw new RuntimeException("state machine problem");
 					}
 					rollDie();
 					break;
@@ -119,7 +119,7 @@ public class Monopoly
 	 * method void init (package protected)
 	 * this method initializes the game data members
 	 */
-	void init()
+	public void init()
 	{
 		MonopolyInitilizer gameInitializer = new Init();
 		// init gameBoard
