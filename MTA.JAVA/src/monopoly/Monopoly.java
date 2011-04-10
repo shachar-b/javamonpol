@@ -44,23 +44,26 @@ public class Monopoly
 			switch (state) {
 			case 0:
 				state++;//next state is roll die
-				if(currentPlayerSquare instanceof JailSlashFreePassSquare && currentActivePlayer.hasGetOutOfJailFreeCard() &&
-						!currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+				if (currentPlayerSquare instanceof JailSlashFreePassSquare)
 				{
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						throw new RuntimeException("state machine problem");
-					}
-					state=4;//nothing more to do in this turn
-					pane.ClickGetOutOfJailButton();
-					break;
+					if(currentActivePlayer.hasGetOutOfJailFreeCard() &&
+							!currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+					{
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							throw new RuntimeException("state machine problem");
+						}
+						state=4;//nothing more to do in this turn
+						pane.ClickGetOutOfJailButton();
+						break;
 
+					}
 				}
 
 			case 1:
 				state++;//next state is 2- try to buy an asset 
-				if (currentPlayerSquare instanceof JailSlashFreePassSquare ||currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
+				if (currentPlayerSquare instanceof JailSlashFreePassSquare || currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
 				{//dont do it only on parking- if GOJC was used this wont be reached
 					try {
 						Thread.sleep(1000);
