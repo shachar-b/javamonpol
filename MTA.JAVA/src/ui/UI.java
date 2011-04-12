@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class UI implements IUI {
             @Override
             public void run() {
                 frame = new MainWindow();
+                frame.setExtendedState(Frame.MAXIMIZED_BOTH);
                 frame.setVisible(true);
             }
         });
