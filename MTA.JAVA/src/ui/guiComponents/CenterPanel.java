@@ -49,6 +49,7 @@ public class CenterPanel extends JPanel {
 		model.addColumn("Icon");
 		model.addColumn("Name");
 		model.addColumn("Balance");
+		model.addColumn("Current Square");
 		TableColumn col = legendTable.getColumnModel().getColumn(0);
 		col.setCellRenderer(new IconCellRenderer());
 	}
@@ -67,7 +68,8 @@ public class CenterPanel extends JPanel {
 			Object icon = player.getIconPanel();
 			Object name = player.getName();
 			Object balance = player.getBalance();
-			Object[] rowData = {icon,name,balance};
+			Object currentSquare = GameManager.currentGame.getGameBoard().get(player.getCurrentPosition()).getName();
+			Object[] rowData = {icon,name,balance,currentSquare};
 			model.addRow(rowData);
 		}
 	}
