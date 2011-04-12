@@ -40,7 +40,7 @@ public class CenterPanel extends JPanel {
 	{
 		legendTable = new TransparentTable();
 		LegendPanel.add(new JScrollPane(legendTable)); //JScrollPane is to show column headers
-		legendTable.setRowHeight(66); //Set row height to enable showing images appropriately
+		legendTable.setRowHeight(50); //Set row height to enable showing images appropriately
 	}
 
 	private void initLegend()
