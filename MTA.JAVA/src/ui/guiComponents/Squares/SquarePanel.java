@@ -6,6 +6,7 @@ package ui.guiComponents.Squares;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
@@ -46,6 +47,9 @@ public class SquarePanel extends JPanel{
 	}
 	
     public void addPlayer(ImagePanel iconPanel) {
+		iconPanel.setMinimumSize(new Dimension(20, 20));	//Force the ImagePanel holding
+		iconPanel.setMaximumSize(new Dimension(20, 20));	//the player icon to
+		iconPanel.setPreferredSize(new Dimension(20, 20));	//take the size it needs.
         iconList.add(iconPanel);
         playerPanel.add(iconPanel);
         this.validate();
