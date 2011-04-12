@@ -28,6 +28,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.*;
+import javax.swing.text.DefaultCaret;
 
 import monopoly.GameManager;
 import players.Player;
@@ -50,6 +52,7 @@ public class MainWindow extends JFrame {
 		playerPanelArea.setMaximumSize(new Dimension(480, 440));	//to take the
 		playerPanelArea.setPreferredSize(new Dimension(480, 440));	//space it needs.
 		setIconImage(new ImageIcon(GameManager.IMAGES_FOLDER+"/MiscIcons/GameIcon.png").getImage());
+		((DefaultCaret) textualConsole.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); //Set AutoScroll for textual console.
 		new EntryDialog(this).setVisible(true);
 	}
 	
