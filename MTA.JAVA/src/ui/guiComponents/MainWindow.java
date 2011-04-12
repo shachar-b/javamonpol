@@ -7,6 +7,7 @@ package ui.guiComponents;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.*;
 
 import monopoly.GameManager;
 import players.Player;
@@ -45,6 +47,9 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public MainWindow() {
 		initComponents();
+		playerPanelArea.setMinimumSize(new Dimension(480, 440));	//Force PlayerPanel
+		playerPanelArea.setMaximumSize(new Dimension(480, 440));	//to take the
+		playerPanelArea.setPreferredSize(new Dimension(480, 440));	//space it needs.
 		setIconImage(new ImageIcon(GameManager.IMAGES_FOLDER+"/MiscIcons/GameIcon.png").getImage());
 		new EntryDialog(this).setVisible(true);
 	}
