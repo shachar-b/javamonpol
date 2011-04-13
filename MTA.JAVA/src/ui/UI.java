@@ -22,6 +22,7 @@ import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.CardPanel;
+import ui.guiComponents.GameBoardUI;
 import ui.guiComponents.MainWindow;
 import assets.Asset;
 import assets.AssetGroup;
@@ -403,7 +404,8 @@ public class UI implements IUI {
 	 */
 	@Override
 	public void notifyPlayerLeftGame(Player p) {
-		String message="player "+p.getName()+	" has left the game!"; 
+		String message="player "+p.getName()+	" has left the game!";
+		frame.getGameboard().removePlayerIcon(p);
 		displayMessage(message);
 		
 	}
