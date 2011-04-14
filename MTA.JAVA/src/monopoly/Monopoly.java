@@ -26,6 +26,7 @@ public class Monopoly
 	private ShaffledDeck surprise = new ShaffledDeck();
 	private ShaffledDeck callUp = new ShaffledDeck();
 	private ArrayList<Square> gameBoard;
+	private boolean stopGame =false;
 	private int playerIndex=0;
 	private int roundNumber = 1;
 	private Player currentActivePlayer;
@@ -291,6 +292,7 @@ public class Monopoly
 		if(gamePlayers.size()==1 && !gameAborted )
 		{//TODO : Remove this! (...?)
 			userInterface.notifyGameWinner(gamePlayers.get(0));
+			stopGame=true;
 		}
 	}
 
@@ -420,7 +422,7 @@ public class Monopoly
 	public void eventDispatch(String message) {
 		currentActivePlayer = gamePlayers.get(playerIndex);
 		currentPlayerSquare = gameBoard.get(currentActivePlayer.getCurrentPosition());
-		if(message.equals("computer"))
+		if(!stopGame && message.equals("computer"))
 		{
 			doComputerRound();
 		}
@@ -435,7 +437,7 @@ public class Monopoly
 		else if(message.equals("getOutOfJail"))
 		{
 			useGetOutOfJail();
-			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			if(!stopGame &&currentActivePlayer instanceof ComputerPlayer)//go on next state
 			{
 				doComputerRound();
 			}
@@ -443,7 +445,7 @@ public class Monopoly
 		else if (message.equals("buyHouse"))
 		{ 
 			buyHouse();
-			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			if(!stopGame && currentActivePlayer instanceof ComputerPlayer)//go on next state
 			{
 				doComputerRound();
 			}
@@ -451,7 +453,7 @@ public class Monopoly
 		else if (message.equals("buyAsset"))
 		{
 			buyAsset();
-			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			if(!stopGame &&currentActivePlayer instanceof ComputerPlayer)//go on next state
 			{
 				doComputerRound();
 			}
@@ -459,7 +461,7 @@ public class Monopoly
 		else if(message.equals("throwDie"))
 		{
 			thrownDie();
-			if(currentActivePlayer instanceof ComputerPlayer)//go on next state
+			if(!stopGame && currentActivePlayer instanceof ComputerPlayer)//go on next state
 			{
 				doComputerRound();
 			}

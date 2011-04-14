@@ -237,7 +237,12 @@ public class MainWindow extends JFrame {
 	
 	public PlayerPanel getPlayerPanel()
 	{
-		return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a single PlayerPanel
+		try {
+			return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a single PlayerPanel
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 
 	public void clearConsole() {
