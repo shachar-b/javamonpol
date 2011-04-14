@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * public class ImagePanel extends JPanel
+ * a JPanel which holds an resizeble image
+ * @author someone online edited by Omer Shenhar and Shachar Butnaro
+ *
+ */
 public class ImagePanel extends JPanel {
 
 	/**
@@ -22,10 +27,21 @@ public class ImagePanel extends JPanel {
 	//private long paintCount = 0;
 	private boolean retainAspectRatio=false;
 
+	/**
+	 * public ImagePanel(String string)
+	 * a constructor for an image panel 
+	 * @param string - a path for a valid picture
+	 */
 	public ImagePanel(String string) {
 		this(string,false);
 	}
 	
+	/**
+	 * public ImagePanel(String string, boolean keepAspectRatio)
+	 * a constructor for an image panel 
+	 * @param string - a path for a valid picture
+	 * @param keepAspectRatio - if set true the image keeps it ratio if set false it doesn't
+	 */
 	public ImagePanel(String string, boolean keepAspectRatio) {
 		super();
 		imagePath = string;
@@ -38,40 +54,53 @@ public class ImagePanel extends JPanel {
 		setOpaque(true);
 	}
 
+	/**
+	 * public ImagePanel getCopy()
+	 * @return a new ImagePanel which has the same Image
+	 */
 	public ImagePanel getCopy()
 	{
 		return new ImagePanel(imagePath);
 	}
 
-	public ImageIcon getIcon()
-	{
-		return (new ImageIcon(image));
-	}
-
+	/**
+	 * 	public void loadImage(String file) throws IOException 
+	 * loads an image into the panel
+	 * @param file - a valid path for an image
+	 * @throws IOException - if for some reason the image can not be loaded
+	 */
 	public void loadImage(String file) throws IOException {
 		image = ImageIO.read(new File(file));
-		//might be a situation where image isn't fully loaded, and
-		//  should check for that before setting...
 		imageWidth = image.getWidth(this);
 		imageHeight = image.getHeight(this);
 		setScaledImage();
 	}
 
-	//e.g., containing frame might call this from formComponentResized
+	/**
+	 * public void scaleImage()
+	 * containing frame might call this from formComponentResized
+	 * 
+	 */
 	public void scaleImage() {
 		setScaledImage();
 	}
 
-	//override paintComponent
+	/** public void paintComponent(Graphics g)
+	 * 	scales the image and paints it
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if ( scaledImage != null ) {
-			//System.out.println("ImagePanel paintComponent " + ++paintCount);
 			scaleImage();
 			g.drawImage(scaledImage, 0, 0, this);
 		}
 	}
 
+	/**
+	 * private void setScaledImage()
+	 * scales the image according to containing window size
+	 */
 	private void setScaledImage() {
 		if ( image != null ) {
 
@@ -119,6 +148,11 @@ public class ImagePanel extends JPanel {
 
 	}
 	
+	/**
+	 * public void setRetainAspectRatio(boolean retain) 
+	 * sets the image to keep spectRatio if and only if retain is true
+	 * @param retain  - true if the image should keep its original AspectRatio false otherwise
+	 */
 	public void setRetainAspectRatio(boolean retain) {
 		retainAspectRatio=retain;
 	}

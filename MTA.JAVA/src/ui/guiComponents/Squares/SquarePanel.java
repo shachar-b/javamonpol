@@ -1,6 +1,3 @@
-/*
- * Created by JFormDesigner on Mon Mar 28 11:26:28 IST 2011
- */
 
 package ui.guiComponents.Squares;
 
@@ -22,9 +19,12 @@ import squares.Square;
 import ui.utils.ImagePanel;
 
 /**
- * @author Shachar
+ * public abstract class SquarePanel extends JPanel
+ * an abstract square panel
+ * @author Omer Shenhar and Shachar Butnaro
+ *
  */
-public class SquarePanel extends JPanel{
+public abstract class SquarePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JPanel playerPanel;
 	private Square representedSquare;
@@ -32,6 +32,11 @@ public class SquarePanel extends JPanel{
 	protected JLabel groupLabel;
 	private ArrayList<ImagePanel> iconList = new ArrayList<ImagePanel>();
 	
+	/**
+	 * public SquarePanel(Square representedSquare)
+	 * a constructor for an abstract SquarePanel
+	 * @param representedSquare- a valid non null square
+	 */
 	public SquarePanel(Square representedSquare) {
 		super();
 		this.representedSquare=representedSquare;
@@ -39,45 +44,19 @@ public class SquarePanel extends JPanel{
 		initPlayersPanel();
 	}
 
-	private void initPlayersPanel()
-	{
-		playerPanel = new JPanel (new FlowLayout());
-		//playerPanel.add(new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"/playerIcons/placeHolder.png")));
-		this.add(playerPanel,BorderLayout.SOUTH);
-	}
-	
-    public void addPlayer(ImagePanel iconPanel) {
-		iconPanel.setMinimumSize(new Dimension(20, 20));	//Force the ImagePanel holding
-		iconPanel.setMaximumSize(new Dimension(20, 20));	//the player icon to
-		iconPanel.setPreferredSize(new Dimension(20, 20));	//take the size it needs.
-        iconList.add(iconPanel);
-        playerPanel.add(iconPanel);
-        this.validate();
-        this.repaint();
-    }
-    
-    public void removePlayer(ImagePanel icon)
-    {
-    	if (iconList.contains(icon)){
-    		iconList.remove(icon);
-    		playerPanel.remove(icon);
-    		this.validate();
-    		this.repaint();
-    	}
-    	else throw new RuntimeException("Error: Player not found when trying to remove from general square.");
-    }
-
-	
+	/**
+	 * private void initComponents()
+	 * initiates all components of the square panel
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		JPanel titleArea = new JPanel();
 		titleArea.setLayout(new BoxLayout(titleArea, BoxLayout.Y_AXIS));
 		titleLabel = new JLabel();
-
+	
 		//======== this ========
 		setBorder(new EtchedBorder());
 		setLayout(new BorderLayout());
-
+	
 		//---- Group ----
 		groupLabel = new JLabel();
 		groupLabel.setEnabled(false);
@@ -89,12 +68,51 @@ public class SquarePanel extends JPanel{
 		titleLabel.setBackground(new Color(51, 51, 255));
 		titleArea.setFont(GameManager.DefaultFont);
 		titleArea.add(titleLabel);
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		titleLabel.setText(representedSquare.getName());
 		
 		add(titleArea,BorderLayout.NORTH);
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	/**
+	 * private void initPlayersPanel()
+	 * initiates the panel for player icons
+	 */
+	private void initPlayersPanel()
+	{
+		playerPanel = new JPanel (new FlowLayout());
+		this.add(playerPanel,BorderLayout.SOUTH);
+	}
+
+	/**
+     * public void addPlayer(ImagePanel iconPanel)
+     * adds a player icon to the player area of this
+     * @param iconPanel - a valid non null ImagePanel
+     */
+    public void addPlayer(ImagePanel iconPanel) {
+		iconPanel.setMinimumSize(new Dimension(20, 20));	//Force the ImagePanel holding
+		iconPanel.setMaximumSize(new Dimension(20, 20));	//the player icon to
+		iconPanel.setPreferredSize(new Dimension(20, 20));	//take the size it needs.
+        iconList.add(iconPanel);
+        playerPanel.add(iconPanel);
+        this.validate();
+        this.repaint();
+    }
+    
+    /**
+     * public void removePlayer(ImagePanel icon)
+     * removes the given Image icon from the player icons area
+     * @param icon - a valid non null ImagePanel which was added by addPlayer
+     */
+    public void removePlayer(ImagePanel icon)
+    {
+    	if (iconList.contains(icon)){
+    		iconList.remove(icon);
+    		playerPanel.remove(icon);
+    		this.validate();
+    		this.repaint();
+    	}
+    	else throw new RuntimeException("Error: Player not found when trying to remove from general square.");
+    }
+
+
 }

@@ -19,6 +19,12 @@ import assets.City;
 import assets.UtilOrTranspoAsset;
 import assets.UtilOrTranspoAssetGroup;
 
+/**
+ * public class AssetSquarePanel extends SquarePanel
+ * an SquarePanel representing an asset
+ * @author Omer Shenhar and Shachar Butnaro
+ *
+ */
 public class AssetSquarePanel extends SquarePanel {
 	
 
@@ -29,12 +35,24 @@ public class AssetSquarePanel extends SquarePanel {
 	JLabel owner=new JLabel();
 	JPanel DataArea= new JPanel(new GridLayout(0,1));
 	
+	/**
+	 * public AssetSquarePanel(Asset representedAsset)
+	 * a constructor for an AssetSquarePanel makes an AssetSquarePanel with an hover mode
+	 * @param representedAsset - a valid non null Asset square
+	 */
 	public AssetSquarePanel(Asset representedAsset)
 	{
 		this(representedAsset,true);
 		owner.setFont(GameManager.DefaultFont);
 		SaleOrRentPrice.setFont(GameManager.DefaultFont);
 	}
+	
+	/**
+	 * public AssetSquarePanel(Asset representedAsset,boolean enableHoverMode)
+	 * a constructor for an AssetSquarePanel 
+	 * @param representedAsset -a valid non null Asset square
+	 * @param enableHoverMode - if set true hover mode is enabled. otherwise it is disabled
+	 */
 	public AssetSquarePanel(Asset representedAsset,boolean enableHoverMode) {
 		super(representedAsset);
 		this.representedAsset=representedAsset;
@@ -84,6 +102,10 @@ public class AssetSquarePanel extends SquarePanel {
 		this.repaint();
 		
 	}
+	/**
+	 * private void makeHover()
+	 * opens an hover window with the info table 
+	 */
 	private void makeHover() {
 		
 		hoverDialog hoverInfo= new hoverDialog(this);
@@ -92,6 +114,10 @@ public class AssetSquarePanel extends SquarePanel {
 		
 	}
 
+	/**
+	 * public void UpdateTable()
+	 * updates the table to hold the current represent square information
+	 */
 	public void UpdateTable(){
 		if(representedAsset.getOwner()!=GameManager.assetKeeper)
 		{
