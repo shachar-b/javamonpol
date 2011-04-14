@@ -2,6 +2,7 @@ package ui.utils;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import javax.imageio.*;
 
 public class ImagePanel extends JPanel {
@@ -19,8 +20,13 @@ public class ImagePanel extends JPanel {
 	private boolean retainAspectRatio=false;
 
 	public ImagePanel(String string) {
+		this(string,false);
+	}
+	
+	public ImagePanel(String string, boolean keepAspectRatio) {
 		super();
 		imagePath = string;
+		retainAspectRatio = keepAspectRatio;
 		try {
 			loadImage(string);
 		} catch (IOException e) {

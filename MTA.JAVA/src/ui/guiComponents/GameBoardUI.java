@@ -45,6 +45,7 @@ public class GameBoardUI extends JPanel {
     {
     	components.get(from).removePlayer(playersIcons.get(player));
     	components.get(to).addPlayer(playersIcons.get(player));
+    	updatePlayersLegend();
     }
     public void addPlayerIcon(Player p, ImagePanel icon)
     {

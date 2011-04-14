@@ -294,6 +294,7 @@ public class Monopoly
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 			stopGame=true;
 		}
+		GameManager.CurrentUI.getFrame().getGameboard().updatePlayersLegend();
 	}
 
 	/**
@@ -384,9 +385,8 @@ public class Monopoly
 	 * As a by-product, ends his turn.
 	 */
 	private void forfeit() {
-		removePlayerFromGame(currentActivePlayer);
 		playerIndex--;
-		endTurn();
+		removePlayerFromGame(currentActivePlayer);
 	}
 
 	/**

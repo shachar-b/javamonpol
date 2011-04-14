@@ -28,7 +28,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
-import javax.swing.plaf.*;
 import javax.swing.text.DefaultCaret;
 
 import monopoly.GameManager;
@@ -241,7 +240,7 @@ public class MainWindow extends JFrame {
 			return (PlayerPanel)playerPanelArea.getComponent(0); //Will always hold a single PlayerPanel
 
 		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
+			throw new RuntimeException("Problem retrieving player panel!");
 		}
 	}
 

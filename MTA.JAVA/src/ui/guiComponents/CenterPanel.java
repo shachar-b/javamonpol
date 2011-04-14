@@ -5,6 +5,7 @@
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import listeners.innerChangeEventListener.InnerChangeEvet;
 import monopoly.GameManager;
 import players.Player;
 import ui.utils.IconCellRenderer;
+import ui.utils.ImagePanel;
 import ui.utils.TransparentTable;
 import ui.utils.Utils;
 
@@ -82,8 +84,9 @@ public class CenterPanel extends JPanel {
 
 	private void initCardPanels()
 	{
-		JLabel callUpLabel = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/CallUp.gif"));
-		JLabel surpriseLabel = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/surprise.gif"));
+		CallUpCardsPanel.setPreferredSize(new Dimension(100, 200));
+		ImagePanel callUpLabel = new ImagePanel(GameManager.IMAGES_FOLDER+"MiscIcons/CallUp.gif", true);
+		ImagePanel surpriseLabel = new ImagePanel(GameManager.IMAGES_FOLDER+"MiscIcons/surprise.gif",true);
 		CallUpCardsPanel.add(callUpLabel, BorderLayout.CENTER);
 		CallUpCardsPanel.add(surpriseLabel, BorderLayout.CENTER);
 	}

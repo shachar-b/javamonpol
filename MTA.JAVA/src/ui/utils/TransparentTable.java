@@ -27,17 +27,17 @@ public class TransparentTable extends JTable {
 		});
 
 	}
-//
-//	@Override
-//	public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
-//	{
-//		Component c = super.prepareRenderer( renderer, row, column);
-//		// We want renderer component to be transparent
-//		// so background image is visible
-//		if( c instanceof JComponent )
-//			((JComponent)c).setOpaque(false);
-//		return c;
-//	}
+
+	@Override
+	public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+	{
+		Component c = super.prepareRenderer( renderer, row, column);
+		// We want renderer component to be transparent
+		// so background image is visible
+		if( c instanceof JComponent )
+			((JComponent)c).setOpaque(false);
+		return c;
+	}
 
 
 }
