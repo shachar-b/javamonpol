@@ -41,10 +41,25 @@ import ui.guiComponents.dice.Dice;
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class MainWindow extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private JMenuBar menuBar1;
+	private JMenu FileMenu;
+	private JMenuItem NewGame;
+	private JMenuItem Exit;
+	private JMenu HelpMenu;
+	private JMenuItem About;
+	private JSplitPane splitPane1;
+	private GameBoardUI gameBoardUI1;
+	private JSplitPane splitPane2;
+	private JPanel playerPanelArea;
+	private JScrollPane scrollPane1;
+	private JTextArea textualConsole;
+	
+	/**
+	 * Constructor.
+	 * Calls for component initialization, sets size of the player panel area,
+	 * sets the icon for the application and enables auto scroll for the textual console.
+	 */
 	public MainWindow() {
 		initComponents();
 		playerPanelArea.setMinimumSize(new Dimension(480, 440));	//Force PlayerPanel
@@ -56,11 +71,21 @@ public class MainWindow extends JFrame {
 	}
 	
 	
+	/**
+	 * private void menuItem1ActionPerformed(ActionEvent e)
+	 * Opens the "about" dialog.
+	 * @param e The ActionEvent
+	 */
 	private void menuItem1ActionPerformed(ActionEvent e) {
 		JDialog aboutDialog = new ui.guiComponents.dialogs.aboutDialog(this);
 		aboutDialog.setVisible(true);
 	}
 
+	/**
+	 * private void NewGameActionPerformed(ActionEvent e)
+	 * Opens a new game dialog, or offers to end the current game if one is on.
+	 * @param e The ActionEvent
+	 */
 	private void NewGameActionPerformed(ActionEvent e) {
 		JDialog newDialog;
 		if (GameManager.currentGame.getGameRunning())
@@ -89,7 +114,6 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		menuBar1 = new JMenuBar();
 		FileMenu = new JMenu();
 		NewGame = new JMenuItem();
@@ -193,23 +217,8 @@ public class MainWindow extends JFrame {
 		contentPane.add(splitPane1, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JMenuBar menuBar1;
-	private JMenu FileMenu;
-	private JMenuItem NewGame;
-	private JMenuItem Exit;
-	private JMenu HelpMenu;
-	private JMenuItem About;
-	private JSplitPane splitPane1;
-	private GameBoardUI gameBoardUI1;
-	private JSplitPane splitPane2;
-	private JPanel playerPanelArea;
-	private JScrollPane scrollPane1;
-	private JTextArea textualConsole;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	
 	public void movePlayer(Player p) {
 		gameBoardUI1.movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
 		

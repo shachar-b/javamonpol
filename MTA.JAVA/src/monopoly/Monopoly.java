@@ -61,7 +61,6 @@ public class Monopoly
 
 					}
 				}
-
 			case 1:
 				state++;//next state is 2- try to buy an asset 
 				if (currentPlayerSquare instanceof JailSlashFreePassSquare || currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
@@ -90,7 +89,6 @@ public class Monopoly
 						//wait
 						break;
 					}
-
 				}
 			case 3:
 				state++;//next state is end turn no meter what happens here
@@ -106,7 +104,6 @@ public class Monopoly
 						pane.ClickBuyHouseButton();
 						break;
 					}
-
 				}
 			case 4://case 4
 				try {
@@ -290,7 +287,7 @@ public class Monopoly
 		}
 
 		if(gamePlayers.size()==1 && !gameAborted )
-		{//TODO : Remove this! (...?)
+		{
 			userInterface.notifyGameWinner(gamePlayers.get(0));
 			stopGame=true;
 		}

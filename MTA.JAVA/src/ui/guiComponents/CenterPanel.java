@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Fri Apr 08 15:03:58 IDT 2011
- */
-
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
@@ -26,10 +22,26 @@ import ui.utils.TransparentTable;
 import ui.utils.Utils;
 
 /**
+ * public class CenterPanel extends JPanel
+ * This is the center area of the application.
+ * It holds the game logo, the card decks' pictures and the player's legend.
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class CenterPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
+	private JPanel CallUpCardsPanel;
+	private JPanel LegendPanel;
+	private TransparentTable legendTable;
+	InnerChangeEventListner playerListner =new InnerChangeEventListner() {
+		@Override
+		public void eventHappened(InnerChangeEvet innerChangeEvet) {
+			updateLegend();	
+		}
+	};
+	
+	/**
+	 * Constructor - calls the relevant functions.
+	 */
 	public CenterPanel() {
 		initComponents();
 		initGameLogo();
@@ -38,6 +50,10 @@ public class CenterPanel extends JPanel {
 		initLegend();
 	}
 
+	/**
+	 * private void initLegendArea()
+	 * Initializes the area used for showing the legend.
+	 */
 	private void initLegendArea()
 	{
 		legendTable = new TransparentTable();
@@ -45,6 +61,11 @@ public class CenterPanel extends JPanel {
 		legendTable.setRowHeight(50); //Set row height to enable showing images appropriately
 	}
 
+	/**
+	 * private void initLegend()
+	 * Initializes the table used to represent the legend.
+	 * Allows insertion of icons into the cells of the first column.
+	 */
 	private void initLegend()
 	{
 		DefaultTableModel model =(DefaultTableModel)legendTable.getModel();
@@ -56,6 +77,10 @@ public class CenterPanel extends JPanel {
 		col.setCellRenderer(new IconCellRenderer());
 	}
 
+	/**
+	 * public void updateLegend()
+	 * Resets the legend, re-initializes it and inserts current information.
+	 */
 	public void updateLegend()
 	{
 		legendTable.resetModel();
@@ -76,12 +101,20 @@ public class CenterPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * private void initGameLogo()
+	 * Initializes the game logo picture.
+	 */
 	private void initGameLogo()
 	{
 		JLabel logoLabel = new JLabel(Utils.getImageIcon(GameManager.IMAGES_FOLDER+"MiscIcons/logo.gif"));
 		this.add(logoLabel, BorderLayout.NORTH);
 	}
 
+	/**
+	 * private void initCardPanels()
+	 * Initializes the card decks' pictures.
+	 */
 	private void initCardPanels()
 	{
 		CallUpCardsPanel.setPreferredSize(new Dimension(100, 200));
@@ -91,8 +124,11 @@ public class CenterPanel extends JPanel {
 		CallUpCardsPanel.add(surpriseLabel, BorderLayout.CENTER);
 	}
 
+	/**
+	 * private void initComponents()
+	 * Initializes the components of the CenterPanel.
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		CallUpCardsPanel = new JPanel();
 		LegendPanel = new JPanel();
 
@@ -110,20 +146,5 @@ public class CenterPanel extends JPanel {
 			LegendPanel.setLayout(new FlowLayout());
 		}
 		add(LegendPanel, BorderLayout.CENTER);
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel CallUpCardsPanel;
-	private JPanel LegendPanel;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
-	private TransparentTable legendTable;
-	InnerChangeEventListner playerListner =new InnerChangeEventListner() {
-		
-		@Override
-		public void eventHappened(InnerChangeEvet innerChangeEvet) {
-			updateLegend();
-			
-		}
-	};
 }

@@ -32,6 +32,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * @visibility public
 	 * Creates a new player and sets his position and balance, and makes him active.
 	 * @param name A String containing the name of the new player.
+	 * @param playerIcon2 an ImagePanel holding the player's icon
 	 */
 	public Player(String name,ImagePanel playerIcon2) {
 		Name = name;
@@ -58,7 +59,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * @visibility public
 	 * Lets a player choose whether to buy an asset or not.
 	 * @param asset The asset that the player can buy
-	 * @return true IFF player decides to buy an asset
+	 * @return true - player chooses to buy an asset by clicking the appropriate button in the GUI.
 	 */
 	public Boolean buyDecision(Asset asset)
 	{
@@ -70,7 +71,7 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * @visibility public
 	 * Lets a player choose whether to buy a house in a city or not.
 	 * @param asset The city the player is on.
-	 * @return true IFF player decides to buy a house.
+	 * @return true - player chooses to buy a house by clicking the appropriate button in the GUI.
 	 */
 	public Boolean buyHouseDecision(City asset)
 	{

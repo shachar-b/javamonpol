@@ -73,7 +73,7 @@ public abstract class Asset extends Square implements Offerable{
 	}
 
 	public void buyAsset(Player player)
-	{//TODO : Stuff
+	{
 		player.ChangeBalance(cost, GameManager.SUBTRACT);
 		setOwner(player);
 		GameManager.CurrentUI.notifyPlayerBoughtAsset(player, this);

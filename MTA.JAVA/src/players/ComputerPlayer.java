@@ -22,7 +22,7 @@ public class ComputerPlayer extends Player {
 
 	/**
 	 * Constructor for computer player.
-	 * Generated a name and sends to super constructor.
+	 * Generates a name and sends to super constructor.
 	 */
 	public ComputerPlayer() {
 		super("Computer"+generatedComputerNumber
