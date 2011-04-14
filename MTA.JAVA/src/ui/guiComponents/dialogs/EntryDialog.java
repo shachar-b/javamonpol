@@ -1,6 +1,4 @@
-/*
- * Created by JFormDesigner on Wed Mar 23 13:30:51 IST 2011
- */
+
 
 package ui.guiComponents.dialogs;
 
@@ -35,24 +33,50 @@ import players.Player;
 import ui.guiComponents.MainWindow;
 
 /**
+ * public class EntryDialog extends JDialog 
+ * this is the game entry dialog used to start a new game
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class EntryDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
+	private JPanel dialogPane;
+	private JPanel contentPanel;
+	private JLabel NumOfPlayers;
+	private JSlider totalSlider;
+	private JLabel label1;
+	private JSlider computersSlider;
+	private JPanel buttonBar;
+	private JButton okButton;
+	private JButton cancelButton;
+	private JButton helpButton;
 	
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
 	
+	/**
+	 * public EntryDialog(Frame owner)
+	 * a constructor for a game entry dialog
+	 * @param owner -a valid frame
+	 */
 	public EntryDialog(Frame owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**
+	 * public EntryDialog(Dialog owner)
+	 * a constructor for a game entry dialog
+	 * @param owner -a valid Dialog
+	 */
 	public EntryDialog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**
+	 * private void changeTable()
+	 * changes the amount of player names asked by the dialog
+	 */
 	private void changeTable()
 	{
 		int numOfHumens=(totalSlider.getValue()-computersSlider.getValue());
@@ -63,12 +87,22 @@ public class EntryDialog extends JDialog {
 				names.get(i).setVisible(i<numOfHumens);	
 		}
 	}
+	/**
+	 * private void totalSliderStateChanged(ChangeEvent e) 
+	 * this indicates that the total number of players slider has changed value
+	 * @param e - the change event
+	 */
 	private void totalSliderStateChanged(ChangeEvent e) {
 		computersSlider.setMaximum(totalSlider.getValue());
 		computersSlider.validate();
 		computersSlider.repaint();
 	}
 
+	/**
+	 * private void computersSliderStateChanged(ChangeEvent e) 
+	 * this indicates that the number of computer players slider has changed value
+	 * @param e- the change event
+	 */
 	private void computersSliderStateChanged(ChangeEvent e) {
 		changeTable();
 		this.validate();
@@ -76,15 +110,30 @@ public class EntryDialog extends JDialog {
 		this.pack();
 	}
 
+	/**
+	 * private void GameInstructionsButtonMouseClicked(MouseEvent e) 
+	 * Indicates that the game instructions button was clicked - opens game instruction dialog
+	 * @param e- the click event
+	 */
 	private void GameInstructionsButtonMouseClicked(MouseEvent e) {
 		GameInstructionsDialog diag=new GameInstructionsDialog(this);
 		diag.setVisible(true);
 	}
 
+	/**
+	 * private void cancelButtonActionPerformed(ActionEvent e)
+	 * Indicates that the cancel button was clicked-closes the dialog
+	 * @param e - the click event
+	 */
 	private void cancelButtonActionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * private void okButtonActionPerformed(ActionEvent e)
+	 * Indicates that the OK button was clicked- starts a new game
+	 * @param e - the click event
+	 */
 	private void okButtonActionPerformed(ActionEvent e) {
 		MainWindow MW = GameManager.CurrentUI.getFrame();
 		int computerPlayers = computersSlider.getValue();
@@ -113,8 +162,11 @@ public class EntryDialog extends JDialog {
 	}
 
 
+	/**
+	 * private void initComponents()
+	 * Initiates all components in the dialog
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		NumOfPlayers = new JLabel();
@@ -238,8 +290,6 @@ public class EntryDialog extends JDialog {
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
-		//added code
 		
 		totalSlider.setMaximum(GameManager.MAX_NUMBER_OF_PLAYERS);
 		totalSlider.setMinimum(GameManager.MIN_NUMBER_OF_PLAYERS);
@@ -267,17 +317,5 @@ public class EntryDialog extends JDialog {
 		}
 		this.pack();
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JLabel NumOfPlayers;
-	private JSlider totalSlider;
-	private JLabel label1;
-	private JSlider computersSlider;
-	private JPanel buttonBar;
-	private JButton okButton;
-	private JButton cancelButton;
-	private JButton helpButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	
 }

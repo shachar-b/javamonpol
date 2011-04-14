@@ -1,6 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Mar 30 19:49:55 IST 2011
- */
 
 package ui.guiComponents.dialogs;
 
@@ -27,27 +24,50 @@ import assets.Asset;
 import assets.AssetGroup;
 
 /**
+ * public class AssetGroupDialog extends JDialog 
+ * shows one asset group
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class AssetGroupDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	
-	AssetGroup represntedGroup;
-	ArrayList<SquarePanel> componets =new ArrayList<SquarePanel>();
+	private AssetGroup represntedGroup;
+	private JPanel cardsPane;
+	private JPanel dialogPane;
+	private JPanel contentPanel;
+	private JPanel buttonBar;
+	private JButton okButton;
+	private ArrayList<SquarePanel> componets =new ArrayList<SquarePanel>();
+	
+	/**
+	 * public AssetGroupDialog(Frame owner,AssetGroup groupToShow) 
+	 * a constructor for a AssetGroupDialog
+	 * @param owner - a valid frame
+	 * @param groupToShow - an valid not null AssetGroup
+	 */
 	public AssetGroupDialog(Frame owner,AssetGroup groupToShow) {
 		super(owner);
 		represntedGroup=groupToShow;
 		initComponents();
 	}
 
+	/**
+	 * public AssetGroupDialog(Dialog owner,AssetGroup groupToShow) 
+	 * a constructor for a AssetGroupDialog
+	 * @param owner - a valid Dialog
+	 * @param groupToShow - an valid not null AssetGroup
+	 */
 	public AssetGroupDialog(Dialog owner,AssetGroup GroupToShow) {
 		super(owner);
 		represntedGroup=GroupToShow;
 		initComponents();
 	}
 
+	/**
+	 * private void initComponents()
+	 * Initiates all components for the dialog
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		buttonBar = new JPanel();
@@ -83,8 +103,7 @@ public class AssetGroupDialog extends JDialog {
 			}
 			dialogPane.add(buttonBar, BorderLayout.SOUTH);
 		}
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
-		//added code
+
 		okButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,11 +127,5 @@ public class AssetGroupDialog extends JDialog {
 		
 	
 	}
-	private JPanel cardsPane;
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JPanel buttonBar;
-	private JButton okButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+
 }

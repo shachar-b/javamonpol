@@ -1,6 +1,3 @@
-/*
- * Created by JFormDesigner on Sat Apr 09 21:27:23 IDT 2011
- */
 
 package ui.guiComponents.dialogs;
 
@@ -13,33 +10,71 @@ import monopoly.GameManager;
 import monopoly.Monopoly;
 
 /**
+ * public class midGameEntryDialog extends JDialog
+ * this is a dialog which opens when trying to start a new game after another game has started
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class midGameEntryDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	
+	private JPanel dialogPane;
+
+	private JPanel buttonBar;
+
+	private JLabel TextLabel;
+
+	private JButton okButton;
+
+	private JButton cancelButton;
+
+	private JPanel contentPanel;
+
+	/**
+	 * public midGameEntryDialog(Frame owner) 
+	 * a constructor for a midGameEntryDialog
+	 * @param owner - an valid owner frame
+	 */
 	public midGameEntryDialog(Frame owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**
+	 * public midGameEntryDialog(Dialog owner) 
+	 * a constructor for a midGameEntryDialog
+	 * @param owner - a valid owner dialog
+	 */
 	public midGameEntryDialog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**
+	 * private void cancelButtonActionPerformed(ActionEvent e)
+	 * this method cancels the new game action and disposes of this window
+	 * @param e - the click event
+	 */
 	private void cancelButtonActionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * private void okButtonActionPerformed(ActionEvent e)
+	 * this method acknowledges that  the OK button was pressed and
+	 * Therefore starts a new monopoly game and a new ui
+	 * @param e - the click event
+	 */
 	private void okButtonActionPerformed(ActionEvent e) {
 		GameManager.CurrentUI.getFrame().dispose();
 		GameManager.currentGame = new Monopoly();
 		GameManager.currentGame.init();
 	}
 
+	/**
+	 *	private void initComponents() 
+	 *	initiates all the dialog components
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		TextLabel = new JLabel();
@@ -103,15 +138,6 @@ public class midGameEntryDialog extends JDialog {
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+	
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JLabel TextLabel;
-	private JPanel buttonBar;
-	private JButton okButton;
-	private JButton cancelButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

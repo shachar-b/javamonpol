@@ -10,28 +10,55 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
+ * public class GameInstructionsDialog extends JDialog
+ * a dialog which holds the game instructions
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class GameInstructionsDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
 	
+	private JPanel dialogPane;
+
+	private JScrollPane scrollPane1;
+
+	private JPanel contentPanel;
+
+	private JTextArea InstrctionsArea;
+
+	private JPanel buttonBar;
+
+	private JButton okButton;
+
+	/**
+	 * public GameInstructionsDialog(Frame owner)
+	 * a constructor for the game instructions dialog
+	 * @param owner - a valid frame
+	 */
 	public GameInstructionsDialog(Frame owner) {
 		super(owner);
 		initComponents();
 		this.setMinimumSize(new Dimension(((int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2),((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2) ));
 	}
 
+	/**
+	 * public GameInstructionsDialog(Dialog owner)
+	 * a constructor for the game instructions dialog
+	 * @param owner - a valid Dialog
+	 */
 	public GameInstructionsDialog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**private void okButtonMouseClicked(MouseEvent e)
+	 * Indicates the user read the instructions and exits the dialog
+	 * @param e - the click event
+	 */
 	private void okButtonMouseClicked(MouseEvent e) {
 		this.dispose();
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		scrollPane1 = new JScrollPane();
@@ -94,15 +121,5 @@ public class GameInstructionsDialog extends JDialog {
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		setSize(500, 350);
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JScrollPane scrollPane1;
-	private JTextArea InstrctionsArea;
-	private JPanel buttonBar;
-	private JButton okButton;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
