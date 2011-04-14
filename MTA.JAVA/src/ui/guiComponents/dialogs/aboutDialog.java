@@ -1,6 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Mar 23 12:48:32 IST 2011
- */
 
 package ui.guiComponents.dialogs;
 
@@ -20,11 +17,24 @@ import monopoly.GameManager;
 import ui.utils.Utils;
 
 /**
+ * public class aboutDialog extends JDialog
+ * this is the about dialog for the game
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class aboutDialog extends JDialog {
 	private static final long serialVersionUID = 1L;
+	private JPanel dialogPane;
+	private JPanel contentPanel;
+	private JTextPane textPane1;
+	private JPanel buttonBar;
+	private JButton okButton;
+	private JPanel PicturePanel;
 	
+	/**
+	 * public aboutDialog(Frame owner)
+	 * a constructor for the about dialog
+	 * @param owner -a valid frame	
+	 */
 	public aboutDialog(Frame owner) {
 		super(owner);
 		initComponents();
@@ -32,17 +42,30 @@ public class aboutDialog extends JDialog {
 		this.pack();
 	}
 
+	/**
+	 * public aboutDialog(Dialog owner)
+	 * a constructor for the about dialog
+	 * @param owner -a Dialog frame	
+	 */
 	public aboutDialog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**	
+	 * private void okButtonActionPerformed(ActionEvent e)
+	 * Indicates that the OK button was pressed -closes dialog
+	 * @param e - the click event
+	 */
 	private void okButtonActionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * private void initComponents()
+	 * Initiates all components for the dialog
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		textPane1 = new JTextPane();
@@ -96,15 +119,7 @@ public class aboutDialog extends JDialog {
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JTextPane textPane1;
-	private JPanel buttonBar;
-	private JButton okButton;
-	private JPanel PicturePanel;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+
 }

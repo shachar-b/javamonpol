@@ -27,6 +27,13 @@ class ThrowDice extends TimerTask {
 	GameActionEventListener preformWhenDone;
 	public final static int NUM_OF_THROWS = 20;
 
+	/**
+	 * public ThrowDice(JLabel dice1, JLabel dice2, JLabel text,GameActionEventListener preformWhenDone) 
+	 * @param dice1 - a JLabel which contains the first dice icon
+	 * @param dice2 - a JLabel which contains the second dice icon
+	 * @param text - the text box for the sum of the throw
+	 * @param preformWhenDone- an valid non null GameActionEventListener to run when die roll is finished
+	 */
 	public ThrowDice(JLabel dice1, JLabel dice2, JLabel text,GameActionEventListener preformWhenDone) {
 		this.dice1 = dice1;
 		this.dice2 = dice2;
@@ -34,6 +41,10 @@ class ThrowDice extends TimerTask {
 		count = NUM_OF_THROWS;
 		this.preformWhenDone=preformWhenDone;
 	}
+	/* (non-Javadoc)
+	 * @see java.util.TimerTask#run()
+	 * runs the dice roll
+	 */
 	public void run(){
 		if(count > 0){
 			count --;

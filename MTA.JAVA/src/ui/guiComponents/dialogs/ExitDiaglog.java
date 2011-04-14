@@ -1,6 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Mar 23 13:53:09 IST 2011
- */
 
 package ui.guiComponents.dialogs;
 
@@ -25,32 +22,64 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 /**
+ * public class ExitDiaglog extends JDialog
+ * this is the dialog which appears when trying to exit the game in order to validate user selection
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class ExitDiaglog extends JDialog {
 	private static final long serialVersionUID = 1L;
+	private JPanel dialogPane;
+	private JPanel contentPanel;
+	private JLabel label1;
+	private JPanel buttonBar;
+	private JButton ReturnToGame;
+	private JButton QuitGame;
 	
+	/**
+	 * public ExitDiaglog(Frame owner) 
+	 * a constructor for the exit dialog
+	 * @param owner - a vaild frame
+	 */
 	public ExitDiaglog(Frame owner) {
 		super(owner);
 		initComponents();
 }
 
+	/**
+	 * public ExitDiaglog(Dialog owner)\
+	 * a constructor for the exit dialog
+	 * @param owner - a valid Dialog
+	 */
 	public ExitDiaglog(Dialog owner) {
 		super(owner);
 		initComponents();
 	}
 
+	/**
+	 * private void ReturnToGameActionPerformed(ActionEvent e) 
+	 * this is reached when the cancel button was pressed- this closes the dialog and returns to game
+	 * @param e - the click event
+	 */
 	private void ReturnToGameActionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
+	/**
+	 * private void QuitGameActionPerformed(ActionEvent e)
+	 * reached when user confirmed the exit operation- the program exits here
+	 * @param e -the click operation
+	 */
 	private void QuitGameActionPerformed(ActionEvent e) {
 		System.exit(0);
 		
 	}
 
+	/**
+	 * private void initComponents() 
+	 * initiates all components of the dialog
+	 * 
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		dialogPane = new JPanel();
 		contentPanel = new JPanel();
 		label1 = new JLabel();
@@ -117,15 +146,7 @@ public class ExitDiaglog extends JDialog {
 		contentPane.add(dialogPane, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel dialogPane;
-	private JPanel contentPanel;
-	private JLabel label1;
-	private JPanel buttonBar;
-	private JButton ReturnToGame;
-	private JButton QuitGame;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
+
 }
