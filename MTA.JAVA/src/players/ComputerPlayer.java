@@ -64,12 +64,4 @@ public class ComputerPlayer extends Player {
 			return false;
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see players.Player#chooseToForfeit()
-	 */
-	@Override
-	public boolean chooseToForfeit() {
-		return false; //Computer is not a quitter!
-	}
 }

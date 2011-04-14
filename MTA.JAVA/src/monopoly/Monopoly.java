@@ -351,6 +351,8 @@ public class Monopoly
 	 * This method handles the operations neccesary after throwing the die.
 	 */
 	private void thrownDie() {
+		int [] dOutcome = Dice.getGameDice().getDieOutcome();
+		userInterface.notifyDiceRoll(dOutcome[0], dOutcome[1]);
 		if (currentPlayerSquare instanceof JailSlashFreePassSquare && !currentPlayerSquare.shouldPlayerMove(currentActivePlayer))
 		{
 			boolean hasDouble = checkForDouble();

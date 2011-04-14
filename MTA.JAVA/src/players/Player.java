@@ -54,22 +54,28 @@ public abstract class Player extends InnerChangeListenableClass {
 	}
 
 	/**
-	 * method abstract Boolean buyDecision(Asset asset)
+	 * method Boolean buyDecision(Asset asset)
 	 * @visibility public
 	 * Lets a player choose whether to buy an asset or not.
 	 * @param asset The asset that the player can buy
 	 * @return true IFF player decides to buy an asset
 	 */
-	public abstract Boolean buyDecision(Asset asset);
+	public Boolean buyDecision(Asset asset)
+	{
+		return true; //Is being managed by UI for human player, overridden by computer player.
+	}
 
 	/**
-	 * method abstract Boolean buyHouseDecision(City asset)
+	 * method Boolean buyHouseDecision(City asset)
 	 * @visibility public
 	 * Lets a player choose whether to buy a house in a city or not.
 	 * @param asset The city the player is on.
 	 * @return true IFF player decides to buy a house.
 	 */
-	public abstract Boolean buyHouseDecision(City asset);
+	public Boolean buyHouseDecision(City asset)
+	{
+		return true; //Is being managed by UI for human player, overridden by computer player.
+	}
 
 	/**
 	 * method void setName(String name)
@@ -152,14 +158,6 @@ public abstract class Player extends InnerChangeListenableClass {
 			return 0;
 		}
 	}
-
-	/**
-	 * method abstract boolean chooseToForfeit()
-	 * @visibility public
-	 * Asks the player if he wants to quit the game.
-	 * @return true IFF player wants to quit.
-	 */
-	public abstract boolean chooseToForfeit();
 
 	/**
 	 * method void setCurrentPosition(int currentPosition)

@@ -29,43 +29,6 @@ public interface IUI {
 	public void displayMessage(String message);
 
 	/**
-	 * method boolean askYesNoQuestion(String question)
-	 * public.
-	 * Prompts the user for his/her name.
-	 * @return String containing the user's name.
-	 */
-	public String askName();
-
-	/**
-	 * method boolean askYesNoQuestion(String question);
-	 * public
-	 * Asks the player a question and returns a boolean.
-	 * @param question - A String depicting the question asked.
-	 * @return true IFF received y(or Y).
-	 */
-	public boolean askYesNoQuestion(String question);
-
-	/**
-	 * method int askNumericQuestion(String question)
-	 * public
-	 * Asks the player a question and returns an unbounded integer.
-	 * @param question - A String depicting the question asked.
-	 * @return - The integer received from user.
-	 */
-	public int askNumericQuestion(String question);
-
-	/**
-	 * method int askNumericQuestion(String question, int lowerBound, int upperBound)
-	 * public
-	 * Asks the player a question and returns an integer within the specified bounds.
-	 * @param question - A String depicting the question asked.
-	 * @param lowerBound - The lowest integer that can be returned.
-	 * @param upperBound - The highest integer that can be returned.
-	 * @return - The integer received from user, within bounds.
-	 */
-	public int askNumericQuestion(String question, int lowerBound, int upperBound);
-
-	/**
 	 * method void notifyPlayerLanded(Player p, Square currSQ)
 	 * public
 	 * Notifies the output where the player landed after moving.
@@ -137,7 +100,7 @@ public interface IUI {
 	/**
 	 * method void notifyPlayerGotCard(Player player,ActionCard card)
 	 * public
-	 * Notifies the output that a player got a surprive/callup card, and which card.
+	 * Notifies the output that a player got a surprise/callup card, and which card.
 	 * @param player The valid non-null player
 	 * @param card The card drawn.
 	 */
@@ -160,30 +123,6 @@ public interface IUI {
 	 * @param player The valid non-null player.
 	 */
 	public void notifyPlayerIsParked(Player player);
-
-	/**
-	 * method void notifyBidEvent(Offerable asset)
-	 * public
-	 * Checks whether a bid is for an Asset or a Group and calls the appropriate function.
-	 * @param asset The Asset/Group being sold
-	 */
-	public void notifyBidEvent(Offerable asset);
-
-	/**
-	 * method void notifyBidEvent(Asset asset)
-	 * public
-	 * Notifies the output that an asset is up for sale.
-	 * @param asset The asset that is being offered.
-	 */
-	public void notifyBidEvent(Asset asset);
-
-	/**
-	 * method void notifyBidEvent(AssetGroup group)
-	 * public
-	 * Notifies the output that an asset group is up for sale.
-	 * @param group The asset group that is being offered.
-	 */
-	public void notifyBidEvent(AssetGroup group);
 
 	/**
 	 * method void notifyPassStartSquare(int bonus)
@@ -212,13 +151,14 @@ public interface IUI {
 	public void notifyGameWinner(Player player);
 
 	/**
-	 * method void notifyDiceRoll(int LastRollOutcome)
+	 * method void notifyDiceRoll(int LastRollOutcome1,int LastRollOutcome2)
 	 * public
-	 * Notifies the output that a dice has been rolled and what the outcome was.
-	 * @param LastRollOutcome An integer from 1 to 6 containing the dice roll outcome.
+	 * Notifies the output that the die have been rolled and what the outcome was.
+	 * @param LastRollOutcome1 An integer from 1 to 6 containing the dice roll outcome.
+	 * @param LastRollOutcome1 An integer from 1 to 6 containing the dice roll outcome.
 	 */
-	public void notifyDiceRoll(int LastRollOutcome);
-
+	public void notifyDiceRoll(int LastRollOutcome1,int LastRollOutcome2);
+	
 	/**
 	 * method void notifyJailAction(Player player, jailActions action)
 	 * public
@@ -227,31 +167,6 @@ public interface IUI {
 	 * @param action The action the player took.
 	 */
 	public void notifyJailAction(Player player, jailActions action);
-
-	/**
-	 * method void notifyPlayerExceededSellOfferCount(Player player)
-	 * public
-	 * Notifies the output that the player cannot sell anymore due to exceeding the limit.
-	 * @param player A valid non-null player.
-	 */
-	public void notifyPlayerExceededSellOfferCount(Player player);
-
-	/**
-	 * method void notifyPlayerOutOfAssets(Player player)
-	 * public
-	 * Notifies the output that the player cannot sell anymore due to running out of assets.
-	 * @param player A valid non-null player.
-	 */
-	public void notifyPlayerOutOfAssets(Player player);
-
-	/**
-	 * method void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers)
-	 * public
-	 * Notifies the output of the players in game.
-	 * @param numOfPlayers An integer between 2 to 6
-	 * @param numOfComputerPlayers An integer between 0 to numOfPlayers
-	 */
-	public void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers);
 
 	/**
 	 * method public void notifyPlayerLeftGame(Player p)
