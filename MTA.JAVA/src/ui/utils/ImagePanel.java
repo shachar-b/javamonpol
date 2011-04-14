@@ -1,9 +1,12 @@
 package ui.utils;
-import java.io.*;
-import java.awt.*;
-import javax.swing.*;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-import javax.imageio.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel {
 
