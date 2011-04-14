@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Mar 23 12:33:14 IST 2011
- */
-
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
@@ -96,16 +92,31 @@ public class MainWindow extends JFrame {
 		newDialog.setVisible(true);
 	}
 
+	/**
+	 * private void ExitActionPerformed(ActionEvent e)
+	 * Opens an exit dialog, allowing the user to quit the application.
+	 * @param e The ActionEvent
+	 */
 	private void ExitActionPerformed(ActionEvent e) {
 		JDialog exitGameDialog = new ExitDiaglog(this);
 		exitGameDialog.setVisible(true);
 	}
 
+	/**
+	 * private void thisWindowClosing(WindowEvent e)
+	 * Monitors the event of closing the window and opens an exit dialog appropriately.
+	 * @param e The ActionEvent
+	 */
 	private void thisWindowClosing(WindowEvent e) {
 		JDialog exitGameDialog = new ExitDiaglog(this);
 		exitGameDialog.setVisible(true);
 	}
 	
+	/**
+	 * public void addLineToConsole(String message)
+	 * Appends a line to the textual console area.
+	 * @param message A String holding the message to be appended.
+	 */
 	public void addLineToConsole(String message)
 	{
 		textualConsole.append(message+"\n");
@@ -113,6 +124,10 @@ public class MainWindow extends JFrame {
 		textualConsole.repaint();
 	}
 
+	/**
+	 * private void initComponents()
+	 * Initializes the components of the main window of the application.
+	 */
 	private void initComponents() {
 		menuBar1 = new JMenuBar();
 		FileMenu = new JMenu();
@@ -219,15 +234,31 @@ public class MainWindow extends JFrame {
 		setLocationRelativeTo(getOwner());
 	}
 	
+	/**
+	 * public void movePlayer(Player p)
+	 * Invokes the movePlayer in GameBoardUI.
+	 * @param p A valid non-null player
+	 */
 	public void movePlayer(Player p) {
 		gameBoardUI1.movePlayer(p, p.getLastKnownPosition(), p.getCurrentPosition());
-		
 	}
+	
+	/**
+	 * public GameBoardUI getGameboard()
+	 * getter for GameBoardUI1
+	 * @return the GameBoardUI which holds the GUI's gameboard representation.
+	 */
 	public GameBoardUI getGameboard()
 	{
 		return gameBoardUI1;
 	}
 
+	/**
+	 * public PlayerPanel setPlayerPanel(Player p)
+	 * Sets a new PlayerPanel with p's data as the only component in the player's panel area.
+	 * @param p A valid non-null player.
+	 * @return A PlayerPanel initialized with p's data.
+	 */
 	public PlayerPanel setPlayerPanel(Player p) {
 		Dice.getGameDice().resetDiceButtonAndLisners();
 		PlayerPanel currentPanel = new PlayerPanel(p);
@@ -236,6 +267,10 @@ public class MainWindow extends JFrame {
 		return currentPanel;
 	}
 	
+	/**
+	 * public void clearPlayerPanelArea()
+	 * Clears the player's panel area of all components (PlayerPanels).
+	 */
 	public void clearPlayerPanelArea()
 	{
 		playerPanelArea.removeAll();
@@ -243,6 +278,11 @@ public class MainWindow extends JFrame {
 		playerPanelArea.repaint();
 	}
 	
+	/**
+	 * public PlayerPanel getPlayerPanel()
+	 * Returns the currently viewed PlayerPanel.
+	 * @return The PlayerPanel currently in view.
+	 */
 	public PlayerPanel getPlayerPanel()
 	{
 		try {
@@ -252,12 +292,4 @@ public class MainWindow extends JFrame {
 			throw new RuntimeException("Problem retrieving player panel!");
 		}
 	}
-
-	public void clearConsole() {
-		textualConsole.setText("Game information console:\n");
-		textualConsole.revalidate();
-		textualConsole.repaint();
-		
-	}
-	
 }

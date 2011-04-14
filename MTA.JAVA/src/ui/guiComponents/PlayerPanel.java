@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Wed Mar 30 14:35:56 IST 2011
- */
-
 package ui.guiComponents;
 
 import java.awt.BorderLayout;
@@ -38,24 +34,49 @@ import assets.Asset;
 import assets.Offerable;
 
 /**
+ * public class PlayerPanel extends GameActionsListenableClass
+ * A panel holding the current data of the active player.
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class PlayerPanel extends GameActionsListenableClass {
 	private static final long serialVersionUID = 1L;
 	private Player representedPlayer;
+	private JPanel buttonPane;
+	private JButton EndTurn;
+	private JButton Forfeit;
+	private JLabel nameLabel;
+	private JPanel DicePane;
+	private JButton useJailFreeCard;
+	private JPanel CurrentSquare;
+	private JButton showGroup;
+	private JButton buyAsset;
+	private JButton buyHouse;
+	private JPanel PlayerInformation;
+	private JScrollPane scrollPane1;
+	private JTree PlayerHoldings;
 	private GameActionEventListener dieListner= new GameActionEventListener() {
-		
+
 		@Override
 		public void eventHappened(GameActionEvent gameActionEvent) {
-				dieRolled();
+			dieRolled();
 		}
 	};
+
+	/**
+	 * private void dieRolled()
+	 * Fires the event that the die have been thrown, and sets buttons accordingly.
+	 */
 	private void dieRolled()
 	{
 		EndTurn.setEnabled(true);
 		useJailFreeCard.setEnabled(false);
 		fireEvent("throwDie");
 	}
+
+	/**
+	 * Constructor.
+	 * @param player A valid non-null player.
+	 */
 	public PlayerPanel(Player player)
 	{
 		representedPlayer=player;
@@ -69,47 +90,99 @@ public class PlayerPanel extends GameActionsListenableClass {
 			useJailFreeCard.setEnabled(player.hasGetOutOfJailFreeCard());
 	}
 
+	/**
+	 * public void setGetOutOfJailButtonStatus(boolean value)
+	 * Setter for the button status (enabled/disabled)
+	 * @param value a boolean defining the status of the button.
+	 */
 	public void setGetOutOfJailButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		useJailFreeCard.setEnabled(value);
 	}
+
+	/**
+	 * public void ClickGetOutOfJailButton()
+	 * invokes doClick() for the Get Out Of Jail button.
+	 */
 	public void ClickGetOutOfJailButton()
 	{
 		useJailFreeCard.doClick();
 	}
-	
+
+	/**
+	 * public void setBuyAssetButtonStatus(boolean value)
+	 * Setter for the button status (enabled/disabled)
+	 * @param value a boolean defining the status of the button.
+	 */
 	public void setBuyAssetButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		buyAsset.setEnabled(value);
 	}
+
+	/**
+	 * public void ClickBuyAssetButton()
+	 * invokes doClick() for the Buy Asset button.
+	 */
 	public void ClickBuyAssetButton()
 	{
 		buyAsset.doClick();
 	}
-	
+
+	/**
+	 * public void setShowGroupButtonStatus(boolean value)
+	 * Setter for the button status (enabled/disabled)
+	 * @param value a boolean defining the status of the button.
+	 */
 	public void setShowGroupButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		showGroup.setEnabled(value);
 	}
-	
+
+	/**
+	 * public void setBuyHouseButtonStatus(boolean value)
+	 * Setter for the button status (enabled/disabled)
+	 * @param value a boolean defining the status of the button.
+	 */
 	public void setBuyHouseButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		buyHouse.setEnabled(value);
 	}
-	public void ClickBuyHouseButton()
+
+	/**
+	 * public void ClickBuyHouseButton()
+	 * invokes doClick() for the Buy Asset button.
+	 */
+public void ClickBuyHouseButton()
 	{
 		buyHouse.doClick();
 	}
-	
+
+	/**
+	 * public void setEndTurnButtonStatus(boolean value)
+	 * Setter for the button status (enabled/disabled)
+	 * @param value a boolean defining the status of the button.
+	 */
 	public void setEndTurnButtonStatus(boolean value)
 	{//value==true -> enable button, otherwise -> disable button.
 		EndTurn.setEnabled(value);
 	}
+
+	/**
+	 * public void ClickEndTurnButton()
+	 * invokes doClick() for the Buy Asset button.
+	 */
 	public void ClickEndTurnButton()
 	{
 		EndTurn.doClick();
 	}	
-	
+
+	/**
+	 * public void setSquarePanelContent(Square currentSquare, Player player)
+	 * Sets the content of the center square, which holds information
+	 * and action options regarding a gameboard square.
+	 * @param currentSquare - The Square being represented.
+	 * @param player A valid non-null player on that Square.
+	 */
 	public void setSquarePanelContent(Square currentSquare, Player player)
 	{
 		if (CurrentSquare.getComponentCount()>3)
@@ -126,7 +199,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 		}
 		initTreeModel();
 	}
-	
+
+	/**
+	 * private void initTreeModel()
+	 * Inserts the current player's information in the information tree of the panel.
+	 */
 	private void initTreeModel()
 	{
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(representedPlayer.getName()+"     ");
@@ -152,6 +229,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 		PlayerHoldings.setModel(playerModel);
 	}
 
+	/**
+	 * private void ForfeitActionPerformed(ActionEvent e)
+	 * Fires a forfeit event to remove a player from the game.
+	 * @param e The ActionEvent
+	 */
 	private void ForfeitActionPerformed(ActionEvent e) {
 		Dice.getGameDice().resetDiceButtonAndLisners();
 		fireEvent(new GameActionEvent(this, "forfeit"));
@@ -160,6 +242,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 		repaint();
 	}
 
+	/**
+	 * private void useJailFreeCardActionPerformed(ActionEvent e)
+	 * Fires an event to accommodate using a get out of jail free card.
+	 * @param e The ActionEvent.
+	 */
 	private void useJailFreeCardActionPerformed(ActionEvent e) {
 		useJailFreeCard.setEnabled(false);
 		EndTurn.setEnabled(true);
@@ -167,6 +254,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 		fireEvent(new GameActionEvent(this, "getOutOfJail"));
 	}
 
+	/**
+	 * private void EndTurnActionPerformed(ActionEvent e)
+	 * Fires an event to accommodate ending the player's turn.
+	 * @param e The ActionEvent
+	 */
 	private void EndTurnActionPerformed(ActionEvent e) {
 		Dice.getGameDice().resetDiceButtonAndLisners();
 		Dice.getGameDice().removeListener(dieListner);
@@ -176,14 +268,23 @@ public class PlayerPanel extends GameActionsListenableClass {
 		repaint();
 	}
 
+	/**
+	 * private void showGroupActionPerformed(ActionEvent e)
+	 * Opens a dialog showing the items in the AssetGroup.
+	 * @param e The ActionEvent
+	 */
 	private void showGroupActionPerformed(ActionEvent e) 
 	{
-		
 		AssetGroupDialog groups=
 			new AssetGroupDialog((Frame)GameManager.CurrentUI.getFrame() , ((Asset)GameManager.currentGame.getGameBoard().get(representedPlayer.getCurrentPosition())).getGroup());
 		groups.setVisible(true);
 	}
 
+	/**
+	 * private void buyAssetActionPerformed(ActionEvent e)
+	 * Fires an event to accommodate that the player has bought an asset.
+	 * @param e The ActionEvent
+	 */
 	private void buyAssetActionPerformed(ActionEvent e) {
 		buyAsset.setEnabled(false);
 		EndTurn.setEnabled(true);
@@ -191,16 +292,23 @@ public class PlayerPanel extends GameActionsListenableClass {
 		initTreeModel();
 	}
 
+	/**
+	 * private void buyHouseActionPerformed(ActionEvent e)
+	 * Fires an event to accommodate that the player has bought a house.
+	 * @param e The ActionEvent
+	 */
 	private void buyHouseActionPerformed(ActionEvent e) {
 		buyHouse.setEnabled(false);
 		EndTurn.setEnabled(true);
 		fireEvent("buyHouse");
 		initTreeModel();
 	}
-	
 
+	/**
+	 * private void initComponents()
+	 * Initializes the components of the PlayerPanel. 
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		buttonPane = new JPanel();
 		EndTurn = new JButton();
 		Forfeit = new JButton();
@@ -310,28 +418,11 @@ public class PlayerPanel extends GameActionsListenableClass {
 			PlayerInformation.add(scrollPane1);
 		}
 		add(PlayerInformation, BorderLayout.WEST);
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
+		
 		DicePane.add(Dice.getGameDice());
 		showGroup.setEnabled(false);
 		buyAsset.setEnabled(false);
 		buyHouse.setEnabled(false);
 		useJailFreeCard.setEnabled(false);
-
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JPanel buttonPane;
-	private JButton EndTurn;
-	private JButton Forfeit;
-	private JLabel nameLabel;
-	private JPanel DicePane;
-	private JButton useJailFreeCard;
-	private JPanel CurrentSquare;
-	private JButton showGroup;
-	private JButton buyAsset;
-	private JButton buyHouse;
-	private JPanel PlayerInformation;
-	private JScrollPane scrollPane1;
-	private JTree PlayerHoldings;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
