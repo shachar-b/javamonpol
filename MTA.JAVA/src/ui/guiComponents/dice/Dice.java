@@ -36,7 +36,6 @@ public class Dice extends GameActionsListenableClass{
 			setDieOutcome(((Integer)diceA.getValue()), ((Integer)diceB.getValue()));
 			text.setText("Total: " + (dice1Outcome+dice2Outcome));
 			RollButtonPressed();
-
 		}
 	};
 	JButton button;
