@@ -59,8 +59,8 @@ public class SquarePanel extends JPanel{
     public void removePlayer(ImagePanel icon)
     {
     	if (iconList.contains(icon)){
-    		playerPanel.remove(icon);
     		iconList.remove(icon);
+    		playerPanel.remove(icon);
     		this.validate();
     		this.repaint();
     	}

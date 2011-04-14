@@ -22,7 +22,6 @@ import players.Player;
 import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.CardPanel;
-import ui.guiComponents.GameBoardUI;
 import ui.guiComponents.MainWindow;
 import assets.Asset;
 import assets.AssetGroup;
