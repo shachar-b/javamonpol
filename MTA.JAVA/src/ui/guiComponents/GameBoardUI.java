@@ -20,6 +20,8 @@ import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.utils.ImagePanel;
 
 /**
+ * public class GameBoardUI extends JPanel
+ * This holds the left side of the frame - that is, the squares and the CenterPanel. 
  * @author Liron Blecher. Modified by Omer Shenhar and Shachar Butnaro.
  */
 public class GameBoardUI extends JPanel {
@@ -31,27 +33,56 @@ public class GameBoardUI extends JPanel {
 	CenterPanel innerPanel;
 	
 	
+    /**
+     * Constructor.
+     */
     public GameBoardUI() {
 		super();
         initUI();
 	}
     
+    /**
+     * public SquarePanel getSquareAtIndex(int index)
+     * Returns a SquarePanel at the requested index.
+     * @param index An integer which is the index of the requested square.
+     * @return a SquarePanel representing the requested square.
+     */
     public SquarePanel getSquareAtIndex(int index)
     {
     	return components.get(index);
     }
     
+    /**
+     * public void movePlayer(Player player,int from,int to)
+     * Re-draws the player on the board in the new location.
+     * @param player A valid non-null player to be moved.
+     * @param from an index of where the player started.
+     * @param to an index of where the player landed.
+     */
     public void movePlayer(Player player,int from,int to)
     {
     	components.get(from).removePlayer(playersIcons.get(player));
     	components.get(to).addPlayer(playersIcons.get(player));
     	updatePlayersLegend();
     }
+    
+    /**
+     * public void addPlayerIcon(Player p, ImagePanel icon)
+     * Adds a player's icon to the board, to be drawn.
+     * @param p a valid non-null player.
+     * @param icon the imagePanel holding the player's icon.
+     */
     public void addPlayerIcon(Player p, ImagePanel icon)
     {
     	playersIcons.put(p, icon);
     	components.get(0).addPlayer(playersIcons.get(p));
     }
+    
+    /**
+     * public void removePlayerIcon(Player p)
+     * Removes a visible player's icon from the board.
+     * @param p a valid non-null player.
+     */
     public void removePlayerIcon(Player p)
     {
     	components.get(p.getCurrentPosition()).removePlayer(playersIcons.get(p));
@@ -60,6 +91,11 @@ public class GameBoardUI extends JPanel {
     
     
 
+    /**
+     * private void initUI()
+     * Initialize the component using GridBagLayout - as supplied by Liron Blecher.
+     * Changed so that the center part holds a CenterPanel.
+     */
     private void initUI() {
         //init layout
         this.setLayout(new GridBagLayout());
@@ -111,6 +147,9 @@ public class GameBoardUI extends JPanel {
                     new Insets(0, 0, 0, 0), 0, 0));
 	}
 
+    /**
+     * Written by Liron Blecher - untouched.
+     */
     private void addComponent(int gridX, int gridY, JComponent component) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = gridX;
@@ -122,9 +161,12 @@ public class GameBoardUI extends JPanel {
         this.add(component, c);
     }
 
+    /**
+     * public void updatePlayersLegend()
+     * Calls for an update of the players' legend.
+     */
     public void updatePlayersLegend()
     {
     	innerPanel.updateLegend();
     }
-
 }

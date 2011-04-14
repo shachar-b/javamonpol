@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Sat Apr 09 20:06:53 IDT 2011
- */
-
 package ui.guiComponents;
 
 import java.awt.Color;
@@ -15,12 +11,22 @@ import ui.utils.Utils;
 import cards.ActionCard;
 
 /**
+ * public class CardPanel extends JPanel
+ * A pop up dialog showing the card drawn from a cards deck.
  * @author Omer Shenhar and Shachar Butnaro
  */
 public class CardPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
+	private JLabel CardTypeLabel;
+	private JLabel CardPictureLabel;
+	private JLabel CardStringLabel;
 	
+	/**
+	 * public CardPanel(ActionCard currentCard)
+	 * Receives a card and constructs the correct dialog for it.
+	 * @param currentCard An ActionCard which was drawn from the deck.
+	 */
 	public CardPanel(ActionCard currentCard) {
 		initComponents();
 		if (currentCard.isSurprise())
@@ -38,8 +44,10 @@ public class CardPanel extends JPanel {
 		CardStringLabel.setText(currentCard.toString());
 	}
 
+	/**
+	 * Initializes all components for the class.
+	 */
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		CardTypeLabel = new JLabel();
 		CardPictureLabel = new JLabel();
 		CardStringLabel = new JLabel();
@@ -58,12 +66,5 @@ public class CardPanel extends JPanel {
 		//---- CardStringLabel ----
 		CardStringLabel.setText("ValueOfCard");
 		add(CardStringLabel);
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	private JLabel CardTypeLabel;
-	private JLabel CardPictureLabel;
-	private JLabel CardStringLabel;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }

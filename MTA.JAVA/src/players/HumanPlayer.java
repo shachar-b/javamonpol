@@ -14,7 +14,6 @@ import ui.utils.ImagePanel;
  */
 public class HumanPlayer extends Player {
 
-	//TODO : Edit documentation
 	/**
 	 * Constructor for human player.
 	 * Gets a name from the UI and transfers it the the super constructor.
