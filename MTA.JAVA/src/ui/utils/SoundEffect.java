@@ -15,12 +15,12 @@ import javax.sound.sampled.AudioSystem;
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
-public class SoundAffect {
+public class SoundEffect {
 	
 	AudioInputStream  sound; 
 	AudioFormat audioFormat ;
 	
-	public SoundAffect(String SoundPath) {
+	public SoundEffect(String SoundPath) {
 		File source;
 		try {
 			source =new File(SoundPath);

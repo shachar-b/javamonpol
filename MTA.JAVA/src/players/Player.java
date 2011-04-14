@@ -3,11 +3,9 @@ import java.util.ArrayList;
 
 import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import monopoly.GameManager;
-import monopoly.buyOffer;
 import ui.utils.ImagePanel;
 import assets.Asset;
 import assets.City;
-import assets.Country;
 import assets.Offerable;
 import cards.ActionCard;
 
@@ -134,22 +132,11 @@ public abstract class Player extends InnerChangeListenableClass {
 	public int ChangeBalance(int amount, int sign) {
 		if(sign==GameManager.SUBTRACT)
 		{
-			if(amount>Balance)
+			if(amount>Balance)//Can have balance of zero - but not negative balance
 			{
-				makeSellOffers();//Player can try to sell assets to avoid going bankrupt.
-
-				if(amount>Balance) //Can have balance of zero - but not negative balance
-				{
-					GameManager.currentGame.removePlayerFromGame(this);//if false remove from game
-					fireEvent("removed");
-					return Balance;//returns the amount of money taken
-				}
-				else
-				{
-					Balance-=amount;
-					fireEvent("taken");
-					return amount;
-				}
+				GameManager.currentGame.removePlayerFromGame(this);//if false remove from game
+				fireEvent("removed");
+				return Balance;//returns the amount of money taken
 			}
 			else
 			{
@@ -279,50 +266,12 @@ public abstract class Player extends InnerChangeListenableClass {
 	}
 
 	/**
-	 * method abstract void makeSellOffers()
+	 * method ArrayList<Offerable> getAssetGroups()
 	 * @visibility public
-	 * Allows the player to make a sell offer.  
+	 * Returns a list of all groups that the player holds.
+	 * @return a list containing all groups that the player holds.
 	 */
-	public abstract void makeSellOffers();
-
-	/**
-	 * method abstract buyOffer makeBuyOffer(Offerable asset)
-	 * @visibility public
-	 * Allows a player to make a buy offer for an asset/group.
-	 * @param asset The asset/group that can be bought.
-	 * @return The buy offer a player has made.
-	 */
-	public abstract buyOffer makeBuyOffer(Offerable asset);
-
-	/**
-	 * method ArrayList<Offerable> tradeableAssets()
-	 * @visibility public
-	 * Returns a list of all assets that the player can sell/trade.
-	 * @return a list containing all assets that the player can sell/trade.
-	 */
-	public ArrayList<Offerable> tradeableAssets(){
-		ArrayList<Offerable> result = new ArrayList<Offerable>();
-		for (Asset current : assetList)
-		{
-			if(City.class.isInstance(current))
-			{
-				if (((Country)current.getGroup()).hasHousesConstructed())
-				{
-					continue;
-				}
-			}
-			result.add(current);
-		}
-		return result;
-	}
-
-	/**
-	 * method ArrayList<Offerable> tradeableGroups()
-	 * @visibility public
-	 * Returns a list of all groups that the player can sell/trade.
-	 * @return a list containing all groups that the player can sell/trade.
-	 */
-	public ArrayList<Offerable> tradeableGroups(){
+	public ArrayList<Offerable> getGroups(){
 		ArrayList<Offerable> result = new ArrayList<Offerable>();
 		for (Asset current : assetList)
 		{
@@ -332,46 +281,6 @@ public abstract class Player extends InnerChangeListenableClass {
 		}
 		return result;
 	}
-
-	/**
-	 * method void sellAsset(Offerable asset)
-	 * @visibility public
-	 * Allows all other players to bid for an asset/group, lets the seller choose an offer
-	 * (or cancel trade) and transfers assets/money/groups between players.
-	 *
-	 * @param asset The asset being sold.
-	 */
-	public void sellAsset(Offerable asset)
-	{
-		buyOffer winningOffer;
-		ArrayList<buyOffer> buyOffers= new ArrayList<buyOffer>();
-		for (Player player : GameManager.currentGame.getGamePlayers())
-		{
-			if (player!=this)
-				buyOffers.add(player.makeBuyOffer(asset));
-		}
-		int choise=chooseWinningOffer(buyOffers);
-		if(choise!=-1)//selected a proper offer
-		{
-			winningOffer=buyOffers.get(choise);
-			asset.setOwner(winningOffer.getOfferMaker());
-			winningOffer.preform(this);
-			GameManager.CurrentUI.notifyTradeEvent(this,asset,winningOffer);
-		}
-		else
-		{
-			GameManager.CurrentUI.notifyTradeCanceled(this);
-		}
-	}
-
-	/**
-	 * method abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers)
-	 * @visibility protected
-	 * Returns the index of the selected buy offer when selling an asset/group.
-	 * @param buyOffers A list of buy offers.
-	 * @return index of winning offer.
-	 */
-	protected abstract int chooseWinningOffer(ArrayList<buyOffer> buyOffers);
 
 	/**
 	 * public void setParkedOnRound(int parkedOnRound)

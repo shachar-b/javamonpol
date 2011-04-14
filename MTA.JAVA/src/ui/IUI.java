@@ -1,9 +1,6 @@
 package ui;
 
-import java.util.ArrayList;
-
 import monopoly.GameManager.jailActions;
-import monopoly.buyOffer;
 import players.Player;
 import squares.Square;
 import ui.guiComponents.MainWindow;
@@ -67,26 +64,6 @@ public interface IUI {
 	 * @return - The integer received from user, within bounds.
 	 */
 	public int askNumericQuestion(String question, int lowerBound, int upperBound);
-
-	/**
-	 * method void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type, boolean multipleSelection)
-	 * public
-	 * Displays the list of Assets/Groups available to sell and prompts the user to choose.
-	 * @param player - The valid non-null player
-	 * @param offer - An initialized helper offer which fills up with the player's choice.
-	 * @param type - Assets/Groups
-	 * @param multipleSelection - Signifies whether the player can select one or many assets/groups.
-	 */
-	public void askOfferableSellQuestions(Player player, buyOffer offer, OfferType type, boolean multipleSelection);
-
-	/**
-	 * method int chooseAnOffer(ArrayList<buyOffer> buyOffers)
-	 * public
-	 * Displays available offers and prompts the user to choose from it.
-	 * @param buyOffers A list of available offers to choose from.
-	 * @return An integer containing the player's choice.
-	 */
-	public int chooseAnOffer(ArrayList<buyOffer> buyOffers);
 
 	/**
 	 * method void notifyPlayerLanded(Player p, Square currSQ)
@@ -266,24 +243,6 @@ public interface IUI {
 	 * @param player A valid non-null player.
 	 */
 	public void notifyPlayerOutOfAssets(Player player);
-
-	/**
-	 * method void notifyTradeEvent(Player player, Offerable asset,buyOffer winningOffer)
-	 * public
-	 * Notifies the output the result of a successful trade event.
-	 * @param player A valid non-null player - the seller.
-	 * @param asset The asset/group sold
-	 * @param winningOffer The offer chosen by the seller.
-	 */
-	public void notifyTradeEvent(Player player, Offerable asset,buyOffer winningOffer);
-
-	/**
-	 * method void notifyTradeCanceled(Player player)
-	 * public
-	 * Notifies the output that a player has canceled a trade.
-	 * @param player A valid non-null player.
-	 */
-	public void notifyTradeCanceled(Player player);
 
 	/**
 	 * method void notifyNumOfPlayers(int numOfPlayers, int numOfComputerPlayers)

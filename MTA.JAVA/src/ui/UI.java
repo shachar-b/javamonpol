@@ -3,7 +3,6 @@ package ui;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.management.RuntimeErrorException;
 import javax.swing.JDialog;
@@ -16,10 +15,8 @@ import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
 import monopoly.GameManager;
 import monopoly.GameManager.jailActions;
-import monopoly.buyOffer;
 import players.ComputerPlayer;
 import players.Player;
-import squares.GoToJailSquare;
 import squares.Square;
 import ui.guiComponents.CardPanel;
 import ui.guiComponents.MainWindow;
@@ -68,11 +65,6 @@ public class UI implements IUI {
 		displayMessage(message);
 		frame.movePlayer(p);
 		frame.getPlayerPanel().setSquarePanelContent(currSQ,p);
-		Square lastSquare=GameManager.currentGame.getGameBoard().get(p.getLastKnownPosition());
-		if(!(lastSquare instanceof GoToJailSquare))
-		{
-			frame.getPlayerPanel().setBiddingButtonStatus(!p.getAssetList().isEmpty());
-		}
 	}
 
 	/* (non-Javadoc)
@@ -141,8 +133,6 @@ public class UI implements IUI {
 	{
 		String message = player.getName() + " bought " + asset.getName() + " for " + asset.getCost() + "!";
 		displayMessage(message);
-		frame.getPlayerPanel().setBiddingButtonStatus(true);
-
 	}
 
 	/* (non-Javadoc)
@@ -346,47 +336,6 @@ public class UI implements IUI {
 	{
 		String message = player.getName() + " exceeded maximum number of sell offers!";
 		displayMessage(message);
-	}
-
-	/* (non-Javadoc)
-	 * @see ui.IUI#askOfferableSellQuestions(players.Player, monopoly.buyOffer, ui.OfferType, boolean)
-	 */
-	public void askOfferableSellQuestions(Player player, buyOffer offer,OfferType type, boolean multipleSelection)
-	{
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see ui.IUI#notifyTradeEvent(players.Player, assets.Offerable, monopoly.buyOffer)
-	 */
-	public void notifyTradeEvent(Player player, Offerable asset,buyOffer winningOffer) {
-		String message=player.getName()+ " sold " + asset.getName()+" to "
-		+winningOffer.getOfferMaker().getName()+" for "+ winningOffer;
-		displayMessage(message);
-	}
-
-	/* (non-Javadoc)
-	 * @see ui.IUI#notifyTradeCanceled(players.Player)
-	 */
-	public void notifyTradeCanceled(Player player) {
-		displayMessage(player.getName() + " has called off the sale!");
-
-	}
-
-	/* (non-Javadoc)
-	 * @see ui.IUI#chooseAnOffer(java.util.ArrayList)
-	 */
-	public int chooseAnOffer(ArrayList<buyOffer> buyOffers)
-	{
-		int index=0;
-		displayMessage("choose one of the follwing offers or press 0 to choose none: ");
-		for(buyOffer offer:buyOffers)
-		{
-			displayMessage((index+1)+" "+offer.getOfferMaker().getName()+" : "+offer);
-			index++;
-		}
-		System.out.print("choose one or press zero: ");
-		return 0;
 	}
 
 	/* (non-Javadoc)

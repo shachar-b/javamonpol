@@ -108,13 +108,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 	public void ClickEndTurnButton()
 	{
 		EndTurn.doClick();
-	}
-	
-	public void setBiddingButtonStatus(boolean value)
-	{//value==true -> enable button, otherwise -> disable button.
-		Bidding.setEnabled(value);
-	}
-	
+	}	
 	
 	public void setSquarePanelContent(Square currentSquare, Player player)
 	{
@@ -146,7 +140,7 @@ public class PlayerPanel extends GameActionsListenableClass {
 			assetsNode.add(new DefaultMutableTreeNode(asset.getName()));
 
 		DefaultMutableTreeNode groupsNode = new DefaultMutableTreeNode("Groups");
-		ArrayList<Offerable> groupsList = representedPlayer.tradeableGroups();
+		ArrayList<Offerable> groupsList = representedPlayer.getGroups();
 		for (Offerable group : groupsList)
 			groupsNode.add(new DefaultMutableTreeNode(group.getName()));
 
@@ -182,10 +176,6 @@ public class PlayerPanel extends GameActionsListenableClass {
 		repaint();
 	}
 
-	private void BiddingActionPerformed(ActionEvent e) {
-		//TODO:add my cool dialog here
-	}
-
 	private void showGroupActionPerformed(ActionEvent e) 
 	{
 		
@@ -213,7 +203,6 @@ public class PlayerPanel extends GameActionsListenableClass {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		buttonPane = new JPanel();
 		EndTurn = new JButton();
-		Bidding = new JButton();
 		Forfeit = new JButton();
 		nameLabel = new JLabel();
 		DicePane = new JPanel();
@@ -242,17 +231,6 @@ public class PlayerPanel extends GameActionsListenableClass {
 				}
 			});
 			buttonPane.add(EndTurn);
-
-			//---- Bidding ----
-			Bidding.setText("Go On Bidding");
-			Bidding.setEnabled(false);
-			Bidding.setToolTipText("Go On Bidding");
-			Bidding.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					BiddingActionPerformed(e);
-				}
-			});
-			buttonPane.add(Bidding);
 
 			//---- Forfeit ----
 			Forfeit.setText("Forfeit Game");
@@ -344,7 +322,6 @@ public class PlayerPanel extends GameActionsListenableClass {
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
 	private JPanel buttonPane;
 	private JButton EndTurn;
-	private JButton Bidding;
 	private JButton Forfeit;
 	private JLabel nameLabel;
 	private JPanel DicePane;

@@ -3,18 +3,10 @@
  */
 package players;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import javax.management.RuntimeErrorException;
-
 import monopoly.GameManager;
-import monopoly.buyOffer;
 import ui.utils.ImagePanel;
 import assets.Asset;
-import assets.AssetGroup;
 import assets.City;
-import assets.Offerable;
 
 /**
  * class ComputerPlayer extends Player
@@ -80,97 +72,4 @@ public class ComputerPlayer extends Player {
 	public boolean chooseToForfeit() {
 		return false; //Computer is not a quitter!
 	}
-
-	/* (non-Javadoc)
-	 * @see players.Player#makeSellOffers()
-	 */
-	@Override
-	public void makeSellOffers() {
-		return; //Computer is not a sellout!
-
-	}
-
-	/* (non-Javadoc)
-	 * @see players.Player#makeBuyOffer(assets.Offerable)
-	 * Calls the appropriate function for a computer player.
-	 */
-	@Override
-	public buyOffer makeBuyOffer(Offerable asset) {
-		switch (asset.getType()) {
-		case Groups:
-			return makeBuyOffer((AssetGroup)asset);
-
-		case Assets:
-			return makeBuyOffer((Asset)asset);
-
-		default: //Shouldn't get here
-			throw new RuntimeErrorException(null, "Unknown agrument for function \"notifyBidEvent\"");
-		}
-	}
-
-	/**
-	 * method buyOffer makeBuyOffer(Asset asset)
-	 * private
-	 * Generates a monetary value and adds it to a buy offer. Will not trade assets.
-	 * @param asset The asset being auctioned.
-	 * @return A formulated buy offer.
-	 */
-	private buyOffer makeBuyOffer(Asset asset) {//computer does not trade assets
-		buyOffer offer=new buyOffer(this);
-		int priceFactor = (new Random().nextInt((int)Math.sqrt(GameManager.NUMBER_OF_SQUARES)))+1;
-		int offerMoney=asset.getRentPrice()/priceFactor;
-		if(Balance -offerMoney>=BUY_THRESHHOLD)//otherwise offer nothing
-		{
-			offer.addToOffer(offerMoney);
-		}
-		return offer;
-	}
-
-	/**
-	 * method buyOffer makeBuyOffer(AssetGroup group)
-	 * private
-	 * Generates a monetary value by summing up value of assets in group, and adds it to a buy offer.
-	 * @param group The group being auctioned.
-	 * @return A formulated buy offer.
-	 */
-	private buyOffer makeBuyOffer(AssetGroup group) {
-
-		buyOffer offer=new buyOffer(this);
-		for(Asset asset:group)
-		{
-			offer.combineWith(makeBuyOffer(asset));
-		}
-		if(Balance -offer.getMoney()>=BUY_THRESHHOLD)//otherwise offer nothing
-		{
-			return offer;
-		}
-		else
-		{
-			return new buyOffer(this);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see players.Player#chooseWinningOffer(java.util.ArrayList)
-	 * 
-	 * Computer chooses the winning offer by choosing the offer with the largest
-	 * monetary offer made.
-	 */
-	@Override
-	protected int chooseWinningOffer(ArrayList<buyOffer> buyOffers) {
-		int maxMoneyOffer=0;
-		int maxIndex=-1;
-		int index=0;
-
-		for(buyOffer offer:buyOffers)
-		{
-			if(offer.getMoney()>maxMoneyOffer)
-			{
-				maxMoneyOffer=offer.getMoney();
-				maxIndex=index;
-			}
-			index++;
-		}
-		return maxIndex;
-	}	
 }
