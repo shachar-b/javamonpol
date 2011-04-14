@@ -1,6 +1,14 @@
 assets
 cards
+listeners.gameActions
+listeners.innerChangeEventListener
 monopoly
 players
 squares
 ui
+ui.guiComponents
+ui.guiComponents.Squares
+ui.guiComponents.dialogs
+ui.guiComponents.dialogs.OfferMakerPanes
+ui.guiComponents.dice
+ui.utils
