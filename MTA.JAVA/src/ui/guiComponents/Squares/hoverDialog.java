@@ -10,14 +10,22 @@ import javax.swing.JPanel;
 
 
 
+/**
+ * public class hoverDialog extends JDialog 
+ * an hover dialog for a AssetSquarePanel
+ * @author Omer Shenhar and Shachar Butnaro
+ *
+ */
 public class hoverDialog extends JDialog {
 
 	JPanel dataArea;
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private AssetSquarePanel owner;
+	/**
+	 * public hoverDialog(AssetSquarePanel owner)
+	 * a constructor for the hoverDialog
+	 * @param owner - a non null AssetSquarePanel which info should be displayed
+	 */
 	public hoverDialog(AssetSquarePanel owner) {
 		this.owner=owner;
 		this.setLayout(new BorderLayout());
@@ -49,9 +57,14 @@ public class hoverDialog extends JDialog {
 			
 		});
 	}
+	/**
+	 * private void exitHover()
+	 * closes this dialog
+	 * 
+	 */
 	private void exitHover() {
 		this.dispose();
-		owner.invalidate();
+		owner.validate();
 		owner.repaint();
 		
 	}	

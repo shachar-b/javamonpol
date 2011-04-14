@@ -13,17 +13,33 @@ import squares.StartSquare;
 import assets.Asset;
 
 /**
+ * public class SqurePanelFactory
+ * a factory for squrePanels
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
 public class SqurePanelFactory {
 	
+	/**
+	 * public static SquarePanel  makeCorrectSqurePanel(Square represent)
+	 * a factory for squrePanels
+	 * @param represent - a valid non null Square
+	 * @return a SquarePanel which fits the given type
+	 */
 	public static SquarePanel  makeCorrectSqurePanel(Square represent)
 	{
 		return makeCorrectSqurePanel(represent, true);
 	}
 
 	
+	/**
+	 * public static SquarePanel  makeCorrectSqurePanel(Square represent)
+	 * a factory for squrePanels
+	 * @param represent - a valid non null Square
+	 * @param isHover - is valid only for assets. if it is true the outcome when clicked the offer would have an hover window with the squre info
+	 * 			otherwise the info would be displayed in the outcome panel
+	 * @return a SquarePanel which fits the given type
+	 */
 	public static SquarePanel  makeCorrectSqurePanel(Square represent,boolean isHover)
 	{
 		String SquareIconsFolder = GameManager.IMAGES_FOLDER+"SquareIcons/";
@@ -58,8 +74,8 @@ public class SqurePanelFactory {
 		{		
 			return new ImageOnlySquarePanel(represent, SquareIconsFolder+"jail.gif");
 		}
-		else
-			return new SquarePanel(represent);
+		else // never happens
+			throw new RuntimeException("SqurePanelFactory dont know type: " + represent.getClass().getName());
 	}
 
 }
