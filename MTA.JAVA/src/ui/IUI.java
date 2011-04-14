@@ -5,9 +5,7 @@ import players.Player;
 import squares.Square;
 import ui.guiComponents.MainWindow;
 import assets.Asset;
-import assets.AssetGroup;
 import assets.City;
-import assets.Offerable;
 import cards.ActionCard;
 
 /**
