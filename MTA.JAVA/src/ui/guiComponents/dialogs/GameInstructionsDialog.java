@@ -88,7 +88,7 @@ public class GameInstructionsDialog extends JDialog {
 					InstrctionsArea.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
 					InstrctionsArea.setEditable(false);
 					InstrctionsArea.setLineWrap(true);
-					InstrctionsArea.setText("put instructions here");
+					InstrctionsArea.setText("This is a game of Monopoly, 2 to 6 players (Human and/or Computer).\n the rest is self explanatory, just enjoy the game!");
 					InstrctionsArea.setToolTipText("Game Instrctions");
 					scrollPane1.setViewportView(InstrctionsArea);
 				}
@@ -105,7 +105,7 @@ public class GameInstructionsDialog extends JDialog {
 
 				//---- okButton ----
 				okButton.setText("GOT IT");
-				okButton.setToolTipText("the game dosent require explention");
+				okButton.setToolTipText("The game dosent require explanation!");
 				okButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
