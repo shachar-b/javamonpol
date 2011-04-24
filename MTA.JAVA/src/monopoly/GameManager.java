@@ -23,6 +23,8 @@ public class GameManager {
 	public static Monopoly currentGame;	
 	public static IUI CurrentUI;
 	public static final Font DefaultFont=new Font("Serif", Font.BOLD, 10);
+	public static final String SchemaFile = "res/config/monopoly_config.xsd";
+	public static final String DataFile = "res/config/monopoly_config.xml";
 
 
 
@@ -43,7 +45,7 @@ public class GameManager {
 	 */
 	public static enum AgainstWho
 	{
-		Treasury(1), OtherPlayers(2);
+		Treasury(2), OtherPlayers(1);
 
 		private int code;
 
