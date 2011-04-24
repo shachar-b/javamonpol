@@ -11,11 +11,8 @@ public class Main {
 	 * This is the entry point.
 	 */
 	public static void main(String[] args) {
-		//Monopoly game = new Monopoly();
-		//GameManager.currentGame = game;
-		//game.init();
-		XMLInitializer xmlinit = new XMLInitializer();
-		xmlinit.init();
-		System.out.println("BLAH");
+		Monopoly game = new Monopoly();
+		GameManager.currentGame = game;
+		game.init();
 	}
 }
