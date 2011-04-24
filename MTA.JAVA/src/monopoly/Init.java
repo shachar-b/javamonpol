@@ -66,22 +66,16 @@ public class Init implements MonopolyInitilizer{
 	}
 
 
-	/* (non-Javadoc)
-	 * @see monopoly.MonopolyInitilizer#initUtilities()
-	 */
-	public UtilOrTranspoAssetGroup initUtilities()
+	private UtilOrTranspoAssetGroup initUtilities()
 	{
 		return new UtilOrTranspoAssetGroup("Utilities", 800);
 	}
 
-	public UtilOrTranspoAssetGroup initTransportation()
+	private UtilOrTranspoAssetGroup initTransportation()
 	{
 		return new UtilOrTranspoAssetGroup("Transportation", 800);
 	}
 
-	/**
-	 * @return
-	 */
 	private ArrayList<Country> initCountries()
 	{
 		ArrayList<Country> countries = new ArrayList<Country>();

@@ -124,7 +124,7 @@ public class Monopoly
 	 */
 	public void init()
 	{
-		MonopolyInitilizer gameInitializer = new Init();
+		MonopolyInitilizer gameInitializer = new XMLInitializer();
 		// init gameBoard
 		gameBoard = gameInitializer.initBoard();
 		// init UI

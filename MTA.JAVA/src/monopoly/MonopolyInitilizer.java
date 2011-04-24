@@ -3,7 +3,6 @@ package monopoly;
 import java.util.ArrayList;
 
 import squares.Square;
-import assets.UtilOrTranspoAssetGroup;
 import cards.ShaffledDeck;
 
 /**
@@ -29,25 +28,10 @@ public interface MonopolyInitilizer {
 	 */	public abstract ShaffledDeck initCallUp();
 	
 	/**
-	 * method UtilOrTranspoAssetGroup initUtilities()
-	 * public
-	 * @return a Utilities group
-	 */
-	public UtilOrTranspoAssetGroup initUtilities();
-	
-	/**
-	 * method UtilOrTranspoAssetGroup initTransportation()
-	 * public
-	 * @return an Initialized Transportation group
-	 */
-	public UtilOrTranspoAssetGroup initTransportation();
-
-	/**
 	 * method ArrayList<Square> initBoard()
 	 * public
 	 * Initializes the game board
 	 * @return an Initialized game board
 	 */
 	public ArrayList<Square> initBoard();
-
 }
