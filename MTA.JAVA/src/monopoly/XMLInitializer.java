@@ -51,6 +51,75 @@ public class XMLInitializer implements MonopolyInitilizer {
 		}
 	}
 
+	@Override
+	public ArrayList<Square> initBoard() {
+		UtilOrTranspoAssetGroup utilities = initUtilities(); //Inits the utils assets, and returns the group, which is a list.
+		UtilOrTranspoAssetGroup transportation = initTransportation(); //Inits the transportation assets, and returns the group, which is a list.
+		ArrayList<City> gameCities = getCitiesList(initCountries()); //Inits the countries and cities, and returns a sequential list of cities.
+		ArrayList<Square> gameBoard = new ArrayList<Square>(GameManager.NUMBER_OF_SQUARES);
+	
+		int utilsIndex=0,transpoIndex=0,cityIndex=0,boardIndex=0;
+	
+		for (JAXBElement<? extends SquareBase> sb : monopolyCollection.getBoard().getContent())
+		{
+			if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("startSquareType"))
+				gameBoard.add(boardIndex,new StartSquare());
+			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("jailSlashFreeSpaceSquareType"))
+				gameBoard.add(boardIndex, new JailSlashFreePassSquare());
+			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("parkingSquareType"))
+				gameBoard.add(boardIndex, new ParkingSquare());
+			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("gotoJailSquareType"))
+				gameBoard.add(boardIndex, new GoToJailSquare());
+			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("squareType"))
+			{
+				String type = ((SquareType)sb.getValue()).getType();
+				if (type.equalsIgnoreCase("CITY"))
+				{
+					gameBoard.add(boardIndex, gameCities.get(cityIndex));
+					cityIndex++;
+				}
+				else if (type.equalsIgnoreCase("UTILITY"))
+				{
+					gameBoard.add(boardIndex, utilities.get(utilsIndex));
+					utilsIndex++;
+				}
+				else if (type.equalsIgnoreCase("TRANSPORTATION"))
+				{
+					gameBoard.add(boardIndex, transportation.get(transpoIndex));
+					transpoIndex++;
+				}
+				else if (type.equalsIgnoreCase("SURPRISE"))
+					gameBoard.add(boardIndex,new SurpriseCardSquare());
+				else //Here be "WARRANT" - arrrrgh
+					gameBoard.add(boardIndex, new WarrantCardSquare());
+			}
+			boardIndex++;
+		}
+		return gameBoard;
+	}
+
+	@Override
+	public ShaffledDeck initSurprise() {
+		ShaffledDeck surprise = new ShaffledDeck();
+		// read surprise cards
+		for (CardBase cb : monopolyCollection.getSurprise().getSurpriseCards())
+		{
+			surprise.add(cardFactory(cb, true));
+		}
+		return surprise;
+	}
+
+	@Override
+	public ShaffledDeck initCallUp() {
+		ShaffledDeck callUp = new ShaffledDeck();
+		// read call-up cards
+		for (CardBase cb : monopolyCollection.getWarrant().getWarrantCards())
+		{
+			callUp.add(cardFactory(cb, false));
+		}
+		return callUp;
+	}
+
 	private ActionCard cardFactory(CardBase cb, boolean isSurpriseCard)
 	{
 		ActionCard currentCard = null;
@@ -87,29 +156,6 @@ public class XMLInitializer implements MonopolyInitilizer {
 		}
 		return currentCard;
 	}
-
-	@Override
-	public ShaffledDeck initSurprise() {
-		ShaffledDeck surprise = new ShaffledDeck();
-		// read surprise cards
-		for (CardBase cb : monopolyCollection.getSurprise().getSurpriseCards())
-		{
-			surprise.add(cardFactory(cb, true));
-		}
-		return surprise;
-	}
-
-	@Override
-	public ShaffledDeck initCallUp() {
-		ShaffledDeck callUp = new ShaffledDeck();
-		// read call-up cards
-		for (CardBase cb : monopolyCollection.getWarrant().getWarrantCards())
-		{
-			callUp.add(cardFactory(cb, false));
-		}
-		return callUp;
-	}
-
 
 	private UtilOrTranspoAssetGroup initUtilities() {
 		long stayCost = monopolyCollection.getAssets().getUtilities().getStayCost();
@@ -151,53 +197,6 @@ public class XMLInitializer implements MonopolyInitilizer {
 		return countriesList;
 	}
 
-	@Override
-	public ArrayList<Square> initBoard() {
-		UtilOrTranspoAssetGroup utilities = initUtilities(); //Inits the utils assets, and returns the group, which is a list.
-		UtilOrTranspoAssetGroup transportation = initTransportation(); //Inits the transportation assets, and returns the group, which is a list.
-		ArrayList<City> gameCities = getCitiesList(initCountries()); //Inits the countries and cities, and returns a sequential list of cities.
-		ArrayList<Square> gameBoard = new ArrayList<Square>(GameManager.NUMBER_OF_SQUARES);
-
-		int utilsIndex=0,transpoIndex=0,cityIndex=0,boardIndex=0;
-
-		for (JAXBElement<? extends SquareBase> sb : monopolyCollection.getBoard().getContent())
-		{
-			if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("startSquareType"))
-				gameBoard.add(boardIndex,new StartSquare());
-			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("jailSlashFreeSpaceSquareType"))
-				gameBoard.add(boardIndex, new JailSlashFreePassSquare());
-			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("parkingSquareType"))
-				gameBoard.add(boardIndex, new ParkingSquare());
-			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("gotoJailSquareType"))
-				gameBoard.add(boardIndex, new GoToJailSquare());
-			else if (sb.getDeclaredType().getSimpleName().equalsIgnoreCase("squareType"))
-			{
-				String type = ((SquareType)sb.getValue()).getType();
-				if (type.equalsIgnoreCase("CITY"))
-				{
-					gameBoard.add(boardIndex, gameCities.get(cityIndex));
-					cityIndex++;
-				}
-				else if (type.equalsIgnoreCase("UTILITY"))
-				{
-					gameBoard.add(boardIndex, utilities.get(utilsIndex));
-					utilsIndex++;
-				}
-				else if (type.equalsIgnoreCase("TRANSPORTATION"))
-				{
-					gameBoard.add(boardIndex, transportation.get(transpoIndex));
-					transpoIndex++;
-				}
-				else if (type.equalsIgnoreCase("SURPRISE"))
-					gameBoard.add(boardIndex,new SurpriseCardSquare());
-				else //Here be "WARRANT" - arrrrgh
-					gameBoard.add(boardIndex, new WarrantCardSquare());
-			}
-			boardIndex++;
-		}
-		return gameBoard;
-	}
-
 	private ArrayList<City> getCitiesList(ArrayList<Country> countries)
 	{
 		ArrayList<City> result = new ArrayList<City>();
@@ -210,5 +209,4 @@ public class XMLInitializer implements MonopolyInitilizer {
 		}
 		return result;
 	}
-
 }

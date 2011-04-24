@@ -23,7 +23,7 @@ import cards.ShaffledDeck;
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
-public class Init implements MonopolyInitilizer{
+public class HardcodedInitializer implements MonopolyInitilizer{
 
 	/* (non-Javadoc)
 	 * @see monopoly.MonopolyInitilizer#initSurprise()
