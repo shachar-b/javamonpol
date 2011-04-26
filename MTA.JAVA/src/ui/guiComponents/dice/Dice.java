@@ -189,7 +189,7 @@ public class Dice extends GameActionsListenableClass{
 	 * @param dice1Roll - an int
 	 * @param dice2Roll- an int
 	 */
-	void setDieOutcome(int dice1Roll, int dice2Roll)
+	public void setDieOutcome(int dice1Roll, int dice2Roll)
 	{
 		dice1Outcome = dice1Roll;
 		dice2Outcome = dice2Roll;

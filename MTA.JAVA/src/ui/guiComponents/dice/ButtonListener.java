@@ -2,13 +2,17 @@ package ui.guiComponents.dice;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ConcurrentModificationException;
 import java.util.Timer;
 
 import javax.swing.JLabel;
 
+import ui.guiComponents.dialogs.manualDiceRollDialog;
+
 import listeners.gameActions.GameActionEvent;
 import listeners.gameActions.GameActionEventListener;
 import listeners.gameActions.GameActionsListenableClass;
+import monopoly.GameManager;
 
 /**
  * @author Stijn Strickx, from http://www.proglogic.com/code/java/game/rolldice.php.
@@ -49,7 +53,25 @@ class ButtonListener extends GameActionsListenableClass implements ActionListene
 
 			}
 		};
-		timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text,preformWhenDone), 0, 100);
+		if (GameManager.useAutomaticDiceRoll)
+		{
+			try {
+				timer.scheduleAtFixedRate(new ThrowDice(dice1, dice2, text,preformWhenDone), 0, 100);
+			} catch (ConcurrentModificationException e2) {
+				// this happens only when a game is closed while in diceRoll
+				//do nothing
+			}
+		}
+		else
+		{
+			new manualDiceRollDialog(GameManager.CurrentUI.getFrame(),new Runnable() {
+				
+				@Override
+				public void run() {
+					done();
+				}
+			}).setVisible(true);
+		}
 	}
 	/**
 	 * private  void  done()
@@ -60,3 +82,4 @@ class ButtonListener extends GameActionsListenableClass implements ActionListene
 	}
 }
 
+	
