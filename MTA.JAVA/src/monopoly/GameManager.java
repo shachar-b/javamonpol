@@ -22,6 +22,7 @@ public class GameManager {
 	public static final String MoneySign = "$"; //This is the currency symbol
 	public static Monopoly currentGame;	
 	public static IUI CurrentUI;
+	public static boolean useAutomaticDiceRoll=false;
 	public static final Font DefaultFont=new Font("Serif", Font.BOLD, 10);
 	public static final String SchemaFile = "res/config/monopoly_config.xsd";
 	public static final String DataFile = "res/config/monopoly_config.xml";

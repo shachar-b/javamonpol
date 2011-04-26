@@ -88,7 +88,13 @@ public class GameInstructionsDialog extends JDialog {
 					InstrctionsArea.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
 					InstrctionsArea.setEditable(false);
 					InstrctionsArea.setLineWrap(true);
-					InstrctionsArea.setText("This is a game of Monopoly, 2 to 6 players (Human and/or Computer).\n the rest is self explanatory, just enjoy the game!");
+					InstrctionsArea.setText("This is a game of Monopoly" +
+							", 2 to 6 players (Human and/or Computer)." +
+							"\n Note: when using manual dice rolls, in order to do something else " +
+							"while doing a computer game round - press the cancel button on the " + 
+							"dialog to control the game elements, and press use the \"Throw\" button " + 
+							"to return to the normal game sequence." + 
+							"\n\n the rest is self explanatory, just enjoy the game!");
 					InstrctionsArea.setToolTipText("Game Instrctions");
 					scrollPane1.setViewportView(InstrctionsArea);
 				}

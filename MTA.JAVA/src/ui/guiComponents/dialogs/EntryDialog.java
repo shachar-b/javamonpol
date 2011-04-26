@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,6 +50,8 @@ public class EntryDialog extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JButton helpButton;
+	private JCheckBox automaticDiceRoll;
+	
 	
 	public ArrayList<JTextField> names=new ArrayList<JTextField>();
 	public ArrayList<JLabel> namesLabels=new ArrayList<JLabel>();
@@ -140,6 +143,7 @@ public class EntryDialog extends JDialog {
 		int totalPlayers = totalSlider.getValue();
 		GameManager.currentGame.signalGameRunning();
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
+		GameManager.useAutomaticDiceRoll = automaticDiceRoll.isSelected();
 		
 		for (int i=0; i<computerPlayers; i++)
 		{
@@ -243,7 +247,6 @@ public class EntryDialog extends JDialog {
 					new Insets(0, 0, 5, 0), 0, 0));
 			}
 			dialogPane.add(contentPanel, BorderLayout.CENTER);
-
 			//======== buttonBar ========
 			{
 				buttonBar.setBorder(new EmptyBorder(12, 0, 0, 0));
@@ -315,6 +318,12 @@ public class EntryDialog extends JDialog {
 			currLabel.setVisible(false);
 			
 		}
+		
+		//======== cheat mode checkbox ========
+		automaticDiceRoll = new JCheckBox("Leave this box checked to enable automatic dice roll.");
+		automaticDiceRoll.setSelected(true);
+		dialogPane.add(automaticDiceRoll,BorderLayout.NORTH);
+		
 		this.pack();
 	}
 	
