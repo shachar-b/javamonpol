@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <axis2 xmlns="http://www.netbeans.org/ns/axis2/1">
     <service name="MonopolyGame">
-        <service-class>generated.wsdl.serverService</service-class>
-        <wsdl-url>file:/D:/Workspace/MTA.JAVA/res/config/MonopolyGame.wsdl</wsdl-url>
-        <java-generator databindingName="adb" serviceName="MonopolyGame" portName="MonopolyGameHttpport" packageName="server.monopoly" sei="true" options="-s"/>
-    </service>
-    <service name="MonopolyGame">
-        <service-class>generated.wsdl.monopolyServer</service-class>
-        <wsdl-url>file:/D:/Workspace/MTA.JAVA/res/config/MonopolyGame.wsdl</wsdl-url>
-        <java-generator databindingName="adb" serviceName="MonopolyGame" portName="MonopolyGameSOAP11port_http" packageName="server.monopoly" sei="true" options="-s"/>
-    </service>
-    <service name="MonopolyGame">
-        <service-class>generated.axis.NewAxisFromWsdl</service-class>
-        <wsdl-url>file:/D:/Workspace/MTA.JAVA/res/config/MonopolyGame.wsdl</wsdl-url>
-        <java-generator databindingName="adb" serviceName="MonopolyGame" portName="MonopolyGameSOAP11port_http" packageName="server.monopoly" sei="true" options="-s"/>
+        <service-class>monopoly.MonopolyGame</service-class>
     </service>
 </axis2>
