@@ -4,9 +4,8 @@ import players.Player;
 import squares.Square;
 
 /**
- * public abstract class Asset extends Square implements Offerable
+ * public abstract class Asset extends Square
  * public
- * @see Offerable
  * this class represent a Square which can be bought and sold by a player
  * @author Omer Shenhar and Shachar Butnaro
  *

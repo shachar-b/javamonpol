@@ -9,10 +9,9 @@ import monopoly.GameManager;
 import players.Player;
 
 /**
- * abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable
+ * abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>
  * public
  * @see java.util.Collection
- * @see Offerable
  * @author Omer Shenhar and Shachar Butnaro
  *
  */
