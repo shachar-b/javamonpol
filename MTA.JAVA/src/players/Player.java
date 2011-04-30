@@ -5,8 +5,8 @@ import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import monopoly.GameManager;
 import ui.utils.ImagePanel;
 import assets.Asset;
+import assets.AssetGroup;
 import assets.City;
-import assets.Offerable;
 import cards.ActionCard;
 
 /**
@@ -270,8 +270,8 @@ public abstract class Player extends InnerChangeListenableClass {
 	 * Returns a list of all groups that the player holds.
 	 * @return a list containing all groups that the player holds.
 	 */
-	public ArrayList<Offerable> getGroups(){
-		ArrayList<Offerable> result = new ArrayList<Offerable>();
+	public ArrayList<AssetGroup> getGroups(){
+		ArrayList<AssetGroup> result = new ArrayList<AssetGroup>();
 		for (Asset current : assetList)
 		{
 			if (!result.contains(current.getGroup()))
