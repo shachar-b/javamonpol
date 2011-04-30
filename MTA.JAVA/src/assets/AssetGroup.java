@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-
 import listeners.innerChangeEventListener.InnerChangeListenableClass;
 import monopoly.GameManager;
-
 import players.Player;
-import ui.OfferType;
 
 /**
  * abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable
@@ -20,7 +17,7 @@ import ui.OfferType;
  *
  */
 
-public abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>, Offerable {
+public abstract class AssetGroup extends InnerChangeListenableClass implements Collection<Asset>{
 
 
 	protected ArrayList<Asset> assetsInGroup;
@@ -58,17 +55,6 @@ public abstract class AssetGroup extends InnerChangeListenableClass implements C
 	{
 		return assetsInGroup.get(index);
 	}
-
-	/* (non-Javadoc)
-	 * @see assets.Offerable#getType()
-	 */
-	@Override
-	public OfferType getType()
-	{
-		return OfferType.Groups;
-	}
-
-
 
 	/**
 	 * method  boolean isOfSoleOwnership()

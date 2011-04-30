@@ -31,7 +31,7 @@ import ui.guiComponents.Squares.SqurePanelFactory;
 import ui.guiComponents.dialogs.AssetGroupDialog;
 import ui.guiComponents.dice.Dice;
 import assets.Asset;
-import assets.Offerable;
+import assets.AssetGroup;
 
 /**
  * public class PlayerPanel extends GameActionsListenableClass
@@ -217,8 +217,8 @@ public void ClickBuyHouseButton()
 			assetsNode.add(new DefaultMutableTreeNode(asset.getName()));
 
 		DefaultMutableTreeNode groupsNode = new DefaultMutableTreeNode("Groups");
-		ArrayList<Offerable> groupsList = representedPlayer.getGroups();
-		for (Offerable group : groupsList)
+		ArrayList<AssetGroup> groupsList = representedPlayer.getGroups();
+		for (AssetGroup group : groupsList)
 			groupsNode.add(new DefaultMutableTreeNode(group.getName()));
 
 		DefaultTreeModel playerModel = new DefaultTreeModel(root);

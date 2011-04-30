@@ -60,10 +60,10 @@ class ButtonListener extends GameActionsListenableClass implements ActionListene
 			} catch (ConcurrentModificationException e2) {
 				// this happens only when a game is closed while in diceRoll
 				//do nothing
-			}catch (NullPointerException e3){
-                            // this happens only when a game is closed while in diceRoll
+			} catch (NullPointerException e3){
+                // this happens only when a game is closed while in diceRoll
 				//do nothing
-                        }
+            }
 		}
 		else
 		{

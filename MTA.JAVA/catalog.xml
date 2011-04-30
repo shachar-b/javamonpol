@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/D:/Workspace/MTA.JAVA/res/config/MonopolyGame.wsdl" uri="xml-resources/jaxb/wsdlBind/MonopolyGame.wsdl"/>
+    <system systemId="file:/D:/Workspace/MTA.JAVA/res/config/MonopolyGame.wsdl" uri="xml-resources/axis2/META-INF/MonopolyGame.wsdl"/>
 </catalog>
